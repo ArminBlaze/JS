@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var x = "Global";
+		
+		function peka () {
+			var x = "Inner";
+			
+			return function under() {
+				var x = "underground";
+//				console.log(x);
+				return function core() {
+//					var x = "earth core";
+					console.log(x);
+				}
+			}
+		}
+		
+		peka()()();
+	</script>
+</body>
+</html>

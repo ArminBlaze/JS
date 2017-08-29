@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var numbersArray = [60, 50, 62, 58, 54, 54];
+		
+		//функция сортирует числа по величине
+		//получает два числа и сравнивает их
+		//её мы передадим стандартному методу сортировки
+		function compareNumbers(num1, num2) {
+			return num1 - num2;
+		}
+		
+		numbersArray.sort(compareNumbers);
+		
+		console.log(numbersArray);
+		
+	</script>
+</body>
+</html>

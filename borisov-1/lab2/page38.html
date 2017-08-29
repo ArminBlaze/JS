@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var age = prompt("Введите свой возраст", "");
+		var output = "";
+		
+		if (age >= 1 && age <= 17) {
+			output = "Вам работать еще рано - учитесь.";
+		}
+		
+		else if (age >= 18 && age <= 59) {
+			output = "Вам еще работать и работать!";
+		}
+		
+		else if (age > 59) {
+			output = "Вам пора на пенсию.";
+		}
+		else {
+			output = "Неизвестный возраст.";
+		}
+		
+		alert(output);
+	
+	</script>
+</body>
+</html>

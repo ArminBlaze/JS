@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function peka() {
+			var arr2= [];
+			
+			function palindrom (a, b) {
+			for(var i = a; i <= b; i++) {
+				if(i < 11) {continue;}
+				var num = i;
+				var numArr = [];
+				while (num >= 1) {
+					numArr.push(num % 10);
+					num = ~~(num / 10);
+				}
+				if (i == numArr.join("")) {
+					arr2.push(i);
+				}
+			}
+		}
+		
+		palindrom(1, 10000000);
+		console.log(arr2);
+		}
+		
+		
+		
+		function peka2() {
+			var arr2= [];
+			
+			function palindrom (a, b) {
+				for(var i = a; i <= b; i++) {
+					if(i < 11) {continue;}
+					var str = (i + "").split("").reverse().join("");
+					if (i == str) {
+						arr2.push(i);
+					}
+				}
+			}
+		
+			palindrom(1, 10000000);
+			console.log(arr2);
+		}
+		
+		function peka3() {
+			var arr2= [];
+			
+			function palindrom (a, b) {
+			for(var i = a; i <= b; i++) {
+				if(i < 11) {continue;}
+				var num = i;
+				var newNum = 0;
+				while (num >= 1) {
+					newNum = newNum*10 + num % 10;
+					num = parseInt(num / 10);
+				}
+				if (i == newNum) {
+					arr2.push(i);
+				}
+			}
+		}
+		
+			palindrom(1, 10000000);
+			console.log(arr2);
+		}
+		
+		function timer(target) {
+			var start = new Date().getTime();
+			
+			for(var n = 0; n < maxCount; n++) {
+				target();
+			}
+			
+			var elapsed = new Date().getTime() - start;
+			return elapsed;
+		}
+		
+		var start = new Date().getTime();
+		var maxCount = 1;
+		
+		
+		var elapsed1 = [], elapsed2 = [], elapsed3 = [];
+		elapsed1.push(timer(peka));
+		elapsed2.push(timer(peka2));
+		elapsed3.push(timer(peka3));
+		
+		
+		
+		
+		console.log("Время выполнения варианта 1: " + elapsed1);
+		console.log("Время выполнения варианта 2: " + elapsed2);
+		console.log("Время выполнения варианта 3: " + elapsed3);
+	</script>
+</body>
+</html>

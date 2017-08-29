@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		
+//		alert(randomLoc);
+		
+		var variants = [];
+		
+		for(var i = 0; i < 10; i++) {
+			var randomLoc = ~~(Math.random() * 5);
+			variants[i] = randomLoc;
+		}
+		
+		console.log(variants);
+		
+		var number0 = 0;
+		var number1 = 0;
+		var number2 = 0;
+		var number3 = 0;
+		var number4 = 0;
+		
+		for(var j = 0; j < variants.length; j++) {
+			var number = variants[j];
+			
+			switch(number) {
+				case 0: number0++; break;
+				case 1: number1++; break;
+				case 2: number2++; break;
+				case 3: number3++; break;
+				case 4: number4++; break;
+									 }
+		}
+		
+		alert("Рандом нагенерировал: \n"
+					+ number0 + " нулей\n"
+				 	+ number1 + " единиц\n"
+				 	+ number2 + " двоек\n"
+				 	+ number3 + " троек\n"
+				 	+ number4 + " четверок\n"
+				 );
+	</script>
+</body>
+</html>

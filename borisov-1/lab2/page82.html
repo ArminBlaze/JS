@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var a = [5, 12];
+		var b = [];
+		var c = [];
+		a[99] = 7;
+		
+		
+		for(var i = 0; i < a.length; i++) {
+			if(a[i] != undefined) {
+				b.push(Math.pow(a[i], 2));
+			}
+		}
+		
+		for(var i in a) {
+				c.push(Math.pow(a[i], 2));
+		}
+		
+		alert("Массив b: " + b);
+		alert("Массив c: " + c);
+	</script>
+</body>
+</html>

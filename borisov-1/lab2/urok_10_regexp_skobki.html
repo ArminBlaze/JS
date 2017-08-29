@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var s = "Pupkin, Vasya\nSharikov, Petya\nMorozov, Sergey";
+		console.log(s);
+		
+		var x = s.replace(/^(\w+), (\w+)$/img, "$2 $1");
+		console.log(x);
+		
+		var y = x.replace(/^(\w+)[\W]+(\w+)$/img, "$1, $2");
+		console.log(y);
+	</script>
+</body>
+</html>

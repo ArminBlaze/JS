@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//Это функция-конструктор
+//		нельзя возвращать из конструктора ничего, кроме this,
+//		но и его возвращать не нужно, т.к. new сам всё вернёт
+//		если вернуть какое-то значение, то new не сможет создать объект
+		function Dog(name, breed, weight) {
+			this.name = name;
+			this.breed = breed;
+			this.weight = weight;
+			
+			this.bark = function() {
+				if (this.weight > 25) {
+					alert(this.name + " says Woof!");
+				} else {
+					alert(this.name + " says Yip!");
+				}
+			};
+		}
+		
+		//создаём объект через конструктор. Используем ключевое слово new
+		//в переменной fido будет храниться ссылка на созданный объект
+		//оператор new создаёт новый пустой объект и заносит туда данный из this
+		//потом оператор new возвращает ссылку на созданный объект в переменную fido
+		//Без оператора new новый объект не будет создан, и this в конструкторе будет ссылаться не на новый объект, а на глобальный (window, global);
+		//Без оператора new в переменную не запишется объект, а запишется результат выполнения функции. Т.к. функция-конструктор ничего не возвращает - она вернёт undefined.
+		var fido = new Dog("Fido", "Mixed", 38);
+		
+		var fluffy = new Dog("Fluffy", "Poodle", 30);
+		var spot = new Dog("Spot", "Chihuahua", 10);
+		
+		var dogs = [fido, fluffy, spot];
+		for (var i = 0; i < dogs.length; i++) {
+			var size = "small";
+			
+			if (dogs[i].weight > 10) {
+				size = "large";
+			}
+			
+			console.log("Dog: " + dogs[i].name
+									+ " is a " + size
+									+ " " + dogs[i].breed);
+		}
+		
+		for (var i = 0; i < dogs.length; i++) {
+			dogs[i].bark();
+		}
+	</script>
+</body>
+</html>

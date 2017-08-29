@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var user1 = {
+			name: "Vasya",
+			say: function() {
+				console.log(this.name);
+			}
+		}
+		
+		var user2 = {
+			name: "Kolya"
+		}
+		
+		user2.x = user1.say;
+		user2.x();
+		console.log(user2);
+	
+	
+	</script>
+	
+	
+	
+</body>
+</html>

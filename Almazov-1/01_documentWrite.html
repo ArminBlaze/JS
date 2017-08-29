@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<!--	<h1>Peka</h1>-->
+	
+	
+	<script>
+		//Creates rectangle
+		
+		function rect (x, y, color) {
+			var str = "<div style='width: " + x + "px; height: " + y + "px; background: " + color + ";'>" + "</div>"
+			document.write(str);
+		};
+		
+		//Generates random RGB color 
+		
+		function generateRGB () {
+			var red = Math.floor(Math.random() * 256);
+				var green = Math.floor(Math.random() * 256);
+				var blue = Math.floor(Math.random() * 256);
+				var color = "rgb(" + red + "," + green + "," + blue + ")";
+				return color;
+		};
+		
+		
+		var i = 0;
+		//Creates random circles via recursion
+		function circle (num) {
+					if(!num) return;
+				
+					var color = generateRGB();
+				
+					var radius = Math.floor(Math.random() * 101) + 50;
+
+					var str = "<div style='border-radius: 50%; \
+																	display: inline-block; \
+																	vertical-align: middle; \
+																	background: " + color + "; \
+																	width: " + radius + "px; \
+																	height: " + radius + "px;'></div>";
+			
+					setTimeout(function() {
+						document.write(str);
+						circle(num-1);
+					}, 1000);
+ 		};
+		
+//		Creates random circle
+		function circle2 () {
+				
+						var color = generateRGB();
+				
+						var radius = Math.floor(Math.random() * 101) + 50;
+
+						var str = "<div style='border-radius: 50%; \
+																		display: inline-block; \
+																		vertical-align: middle; \
+																		background: " + color + "; \
+																		width: " + radius + "px; \
+																		height: " + radius + "px;'></div>";
+
+						document.write(str);
+		};
+		
+		
+		
+//		rect(300, 330, "cyan");
+//		circle(5);
+		
+//		loop for creating circles with interval
+		for(var i = 1; i <= 5; i++) {
+			setTimeout(circle2, i*1000)
+		}
+		
+	</script>
+</body>
+</html>

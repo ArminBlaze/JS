@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+			var products = [{ name: "Grapefruit", calories: 170, color: "red", sold: 8200 },
+											{ name: "Orange", calories: 160, color: "orange", sold: 12101 },
+											{ name: "Cola", calories: 210, color: "caramel", sold: 25412 },
+											{ name: "Diet Cola", calories: 0, color: "caramel", sold: 43922 },
+											{ name: "Lemon", calories: 200, color: "clear", sold: 14983 },
+											{ name: "Raspberry", calories: 180, color: "pink", sold: 9427 },
+											{ name: "Root Beer", calories: 200, color: "caramel", sold: 9909 },
+											{ name: "Water", calories: 0, color: "clear", sold: 62123 }
+										 ];
+		console.log(products[0]);
+		
+		
+		//функция перебора:
+//		function sort (products, sortFunction) {
+//			for (var i = 0; i < products.length; i++) {
+//				if (sortFunction(products[i])) {
+//					return false;
+//				}
+//			}
+//			return true;
+//		}
+		
+		function sortCalories(products) {
+			for (var i = 0; i < products.length; ) {
+				var product1 = products[i];
+				var product2 = products[i+1];
+				if(!product2) break;
+				
+				if(products[i].calories > products[i+1].calories) {
+					products[i] = product2;
+					products[i+1] = product1;
+					if(i > 0) i = i-1;
+					continue;
+				}
+				i++;
+			}
+		}
+		
+		sortCalories(products);
+		console.log(products);
+		
+		
+	</script>
+</body>
+</html>

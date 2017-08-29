@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var book1 = {};
+		book1.title = "Война и мир";
+		book1.pubYear = 1800;
+		book1.price = 3000;
+		book1.show = function(){
+			console.log(this.title + ", цена: " + this.price);
+		};
+		
+		function showBook() {
+				console.log(this.title + ", цена: " + this.price);
+		};
+		
+		var book2 = {
+			title: "Властелин колец",
+			pubYear: 1950,
+			price: 4000,
+			show: showBook
+		};
+		
+		book1.show();
+		book2.show();
+		
+//		for (var key in book1) {
+//			console.log(key + " " + book1[key]);
+//		}
+//		
+//		for (var key in book2) {
+//			console.log(key + " " + book2[key]);
+//		}
+	</script>
+</body>
+</html>

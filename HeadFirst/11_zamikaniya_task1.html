@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function makePassword (password) {
+			return function guess(passwordGuess) {
+				return (passwordGuess === password);
+			}
+		}
+		
+		var password1 = makePassword("1234");
+		var guess;
+		
+		do {
+			guess = password1(prompt("Угадайте пароль: ", "peka"));
+			alert(guess ? "Вы угадали пароль!" : "Вы не угадали пароль, попробуйте ещё раз.");
+		} while(!guess);
+		
+	</script>
+</body>
+</html>

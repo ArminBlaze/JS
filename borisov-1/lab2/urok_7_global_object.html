@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var object = {
+			param: 10,
+			method: function(){
+				var self = this; //*
+				function test() {
+					console.log(self.param);
+				}
+				test(); //**
+			}
+		}
+		
+		/* 
+		** - test(); в любом случае будет запускаться от имени глобального объекта (window). Поэтому нужно в строчке * сохранить ссылку на текущий объект в self. Тогда в test() консоль лог выдаст object.param. 
+		Иначе this.param работало бы как window.param. Т.е. выводило свойство глобального объекта.
+		
+		
+		*/
+	</script>
+</body>
+</html>

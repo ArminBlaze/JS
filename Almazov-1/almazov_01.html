@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function range(a, b) {
+			
+			if(isNumeric(a) && isNumeric(b)){
+				console.log("Введите нормальные числа")
+				return;
+			} 
+			
+			if(b < a) { 
+				console.log("Неправильно задан диапазон")
+				return;
+			}
+			
+			for(var i = a; i <= b; i++) {
+				console.log(i);
+			}
+		}
+		
+		
+		function isNumeric(n) {
+			return !isNaN(parseFloat(n)) && isFinite(n);
+		}
+		
+		
+		var peka = range(3, "2");
+	</script>
+</body>
+</html>

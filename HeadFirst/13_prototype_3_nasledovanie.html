@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function Dog(name, breed, weight) {
+			this.name = name;
+			this.breed = breed;
+			this.weight = weight;
+		}
+		
+		Dog.prototype.species = "Canine"; //вид - собаки
+		Dog.prototype.sitting = false;
+		Dog.prototype.bark = function() {
+			if (this.weight > 25) {
+				console.log(this.name + " says Woof!");
+			} else {
+				console.log(this.name + " says Yip!");
+			}
+		};
+		Dog.prototype.run = function() {
+			console.log("Run!");
+		};
+		Dog.prototype.wag = function() {
+			console.log("Wag!");
+		};
+		Dog.prototype.sit = function() {
+			if(!this.sitting) {
+				console.log(this.name + " is now sitting");
+				this.sitting = true;
+			} else {
+				console.log(this.name + " is already sitting");
+			}
+		}
+		Dog.prototype.stand = function() {
+			if(this.sitting) {
+				console.log(this.name + " is now standing");
+				this.sitting = false;
+			} else {
+				console.log(this.name + " is already standing");
+			}
+		}
+		
+		
+		//Наследование
+		
+		//конструктор выставочных собак
+		function ShowDog(name, breed, weight, handler) {
+			//Вызываем конструктор Dog передавая ему часть параметров
+			//Первый параметр - this. Значит, что Dog вызывается внутри ЭТОЙ функции и видит её параметры
+			//При вызове Dog его this = ShowDog. Т.е. this.name внутри Dog запишется не в Dog, а в ShowDog
+			Dog.call(this, name, breed, weight);
+			this.handler = handler;
+		}
+		
+		//Прототип выставочных собак - собака
+		//У конструктора выставочных собак прототип - экземпляр обычной собаки
+		ShowDog.prototype = new Dog();
+		//Задаём явным образом конструктор. Иначе конструктором будет обычный Dog
+		//Без этого код тоже будет работать, это только вопрос красивого кода
+		ShowDog.prototype.constructor = ShowDog;
+		
+		
+		ShowDog.prototype.league = "Webville";
+		ShowDog.prototype.stack = function() {
+			console.log("Stack");
+		};
+		
+		ShowDog.prototype.bait = function() {
+			console.log("Bait");
+		};
+		
+		ShowDog.prototype.gait = function(kind) {
+			console.log(kind + "ing");
+		};
+		
+		ShowDog.prototype.groom = function() {
+			console.log("Groom");
+		};
+		
+		
+		//Создаём выставочную собаку
+		var scotty = new ShowDog("Scotty", "Scottish Terrier", 15, "Cookie");
+		
+		
+		//Тестируем выставочную собаку
+//		scotty.stack();
+//		scotty.bark();
+//		console.log(scotty.league);
+//		console.log(scotty.species);
+		
+		
+		//
+		var fido = new Dog("Fido", "Mixed", 38);
+		if (fido instanceof Dog) {
+			console.log("Fido is a Dog");
+		}
+		if (fido instanceof ShowDog) {
+			console.log("Fido is a ShowDog");
+		}
+		var scotty = new ShowDog("Scotty", "Scottish Terrier", 15, "Cookie");
+			if (scotty instanceof Dog) {
+			console.log("Scotty is a Dog");
+		}
+		if (scotty instanceof ShowDog) {
+			console.log("Scotty is a ShowDog");
+		}
+		
+		console.log("Fido constructor is " + fido.constructor);
+		console.log("Scotty constructor is " + scotty.constructor);
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function odd(a, b) {
+			
+			if(!isNumeric(a) && !isNumeric(b)){
+				console.log("Введите нормальные числа")
+				return;
+			} 
+			
+			if(b < a) { 
+				console.log("Неправильно задан диапазон")
+				return;
+			}
+			
+			for(var i = a; i <= b; i++) {
+				if(i % 2) {
+					console.log(i);
+				}
+			}
+		}
+		
+		function tri(a, b) {
+			
+			if(!isNumeric(a) && !isNumeric(b)){
+				console.log("Введите нормальные числа")
+				return;
+			} 
+			
+			if(b < a) { 
+				console.log("Неправильно задан диапазон")
+				return;
+			}
+			
+			for(var i = a; i <= b; i++) {
+				if(i%3 == 0) {
+					console.log(i);
+				}
+			}
+		}
+		
+		function fibo(a, b) {
+			
+			if(!isNumeric(a) && !isNumeric(b)){
+				console.log("Введите нормальные числа")
+				return;
+			} 
+			
+			if(b < a) { 
+				console.log("Неправильно задан диапазон")
+				return;
+			}
+			
+			var num1 = 0;
+			var num2 = 1;
+			var fibo = 0;
+			
+			
+			
+			for(fibo; fibo <= b;) {
+				if(fibo >= a) {
+					console.log(fibo);
+				}
+				
+				fibo = num1 + num2;
+				num1 = num2;
+				num2 = fibo;
+				
+			}
+		}
+		
+			function prime(a, b) {
+			
+			if(!isNumeric(a) && !isNumeric(b)){
+				console.log("Введите нормальные числа")
+				return;
+			} 
+			
+			if(b < a) { 
+				console.log("Неправильно задан диапазон")
+				return;
+			}
+			
+				
+			main: for(var num = a; num <= b; num++) {
+				for(var i = 0; i <= b; i++) {
+					if (i == 0 || i == 1 || i == num) {
+						continue;
+					} 
+					else if (num % i == 0) {
+						continue main;
+					} 
+					
+				}
+				console.log(num);
+			}
+			
+			
+			
+//			for(prime; prime <= b;) {
+//				if(prime >= a) {
+//					console.log(prime);
+//				}
+//				
+//			}
+		}
+		
+		
+		function isNumeric(n) {
+			return !isNaN(parseFloat(n)) && isFinite(n);
+		}
+		
+		
+//		odd(1, 12);
+//		tri(5, 154);
+//		fibo(44, 100);
+		prime(1, 100);
+	</script>
+</body>
+</html>

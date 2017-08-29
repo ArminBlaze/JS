@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function Book (title, pubyear, price) {
+			this.title = title;
+			this.pubYear = pubyear;
+			this.price = price;
+		}
+		
+		var book1 = new Book("Гости из будущего", 1999, 500);
+		Book.prototype.show = function() {
+			console.log(this.title + ", цена: " + this.price);
+		};
+	</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+//		error
+		function handler() {
+			alert(doneMessage);
+		}
+		
+		function makeTimer(doneMessage, n) {
+			setTimeout(handler, n);
+		}
+		
+		makeTimer("Cookies are done!", 1000);
+	</script>
+</body>
+</html>

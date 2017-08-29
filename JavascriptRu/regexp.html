@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var re = /#[a-f0-9]{6}\b/ig;
+
+		var str = "color:#121212; background-color:#AA00ef bad-colors:f#fddee #fd2";
+
+		console.log( str.match(re) );  // #121212,#AA00ef
+		
+		var peka = "1 - 5, 3-7";
+		
+		console.log(peka.match(/\d ?- ?\d/g));
+		
+		//Время имеет формат часы:минуты. И часы и минуты состоят из двух цифр, например: 09:00.
+		//Напишите регулярное выражение для поиска времени в строке: Завтрак в 09:00.
+		//P.S. В этой задаче выражению позволительно найти и некорректное время, например 25:99.
+		
+		var time = "Завтрак в 09:00";
+		
+		console.log(time.match(/\d\d:\d\d/));
+		
+		//Создайте регэксп, который ищет все положительные числа, в том числе и с десятичной точкой.
+		
+//		var re = /\d+\.?\d{1,}?/g;
+		var re = /\d+(\.?\d+)/g;
+
+		var str = "1.5 0 12. 123.4.";
+
+		alert( str.match(re) );   // 1.5, 0, 12, 123.4;
+		
+	</script>
+</body>
+</html>

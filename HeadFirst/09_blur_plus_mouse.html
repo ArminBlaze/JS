@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title> Image Guess </title>
+	<style> body { margin: 20px; } 
+		img {	margin: 20px;}
+	</style>
+	<script> 
+		
+		window.onload = init;
+		
+		function init() {
+			var images = document.getElementsByTagName("img"); //берем все картинки на странице
+//			console.log(typeof images);
+			
+			for(var i = 0; i < images.length; i++) {
+				images[i].onmouseover = showAnswer;
+				images[i].onmouseout = reblur;
+			}
+		};
+		
+		function showAnswer(e) { //при вызове обработчик получает "объект события"
+			var name = "img/" + this.id + ".jpg";
+			
+			var img = e.target; //e - объект события. В свойстве .target хранится объект, вызвавший событие
+			img.src = name;
+		};
+		
+		function reblur(e) {
+				e.target.src = "img/" + e.target.id + "blur.jpg";
+			
+			
+//			Вариант с задержкой, после отвода мыши
+//			setTimeout(function() {
+//				e.target.src = "img/" + e.target.id + "blur.jpg";
+//			}, 1000);
+		}
+		
+		
+	</script>
+</head>
+<body>
+	<img id="zero" src="img/zeroblur.jpg">
+	<img id="one" src="img/oneblur.jpg">
+	<img id="two" src="img/twoblur.jpg">
+	<img id="three" src="img/threeblur.jpg">
+	<img id="four" src="img/fourblur.jpg">
+	<img id="five" src="img/fiveblur.jpg">
+</body>
+</html>

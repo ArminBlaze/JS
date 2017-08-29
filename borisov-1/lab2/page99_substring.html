@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var s = 'Мы знаем, что монохромный!@ '  ;
+		var txt = 'хром';
+		var word;
+		
+		var position = s.indexOf(txt);
+		if(~position) {
+			
+			var positionEnd = s.indexOf(" ", position);
+			if(positionEnd == -1) positionEnd = s.length;
+			
+			var positionStart = s.lastIndexOf(" ", positionEnd - 1) + 1; //добавляем +1, т.к. сам пробел не нужен
+			
+			
+			word = s.slice(positionStart, positionEnd); //конечная позиция не учитывается, поэтому пробел отбросится
+			while(word.match(/[^a-zа-яё]/gi)) {
+				console.log(word.match(/[^a-zа-яё]/gi));
+				word = word.replace(/[^a-zа-яё]/gi, "");
+			}
+			
+
+
+			console.log(positionEnd);
+			console.log(positionStart);
+			console.log("\"" + word + "\"");
+		}
+		
+	
+	
+	</script>
+</body>
+</html>

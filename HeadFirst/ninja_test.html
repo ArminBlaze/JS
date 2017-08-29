@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function peka() {
+			var palindrome = function(phrase) {
+				var r = phrase.split("").reverse().join("");
+				return (r === phrase);
+		};
+		
+		
+//		Напишем код для тестирования метода:
+		
+		var sentences = ["allo", "peka", "abba", "eve", "kayak", "mom", "wow", "Not a palindrome"];
+		
+		for (var i = 0; i < sentences.length; i++) {
+			var phrase = sentences[i];
+			if (palindrome(phrase)) {
+//				console.log("Palindrome ALERT: " + phrase);
+			}
+		}
+	
+		}
+		
+		
+		
+		///////////////////////////////
+		
+		
+		
+	
+		
+		
+		///////////////////////////////
+		
+		
+		
+		function peka2() {
+				var palindrome = function(phrase) {
+			
+				
+			
+			for (var i = 0; i < phrase.length; i++) {
+				var len = phrase.length - 1;
+				if(phrase.charAt(i) !== phrase.charAt(len - i)) {
+					return false;
+				}
+				if (i == (len - i)) {
+					return true;
+				}
+			}
+		
+			
+			return true;
+		};
+		
+		
+//		Напишем код для тестирования метода:
+		
+		var sentences = ["allo", "peka", "abba", "eve", "kayak", "mom", "wow", "Not a palindrome"];
+		
+		for (var i = 0; i < sentences.length; i++) {
+			var phrase = sentences[i];
+			if (palindrome(phrase)) {
+//				console.log("Palindrome ALERT: " + phrase);
+			}
+		}
+			
+		}
+		
+		
+		
+		////////////////////////////////////
+		
+		
+		
+		function timer(target) {
+			var start = new Date().getTime();
+			
+			for(var n = 0; n < maxCount; n++) {
+				target();
+			}
+			
+			var elapsed = new Date().getTime() - start;
+			return elapsed;
+		}
+		
+		var start = new Date().getTime();
+		var maxCount = 100000;
+		
+		
+		var elapsed1 = timer(peka);
+		////////////////////////////////////////////
+		console.log("Время выполнения варианта 1: " + elapsed1);
+		
+		//////////////////////////////////////////
+		elapsed2 = timer(peka2);
+		console.log("Время выполнения варианта 2: " + elapsed2);
+	
+	</script>
+</body>
+</html>

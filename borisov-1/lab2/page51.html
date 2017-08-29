@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function compare(x) {
+			return function(y) {
+//				if(x === y) return null;
+//				return (y > x) ? (y + " больше " + x) : (y + " меньше " + x) ;
+				
+				return (x === y) ? null : (y > x);
+			}
+		}
+		
+		var peka3 = compare(3);
+		
+		console.log(peka3(1));
+		console.log(peka3(3));
+		console.log(peka3(4));
+		
+		console.log(compare(3)(4));
+	</script>
+</body>
+</html>

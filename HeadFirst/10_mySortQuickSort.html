@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var arr = [4, 9, 7, 6, 2, 3, 8];
+		
+		function quickSort(a, n) {
+			var i = 0;
+			var j = arr.length - 1;
+			var temp;
+			var p;
+			var n = n;
+			
+			p = a[Math.random(n / 2)];
+			console.log(p);
+			
+			do {
+				while ( a[i] < p ) i++;
+				while ( a[j] > p ) j--;
+
+				if (i <= j) {
+					temp = a[i]; a[i] = a[j]; a[j] = temp;
+					i++; j--;
+				}
+			} while ( i<=j );
+			
+			if ( j > 0 ) quickSort(a, j);
+  		if ( n > i ) quickSort(a+i, n-i);
+		};
+		
+		quickSort(arr, arr.length);
+		
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var arr = [];
+		var arr2= [];
+		
+		function odd(a, b) {
+			
+			for(var i = a; i <= b; i++) {
+				if(i % 2) {
+					arr.push(i);
+				}
+			}
+		}
+		
+		odd(50, 150);
+		console.log(arr);
+		
+		
+//function palindrom (a, b) {
+//			for(var i = a; i <= b; i++) {
+//				if(i < 11) {continue;}
+//				var num = i;
+//				var numArr = [];
+//				while (num >= 1) {
+//					numArr.push(num % 10);
+//					num = ~~(num / 10);
+//				}
+//				if (i == numArr.join("")) {
+//					arr2.push(i);
+//				}
+//			}
+//		}
+		
+//		function palindrom (a, b) {
+//			for(var i = a; i <= b; i++) {
+//				if(i < 11) {continue;}
+//				var str = (i + "").split("").reverse().join("");
+////				console.log((i + "").split("").reverse().join(""))
+//				if (i == str) {
+////					console.log(i);
+//					arr2.push(i);
+//				}
+//			}
+//		}
+		
+		function palindrom (a, b) {
+			for(var i = a; i <= b; i++) {
+				if(i < 11) {continue;}
+				var num = i;
+				var newNum = 0;
+				while (num >= 1) {
+					newNum = newNum*10 + num % 10;
+					num = parseInt(num / 10);
+				}
+				if (i == newNum) {
+					arr2.push(i);
+				}
+			}
+		}
+		
+		palindrom(1000, 10000);
+		console.log(arr2);
+		
+	</script>
+</body>
+</html>

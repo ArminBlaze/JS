@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var user1 = {name: "Mike",
+								 age: 333,
+								 skin: "white",
+								 weight: 80,
+								 "+2": 44,
+								 "+1": 66,
+								 3: 33,
+								};
+		console.log(user1);
+//		delete user1.name;
+		for (var i in user1) {
+			console.log(i + ": " + user1[i]);
+		}
+	</script>
+</body>
+</html>

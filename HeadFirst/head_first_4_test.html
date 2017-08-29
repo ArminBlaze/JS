@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function makePhrases() {
+			var words1 = [];
+			var words2 = [];
+			var words3 = [];
+			var words4 = [];
+			
+			var rand1 = Math.floor(Math.random() * words1.length);
+			var rand2 = Math.floor(Math.random() * words2.length);
+			var rand3 = Math.floor(Math.random() * words3.length);
+			var rand4 = Math.floor(Math.random() * words4.length);
+			
+			var phrase = words1[rand1] + " " + words2[rand2] + " " + words3[rand3] + " " + words4[rand4];
+			
+			alert(phrase);
+		}
+		
+		makePhrases();
+</script>
+</body>
+</html>

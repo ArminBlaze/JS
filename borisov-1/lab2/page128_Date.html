@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var megaDate = function(d) {
+			var f = d.match(/\b([0-3]?\d)-([0-1]?\d)-(\d{4}[^a-zа-яё]?)\b/);
+			if (f) {
+				console.log(f);
+//				f = f + "";
+//				var dateArray = f.split("-");
+//				console.log(dateArray);
+//				return new Date().setFullYear(dateArray[2], dateArray[1] - 1, dateArray[0]);
+//				return new Date(dateArray[2], dateArray[1] - 1, dateArray[0]);
+				return new Date(f[3], f[2] - 1, f[1]);
+				}
+		}; 
+	
+		var myDate = megaDate("13-9-1984");
+		console.log(myDate.toString());
+		console.log(new Date(myDate));
+		
+//		console.log(new Date().setFullYear(13, 09, 1984));
+	</script>
+</body>
+</html>

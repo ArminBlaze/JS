@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title> Image Guess </title>
+	<style> body { margin: 20px; } 
+		img {	margin: 20px;}
+	</style>
+	<script> 
+		
+		window.onload = init;
+		
+		function init() {
+			var images = document.getElementsByTagName("img"); //берем все картинки на странице
+			console.log(typeof images);
+			
+			for(var i = 0; i < images.length; i++) {
+				images[i].onclick = showAnswer;
+			}
+		};
+		
+		function showAnswer(e) { //при вызове обработчик получает "объект события"
+			var name = "img/" + this.id + ".jpg";
+			
+			var img = e.target; //e - объект события. В свойстве .target хранится объект, вызвавший событие
+			img.src = name;
+			
+//			this.src = str;
+//			console.log(this);
+//			console.log(e.target);
+			
+			
+			//Работает в IE9+ (на IE8 не работает)
+			//img это аргумент для clearInterval. Можно передавать сколько угодно аргументов
+			//setTimeout не передаёт reblur объект события
+//			setTimeout(reblur, 2000, img);  //через 2 сек вызываем reblur и передаём ему img как аргумент
+			setTimeout(function() {
+				img.src = "img/" + img.id + "blur.jpg";
+			}, 2000);  
+			
+
+		};
+		
+//		function reblur(image) {
+//			image.src = "img/" + image.id + "blur.jpg";
+//		}
+		
+		
+	</script>
+</head>
+<body>
+	<img id="zero" src="img/zeroblur.jpg">
+	<img id="one" src="img/oneblur.jpg">
+	<img id="two" src="img/twoblur.jpg">
+	<img id="three" src="img/threeblur.jpg">
+	<img id="four" src="img/fourblur.jpg">
+	<img id="five" src="img/fiveblur.jpg">
+</body>
+</html>

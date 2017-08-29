@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function power(num, pow) {
+			var result = 1;
+			for(var i = 0; i < pow; i++) {
+				result = result * num;
+				console.log(result);
+			}
+			return result;
+		}
+		
+		var num = prompt("Введите число", "2");
+		var pow = prompt("В какую степень его возвести?", "3");
+		alert(num + " в степени " + pow + " = " + power(num, pow));
+	</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var i = 0;
+		
+		function myFunc() {
+			console.log(i);
+			if (i < 10) {
+				i++;
+				setTimeout(myFunc, 1000);
+			}
+		}
+		
+		myFunc();
+	</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var nums = [11, 3, 5, 22, 7, 5, 55, 1, 4, 13, 9];
+		
+//		var nums = [];
+//		
+//		for (var i = 0; i < 3000; i++) {
+//			var n = Math.floor(Math.random() * 1001);
+//			nums.push(n);
+//		}
+		
+		
+		function sort (nums) {
+			
+				for (var i = 0; i < nums.length;) {
+					var n1 = nums[i];
+					var n2 = nums[i+1];
+
+
+					if(n1 > n2) {
+						nums[i] = n2;
+						nums[i+1] = n1;
+						if(i > 0) i = i-1;
+						continue;
+					}
+					i++;
+				}
+			};
+		
+		console.log(nums);
+		sort(nums);
+		
+		console.log(nums);
+	</script>
+</body>
+</html>

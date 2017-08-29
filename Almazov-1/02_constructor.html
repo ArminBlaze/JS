@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function Rectangle(width, height) {
+			this.width = width;
+			this.height = height;
+			this.str = "<div style='width: " + this.width + "px; \
+															height: " + this.height + "px; \
+															background: red; border: 3px solid black;'></div>"
+			this.show = function () {
+				document.write(this.str);
+			};
+		}
+		
+		var box = new Rectangle(400, 100);
+		var box2 = new Rectangle(100, 300);
+		box.show();
+		box2.show();
+	</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var mass = [3, 21, 8, 55, 11, 2];
+		var log = "";
+		
+		function mySort(a, b) {
+			alert(a + " <> " + b);
+			log = log + "[" + mass.toString() + "]\n";
+			alert(log);
+			
+			return a-b;
+		}
+		
+		mass.sort(mySort);
+		console.log(mass);
+	</script>
+</body>
+</html>

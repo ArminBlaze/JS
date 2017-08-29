@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script>
+		var num = "Freeze";
+		var x = "";
+		
+		while (num = prompt("Сколько ворон сидит на ветке?", "")){
+			var str = "На ветке сидит " + num + " ворон";
+			
+			if (!num) break;	
+			
+			else if (num % 100 >= 11 && num % 100 <= 20) {
+				x = "";
+			}
+			else if (num % 10 == 1) {
+				x = "а";
+			}
+			else if (num % 10 >= 2 && num % 10 <= 4) {
+				x = "ы";
+			}
+			else {
+				x = "";
+			}
+			
+			alert(str+x);
+		}
+		
+	</script>
+</body>
+</html>

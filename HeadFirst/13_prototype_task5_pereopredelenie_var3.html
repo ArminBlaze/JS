@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		
+		//Функция находит клише в строке
+		String.prototype.palindrome = function() {
+			
+				
+			
+			for (var i = 0; i < this.length; i++) {
+				var len = this.length - 1;
+				
+				if(this.charAt(i) !== this.charAt(len - i)) {
+					return false;
+				}
+				
+				if (i == (len - i)) {
+					return true;
+				}
+			}
+		
+			
+			return true;
+		};
+		
+		
+//		Напишем код для тестирования метода:
+		
+		var sentences = ["allo", "peka", "abba", "eve", "kayak", "mom", "wow", "Not a palindrome", "mom wow mom"];
+		
+		for (var i = 0; i < sentences.length; i++) {
+			var phrase = sentences[i];
+			if (phrase.palindrome()) {
+				console.log("'" + phrase + "' is a palindrome");
+			}  else {
+				console.log("Not a palindrome: " + phrase);
+			}
+		}
+	</script>
+</body>
+</html>

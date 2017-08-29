@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		
+		//Функция находит клише в строке
+		String.prototype.palindrome = function() {
+			
+				
+			var reverse = "";
+			
+			reverse = this.split("").reverse().join("");
+			
+			
+				if (reverse == this) {
+					return true;
+				}
+			
+			return false;
+		};
+		
+		
+//		Напишем код для тестирования метода:
+		
+		var sentences = ["allo",
+		"peka",
+		"abba"];
+		
+		for (var i = 0; i < sentences.length; i++) {
+			var phrase = sentences[i];
+			if (phrase.palindrome()) {
+				console.log("Palindrome ALERT: " + phrase);
+			}
+		}
+	</script>
+</body>
+</html>

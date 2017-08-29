@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function Rectangle(width, height) {
+			this.width = width;
+			this.height = height;
+			this.str = "<div style='width: " + this.width + "px; \
+															height: " + this.height + "px; \
+															background: red; border: 3px solid black;'></div>"
+			this.show = function () {
+				document.write(this.str);
+			};
+		}
+		
+		function Circle(diameter) {
+			this.width = diameter;
+			this.height = diameter;
+			this.str = "<div style='width: " + this.width + "px; \
+															height: " + this.height + "px; \
+															background: red; border: 3px solid black; border-radius: 50%;'></div>"
+			this.show = function () {
+				document.write(this.str);
+			};
+		}
+		
+		function Triangle(width, height, direction) {
+			var top;
+			var bottom;
+			var left;
+			var right;
+			
+			if (direction == "left" || direction == "right"){
+				top = height / 2;
+				bottom = height / 2;
+				(direction == "left") ? (left = width, right = 0) : (left = 0, right = width);
+			} else {
+				left = width / 2;
+				right = width / 2;
+				(direction == "top") ? (top = height, bottom = 0) : (top = 0, bottom = height);
+			}
+			
+			this.str = "<div style='width: 0; \
+															height: 0; \
+															border-top: " + top + "px solid" + ((direction == "top") ? " red" : " transparent") + "; \
+															border-bottom: " + bottom + "px solid" + ((direction == "bottom") ? " lime" : " transparent") + "; \
+															border-left: " + left + "px solid" + ((direction == "left") ? " lime" : " transparent") + "; \
+															border-right: " + right + "px solid" + ((direction == "right") ? " lime" : " transparent") + "; \
+															'></div>";
+			this.show = function () {
+				document.write(this.str);
+			};
+		}
+		
+		function generateSplashCircle(radius, x, y) {
+			
+		}
+		
+		var box = new Rectangle(400, 100);
+		var box2 = new Rectangle(100, 300);
+		var circle = new Circle(100);
+		var circle2 = new Circle(300);
+		var triangle = new Triangle(100, 100, "right");
+//		box.show();
+//		circle.show();;
+//		circle2.show();
+		triangle.show();
+	</script>
+</body>
+</html>

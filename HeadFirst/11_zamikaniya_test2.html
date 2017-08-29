@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function makeCounter() {
+			var count = 0;
+			
+			function counter() {
+				count++;
+				return count;
+			}
+			
+			return counter;
+		}
+		
+		
+		var counter1 = makeCounter();
+		var counter2 = makeCounter();
+		
+		console.log(counter1());
+		console.log(counter1());
+		console.log(counter1());
+		
+		console.log(counter2());
+		
+		console.log(counter1());
+		console.log(counter1());
+		console.log(counter1());
+		
+		console.log(counter2());
+		
+		
+		
+	</script>
+</body>
+</html>

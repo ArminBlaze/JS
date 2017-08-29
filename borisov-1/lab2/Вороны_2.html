@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//Окончания для подсчёта ворон
+		var num = "Freeze";
+		
+		while (num = prompt("Сколько ворон сидит на ветке?", "")){
+			var x = "";
+			var str = "На ветке сидит " + num + " ворон";
+			
+			if (!num) break;	
+			
+			if(num%100 < 11 || num%100 > 14) {
+				switch(num%10){
+					case 1: x = "a"; break;
+					case 2:
+					case 3:
+					case 4: x = "ы";
+				}
+			}
+			
+			alert(str+x);
+		}
+	</script>
+</body>
+</html>

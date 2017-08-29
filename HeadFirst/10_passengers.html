@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var passengers = [ { name: "Jane Doloop", paid: true, ticket: "coach" },
+											 { name: "Dr. Evel", paid: true, ticket: "firstclass" },
+											 { name: "Sue Property", paid: false, ticket: "firstclass" },
+											 { name: "John Funcall", paid: true, ticket: "soft-coach" } 
+										 ];
+		
+		
+		//пишем одну функцию для перебора, и передаём ей другую функцию - проверяющую
+		
+		
+		//Проверяющие функции:
+		function checkNoFlyList (passenger) {
+			return (passenger.name == "Dr. Evel"); //если пассажир в черном списке = true
+		}
+		
+		function checkNotPaid (passenger) {
+			return (!passenger.paid); //если пассажир не заплатил = true
+		}
+		
+		function printPassenger(passenger) {
+			console.log("Passenger name: " + passenger.name + ((passenger.paid) ? ", has paid" : ", has not paid"))
+		}
+		
+		function serveCustomer(passenger) {
+			var drinkOrder = createDrinkOrder(passenger); //сюда запишутся напитки нужного класса
+			var mealOrder = createDinnerOrder(passenger); //сюда запишется еда
+			drinkOrder();
+			mealOrder();
+			// Предложить обед
+			// Забрать мусор
+		}
+		
+		//проверка класса пассажира проводится только 1 раз, и дальше возвращается функция, предлагающая напиток соответствующего класса
+		function createDrinkOrder(passenger) {
+			if (passenger.ticket === "firstclass") {
+				return (function () {alert("Would you like a cocktail or wine? " + passenger.name)});
+			} else if(passenger.ticket === "soft-coach") {
+				return (function () {alert("Your choice is wine, cola or water. " + passenger.name)});
+			} else {
+				return (function () {alert("Your choice is cola or water. " + passenger.name)});
+			}
+		}
+		
+		function createDinnerOrder(passenger) {
+			if (passenger.ticket === "firstclass") {
+				return (function () {alert("Would you like a chicken or pasta? " + passenger.name)});
+			} else if(passenger.ticket === "soft-coach") {
+				return (function () {alert("Your choice is snacks or cheese plate. " + passenger.name)});
+			} else {
+				return (function () {alert("Your choice is nuts or crackers. " + passenger.name)});
+			}
+		}
+
+		
+		//Функция перебора:
+		function processPassengers (passengers, testFunction) {
+			for (var i = 0; i < passengers.length; i++) {
+				if (testFunction(passengers[i])) {
+					return false;
+				}
+			}
+			return true;
+		}
+		
+		var allCanFly = processPassengers(passengers, checkNoFlyList); //сверяем пассажиров с черным списком
+		if(!allCanFly) {
+			alert("Самолет не может взлететь: на борту есть люди из черного списка.")
+		}
+		
+		var allPaid = processPassengers(passengers, checkNotPaid); //проверяем все ли заплатили
+		if(!allPaid) {
+			alert("Самолет не может взлететь: не все заплатили за билет.")
+		}
+		
+		processPassengers(passengers, printPassenger);
+		
+		processPassengers(passengers, serveCustomer);
+	</script>
+</body>
+</html>

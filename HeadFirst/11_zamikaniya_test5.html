@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		
+		function setTimer(doneMessage, n) {
+			
+			setTimeout(function() {
+				alert(doneMessage);
+			}, n);
+			
+			doneMessage = "OUCH!";
+		}
+		
+		setTimer("Cookies are done!", 1000);
+	</script>
+</body>
+</html>

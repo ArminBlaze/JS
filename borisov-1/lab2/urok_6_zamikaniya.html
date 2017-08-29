@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function say(greet) {
+			return function(name) {
+				return greet + " " + name;
+			};
+		}
+		
+//		var greet = "Hello";
+		var en = say("Hello");
+		var ru = say("Privet");
+		
+		console.log(en("Mike"));
+		console.log(en("Oliver"));
+		
+//		greet = "Privet";
+		console.log(ru("Vasya"));
+		say("Peka");
+		console.log(ru("Kolya"));
+	</script>
+</body>
+</html>

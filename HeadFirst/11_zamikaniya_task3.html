@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function makeCounter() {
+			var count = 0;
+			
+			var obj = {
+				increment: function() {
+					count++;
+					return count;
+				}
+			}
+			
+			return obj;
+		}
+		
+		
+		var counter1 = makeCounter();
+		var counter2 = makeCounter();
+		
+		console.log(counter1.increment());
+		console.log(counter1.increment());
+		console.log(counter1.increment());
+		
+		console.log(counter2.increment());
+		console.log(counter2.increment());
+		
+		console.log(counter1.increment());
+		
+		
+		
+	</script>
+</body>
+</html>

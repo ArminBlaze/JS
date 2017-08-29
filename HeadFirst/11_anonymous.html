@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<button id="bake" type="button">Bake</button>
+	
+	<script>
+		//В любом месте, где передаётся или используется функция - можно использовать анонимную функцию
+		
+		
+		//короткие анонимные функции удобны. Для длинных лучше создать отдельную функцию
+		window.onload = function () {
+			var button = document.getElementById("bake");
+			
+			//короткие анонимные функции удобны. Для длинных лучше создать отдельную функцию
+			button.onclick = function () {
+				console.log("Time to bake the cookies.");
+				cookies.bake(2500);
+			};
+		};
+		
+		var cookies = {
+			instructions: "Preheat oven to 350...",
+			
+			bake: function(time) {
+				console.log("Baking the cookies.");
+				setTimeout(this.done, time);
+			},
+			
+			done: function() {
+				alert("Cookies are ready, take them out to cool.");
+				console.log("Cooling the cookies.");
+			
+				//короткие анонимные функции удобны. Для длинных лучше создать отдельную функцию
+				setTimeout(function() {
+					alert("Cookies are cool, time to eat!");
+				}, 1000);
+			}
+		};
+	</script>
+</body>
+</html>

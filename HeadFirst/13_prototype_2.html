@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//конструктор
+		function Dog(name, breed, weight) {
+			this.name = name;
+			this.breed = breed;
+			this.weight = weight;
+		}
+		
+		//прототип конструктора
+		Dog.prototype.species = "Canine"; //вид - собаки
+		
+		Dog.prototype.sitting = false;
+		
+		Dog.prototype.bark = function() {
+			if (this.weight > 25) {
+				console.log(this.name + " says Woof!");
+			} else {
+				console.log(this.name + " says Yip!");
+			}
+		};
+		
+		Dog.prototype.run = function() {
+			console.log("Run!");
+		};
+		
+		Dog.prototype.wag = function() {
+			console.log("Wag!");
+		};
+
+		
+		//Создание объектов
+		var fido = new Dog("Fido", "Mixed", 38);
+		var fluffy = new Dog("Fluffy", "Poodle", 30);
+		var spot = new Dog("Spot", "Chihuahua", 10);
+		
+		//Переопределение метода для одного из объектов
+		spot.bark = function() {
+			console.log(this.name + " says WOOF!");
+		};
+		
+		//Ещё одна собака
+		var barnaby = new Dog("Barnaby", "Basset Hound", 55);
+		
+		//Новый метод в прототипе. Он добавится всем ранее созданным объектам
+		//Все созданные объекты считывают изменения из прототипа
+		//Сначала ищется свойство в самом объекте, если его там нет - в прототипе
+		Dog.prototype.sit = function() {
+			if(!this.sitting) {
+				console.log(this.name + " is now sitting");
+				this.sitting = true;
+			} else {
+				console.log(this.name + " is already sitting");
+			}
+		}
+		
+		Dog.prototype.stand = function() {
+			if(this.sitting) {
+				console.log(this.name + " is now standing");
+				this.sitting = false;
+			} else {
+				console.log(this.name + " is already standing");
+			}
+		}
+		
+		console.log(spot.hasOwnProperty("sitting"));
+		
+		
+		//Запуск методов
+		barnaby.sit();
+		barnaby.stand();
+		barnaby.stand();
+		barnaby.sit();
+		spot.sit();
+		spot.sit();
+		console.log(spot.hasOwnProperty("sitting"));
+		
+		//проверяем это свойство конкретного объекта или прототипа
+		
+//		console.log(spot.hasOwnProperty("species"));
+//		console.log(fido.hasOwnProperty("species"));
+		
+	</script>
+</body>
+</html>

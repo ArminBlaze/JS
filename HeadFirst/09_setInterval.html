@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var tick = true;
+		
+		function ticker() {
+			if(tick) {
+				console.log("Tick");
+				tick = false;
+			}
+			else {
+				console.log("Tack");
+				tick = true;
+			}
+		}
+		
+		
+		//бесконечный повтор
+		var t = setInterval(ticker, 1000); //объект таймера записывается в ссылку t
+		
+		//t это аргумент для clearInterval. Можно передавать сколько угодно аргументов
+		setTimeout(clearInterval, 10000, t);  //останавливаем таймер, передав ссылку на объект t
+		
+		
+		
+		
+		
+		
+		
+//		setInterval(ticker, 1000);
+		
+//		setTimeout(function (){
+//			clearInterval(t)		//останавливаем таймер, передав объект таймера в clearInterval
+//		}, 10000);		//через 10 секунд
+		
+		
+	</script>
+</body>
+</html>

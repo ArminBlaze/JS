@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var user = {
+			name1 : "John",
+			age : 25,
+			say : function (word) {
+				console.log(word + " from " + this.name1);
+			},
+			foo: some
+		}
+		
+		user.say("Hello");
+		
+		function some() {
+			console.log(this.name1);
+		}
+		
+		user.foo();
+		
+		some();
+	</script>
+</body>
+</html>

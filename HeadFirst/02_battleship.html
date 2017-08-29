@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Battleship</title>
+</head>
+<body>
+	<h1>Play Battleship!</h1>
+	
+	
+	
+	<script>
+		//Генерируем число от 0 до 4.995 и отбрасываем дробную часть
+		//Получается число от 0 до 4
+		var randomLoc = ~~(Math.random() * 5);
+//		alert(randomLoc);
+		var location1 = randomLoc;
+		var location2 = location1 + 1;
+		var location3 = location1 + 2;
+		
+		var guess;
+		var hits = 0;
+		var guesses = 0;
+		var hitLog = [];
+		var indicator = ["0","1","2","3","4","5","6"];
+		
+		
+		
+		var isSunk = false;
+		
+		game: while(!isSunk) {
+			guess = prompt("Готовься! Целься! Пли! (введите номер от 0 до 6)\n" + indicator);
+			if(guess < 0 || guess > 6 || isNaN(guess)) { 
+				//выделить функцию проверки чисел + массив для уже подстреленных клеток
+				alert("Ошибка. Пожалуйста, введите корректный номер клетки!");
+				continue;
+			} else {
+				guesses++;
+				
+				for(var i = 0; i < hitLog.length; i++) {
+					if(hitLog[i] == guess) {
+						alert("Вы уже ранили корабль в этой клетке! Попробуйте ещё раз.");
+						continue game;
+					}
+				}
+				
+				if(guess == location1 || guess == location2 || guess == location3) {
+					hits++;
+					hitLog.push(guess);
+					indicator[guess] = "X";
+					if(hits == 3) {
+						isSunk = true;
+						alert("Корабль потоплен!");
+						break;
+					}
+					alert("Ранен!");
+				} else {
+					alert("Мимо!");
+				}
+			}
+		}
+		
+		
+		var stats = "Вы потопили корабль за " + guesses + " ходов. " + "Ваша точность: " + 3/guesses;
+		alert(stats);
+	</script>
+	
+</body>
+</html>

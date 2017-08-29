@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+//		var justAVar = "Oh, don't you worry about it, I'm GLOBAL";
+		function one (n) {
+			var n = n;
+			return function() {
+				console.log(n);
+			};
+		}
+		
+		function two (func) {
+			return func;
+		}
+		
+		
+		var save5 = two(one(5));
+		save5();
+		
+		save6 = two(one(6));
+		save6();
+		
+		save5();
+	</script>
+</body>
+</html>
