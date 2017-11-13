@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+	<title>Проверка формы перед отправкой</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		form div input { border-style: solid; border-color: #999 }
+		a{background:silver;color:black;border:3px groove silver;text-decoration: none;font-weight:bold}
+		div.button{margin-top:10px}
+		input[type="text"] {
+			background-color: rgba(255, 177, 30, 0.24);
+		}
+	</style>
+	
+</head>
+
+<body>
+	<h1>Проверка формы перед отправкой</h1>
+	<form id="myForm" name="myForm" action="google.vom">
+		<fieldset>
+			<legend>Форма</legend>
+			<div>
+				<label for="txt1">Поле 1</label>
+				<input type="text" name="p1" id="txt1">
+			</div>
+			<div>
+				<label for="txt2">Поле 2</label>
+				<input type="text" name="p2" id="txt2">
+			</div>
+			<div>
+				<label for="txt3">Поле 3</label>
+				<input type="text" name="p3" id="txt3">
+			</div>
+			<div>
+				<label for="txt4">Поле 4</label>
+				<input type="text" name="p4" id="txt4">
+			</div>
+			<div>
+				<label for="txt5">Поле 5</label>
+				<input type="text" name="p5" id="txt5">
+			</div>
+			<div>
+				<label for="textarea1">Поле 6</label>
+				<textarea name="textarea1" id="textarea1" cols="30" rows="10"></textarea>
+			</div>
+			<div>
+				<input type="checkbox" name="group" value="shave" id="shave">
+				<label for ="shave">Бритвенные принадлежности</label>
+				<input type="checkbox" name="group" value="care" id="care">
+				<label for ="care">Средства для ухода</label>
+				<input type="checkbox" name="group" value="access" id="access">
+				<label for ="access">Аксесуары</label>
+			</div>
+			<div class="button">
+				<button>Передать форму</button>
+				<button type="button" href="javascript:resetForm()">Сбросить форму</a>
+			</div>
+		</fieldset>
+	</form>
+	
+	
+	
+	<script type="text/javascript">
+		/*
+			Создайте и опишите функцию checkForm(), которая должна вызываться перед отправкой формы
+			В функции необходимо проверить, все ли поля заполнены
+			Если все поля заполнены, то отправить форму
+			Если хотя бы одно поле не заполнено:
+				- выдать alert() с предупреждением
+				- изменить цвет рамки пустого поля на красный
+				- данные не отправлять!
+		*/
+		
+//		Отменяем событие по умолчанию, через возвращение false обработчиком события
+		
+		var form = document.forms.myForm;
+		var elems = form.elements;
+		var reset = form.querySelector("[type='button']")
+		
+		reset.onclick = resetForm;
+		form.onsubmit = checkForm;
+		
+		function checkForm() {
+			var blankFields = false;
+			
+			for(var i = 0; i < elems.length; i++) {
+				
+				
+				//проверяем есть ли у элемента свойство value. Этот способ проверяет заодно и textarea
+				//Вместо этого можно проверять только текстовые поля (elems[i].type == "text")
+//				if (str == null || typeof str == undefined) {
+				if (elems[i].type != "text") {
+					 continue;
+				} else {
+					var str = elems[i].value;
+					str = str.trim();
+				}
+
+				if (!str) {
+					elems[i].style.backgroundColor = "red";
+					alert("Поле " + elems[i].name + " не заполнено!");
+					blankFields = true;
+				} else {
+					elems[i].style.backgroundColor = "lime";
+				}
+			}
+			
+			if(!blankFields) {
+				alert("Отправляю!");
+			} else {
+//				alert("Заполните все поля!");
+				return false; //если форма не заполнена - отменяем её отправку возвращая false
+			}
+		}
+		
+		function resetForm() {
+			form.reset();
+			for(var i = 0; i < elems.length; i++) {
+				elems[i].style.backgroundColor = "";
+			}
+		}
+	</script>	
+</body>
+</html>

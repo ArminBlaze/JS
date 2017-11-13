@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<title>Использование элементов SELECT и OPTION</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style type="text/css">
+		a{visibility:hidden}
+	</style>
+
+</head>
+
+<body>
+	<h1>Использование элементов SELECT и OPTION</h1>
+	<form id="myForm" name="myForm">
+		<label for="selURL" disabled>Выберите адрес</label>
+		<select id="selURL" name="selURL" disabled></select>
+		<a href="javascript:goToURL()">Переход</a>
+		
+	</form>
+	
+	<script type="text/javascript">
+		/*
+		** Коллекция ссылок
+		*/
+		var links = new Object();
+		links["Яндекс"] = "http://www.yandex.ru";
+		links["Рамблер"] = "http://www.rambler.ru";
+		links["Гугл"] = "http://www.google.ru";
+		
+		// Создадим в списке SELECT элементы OPTION
+		var s = document.myForm.selURL;
+			
+		for (var linkName in links){
+			var o = new Option();
+			o.value = links[linkName];
+			o.text = linkName;
+			/* или 
+				var o = new Option(linkName, links[linkName]); 
+			*/
+			s.add(o);
+		}
+			
+		//Элементы формы отключены, т.к. их позже создаст скрипт и разблокирует
+		// Сделаем все элементы формы доступными
+		var f = document.myForm; // или s.form
+		for (var i=0; i < f.elements.length; i++){
+			f.elements[i].disabled = false;
+		}
+		
+		document.links[0].style.visibility = "visible";
+		
+		function goToURL() {
+			//s.selectedIndex - вернёт индекс выбранного пункта списка
+			var path = s.options[s.selectedIndex].value;
+//			var w = open(path, "x"); //в новом окне
+			location.assign(path); //в этом же окне
+		}
+			
+			
+	</script>
+</body>
+</html>

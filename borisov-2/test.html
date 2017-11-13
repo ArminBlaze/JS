@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+	<title>Îáúåêò event</title>
+	<meta charset="UTF-8">
+	<style type="text/css">
+		body, html { box-sizing: border-box; margin: 0; 
+			padding: 1px;
+			width: 100%; height: 100%; cursor: crosshair;  }
+		#result { position: absolute; top: 0px; right: 0px; width: 300px; font-size: 130%; background-color:#cfc; padding: 10px }
+	</style>
+	<script type="text/javascript">
+		 function showEventProperties(event)
+		 {
+//			 e = e || event; 
+			var result = document.getElementById("result");
+//			 console.log(event);
+			result.innerHTML = 
+				"x: " + event.x + "<br>" + 
+				"y: " + event.y + "<br>" + 
+				"clientX: " + event.clientX + "<br>" + 
+				"clientY: " + event.clientY + "<br>" + 
+				"offsetX: " + event.offsetX + "<br>" + 
+				"offsetY: " + event.offsetY + "<br>" + 
+				"screenX: " + event.screenX + "<br>" + 
+				"screenY: " + event.screenY + "<br>" + 
+				"button: " + event.button + "<br>" +
+				"keyCode: " + event.keyCode + "<br>" +
+				"altKey: " + event.altKey + "<br>" +
+				"ctrlKey: " + event.ctrlKey + "<br>" +
+				"shiftKey: " + event.shiftKey + "<br>" +
+				"target.tagName: " + event.target.tagName;
+		 }
+	</script>
+</head>
+
+<body onclick="showEventProperties(event)">
+	<pre id="result">234</pre>
+	<h1>Объект event</h1>
+	<div>
+		<h2>Заголовок</h2>
+		<p>
+			Параграф 
+			<strong>Жирный текст</strong>
+		</p>
+	</div>
+</body>
+</html>

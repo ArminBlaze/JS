@@ -1,3 +1,5 @@
+window.onload = init;
+
 //Вешаем события на кнопку и окно ввода после загрузки страницы
 
 function init() {
@@ -11,8 +13,36 @@ function init() {
 	});
 	
 	handleCells();
+	model.generateFigure();
 	
+	window.addEventListener("keydown", keyHandle);
+//	window.addEventListener("keyup", keyHandle);
+//	window.addEventListener("keypress", keyHandle);
 }
+
+function keyHandle (e) {
+//	e.preventDefault();
+		var keycode = e.keyCode;
+		console.log(keycode);
+	var key = "";
+	
+	switch(keycode) {
+			case 37:
+				key = "left";
+				break;
+			case 38:
+				key = "up";
+				break;
+			case 39:
+				key = "right";
+				break;
+			case 40:
+				key = "down";
+				break;
+		}
+	
+	model.figure.move(key);
+};
 
 function handleCells() {
 	var alphabet = ["A", "B", "C", "D", "E", "F", "G"];
@@ -56,7 +86,7 @@ function handleFireButton() {
 	guessInput.focus();
 }
 
-window.onload = init;
+
 
 
 
@@ -87,7 +117,7 @@ var view = {
 		cell.classList.remove("hit");
 	},
 	
-	refresh() {
+	refresh: function() {
 		for(var i = 0; i < model.lines.length; i++) {
 			for(var j = 0; j < model.lines[i].length; j++) {
 				if(model.lines[i][j]) {
@@ -123,6 +153,8 @@ var model = {
 		[0, 0, 0, 0, 0, 0, 0]
 	],
 	
+	figure: {},
+	
 	fire: function(location) {
 		var row = Math.floor(location / 10);
 		var column = location % 10;
@@ -131,14 +163,14 @@ var model = {
 		view.displayHit(location);
 		if(this.isFullLine(row)) {
 			this.score++;
-			console.log(this.score);
+			console.log("Score: " + this.score);
 			this.deleteLine(row);
 			console.log(this.lines);
 			view.refresh();
 		}
 	},
 	
-	isFullLine(row) {
+	isFullLine: function (row) {
 		for (var i = 0; i < this.lines[row].length; i++) {
 			if(!this.lines[row][i]) {
 				return false;
@@ -148,13 +180,25 @@ var model = {
 		return true;
 	},
 	
-	deleteLine(row) {
+	deleteLine: function (row) {
 		do {
 			this.lines[row] = this.lines[row-1];
 			row--;
 		}while (row >= 1);
 		this.lines[0] = [0, 0, 0, 0, 0, 0, 0];
+	},
+	
+	deleteFigure() {
+		this.figure = new Figure();
+		this.figure.init();
 	}
+	
+	generateFigure() {
+		this.figure = new Figure();
+		this.figure.init();
+	}
+	
+	
 }
 
 
@@ -172,9 +216,10 @@ var controller = {
 	
 	processGuess: function (guess) {
 		var location = this.parseGuess(guess);
-		var hitLog = this.isHit(location);
+		if (location) var hitLog = this.isHit(location);
 		if(location && hitLog) {
 			alert("You already fired in this cell!");
+			debugger;
 		} else if (location) {
 			this.guesses++;
 //			this.hitLog.push(location);
@@ -187,11 +232,16 @@ var controller = {
 		var alphabet = ["A", "B", "C", "D", "E", "F", "G"];
 		
 		if (!guess || guess.length !== 2) {
+			debugger;
 			alert("Oops, please enter a letter and a number on the board.")
 		} else {
 			//перевод буквы в цифру
 			var firstChar = guess.charAt(0);
-			var row = alphabet.indexOf(firstChar);
+			if( isFinite(firstChar) ) {
+				var row = firstChar;
+			} else {
+				var row = alphabet.indexOf(firstChar);
+			}
 			var column = guess.charAt(1);
 			
 			if(!isFinite(row) || !isFinite(column)) {
@@ -215,14 +265,32 @@ var controller = {
 };
 
 
+//Конструктор фигурки тетриса
+//есть координаты фигуры при появлении на экране
+//координаты самих точек
+//функции
+function Figure() {
+	this.row = 0,
+	this.column = 3
+};
 
+Figure.prototype.move = function(direction) {
+	if(direction == "down") {
+		this.row += 1;
+	} else if (direction == "left") {
+		this.column -= 1;
+	} else if (direction == "right") {
+		this.column += 1;
+	} else if (direction == "up") {
+		this.row -= 1;
+	}
+	
+	controller.processGuess("" + this.row + this.column);
+};
 
-//Сделать кнопку "Ещё раз?"
+Figure.prototype.init = function () {
+	controller.processGuess("" + this.row + this.column);
+};
+	
 
-//Сделать модельное окно, после завершения игры со статистикой и кнопкой "Еще раз?"
-
-
-//генерировать всем клеткам динамически номера? (не обязательно)
-
-//Как создаётся объект ships в модели? Свойства hits каждого корабля?
 

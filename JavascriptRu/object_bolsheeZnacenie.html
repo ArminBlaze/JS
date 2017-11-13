@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Свойство с наибольшим значением
+//		важность: 5
+//
+//		Есть объект salaries с зарплатами. Напишите код, который выведет имя сотрудника, у которого самая большая зарплата.
+//
+//		Если объект пустой, то пусть он выводит «нет сотрудников».
+//
+//		Например:
+//
+//		"use strict";
+//
+//		var salaries = {
+//			"Вася": 100,
+//			"Петя": 300,
+//			"Даша": 250
+//		};
+
+		// ... ваш код выведет "Петя"
+		
+		var salaries = {
+			"Вася": 100,
+			"Петя": 300,
+			"Даша": 250
+		};
+		
+		var value = 0;
+		var MVP = "нет сотрудников";
+		
+		for(var name in salaries) {
+			if(salaries[name] > value) {
+				value = salaries[name];
+				MVP = name; 
+			}
+		}
+		
+		console.log(MVP);
+	</script>
+</body>
+</html>

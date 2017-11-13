@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		try {
+			[].indexDf();
+			var display = function (n) {
+				console.log("try " + n);
+			}
+		}
+		
+		catch(x) {
+			[].indexOf();
+			
+			var display = function (n) {
+				console.log("catch " + n);
+			}
+		}
+		
+		display(3);
+	</script>
+</body>
+</html>

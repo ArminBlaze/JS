@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Таймеры</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#demoLinks a { display: block; color: blue }
+	</style>
+	
+	<script type="text/javascript">
+		var w;
+		
+		function openWindow(p){
+			w = open("test_window.html", "x", p);
+			w.blur();
+		}
+		function closeWindow(){
+			w.close();
+		}
+		function focusWindow(){
+			w.focus(); //фокус на окно = переключиться на созданную вкладку
+		}
+		function moveWindow(){
+			w.focus();
+			w.moveTo(100,100); //передвинуть окно
+		}
+		function resizeWindow(){
+			w.focus();
+			w.resizeTo(400,500);
+		}
+		function resizeByWindow(){
+			w.focus();
+			w.resizeBy(20,20);
+		}
+		function moveByWindow(){
+			w.focus();
+			w.moveBy(10,30);
+		}
+
+		
+	</script>
+</head>
+
+<body>
+	<h1>Открытие и закрытие окна</h1>
+	<div id="demoLinks">
+		<a href="javascript:openWindow()">openWindow</a><br/>
+		<a href="javascript:focusWindow()">focusWindow</a><br/>
+		<a href="javascript:closeWindow()">closeWindow</a><br/>
+		<a href="javascript:openWindow('width=300, height=300, top=300, left=300, resizable=no')">openWindow + width/height = 300, top=300, left=300</a><br/>
+		<a href="javascript:moveWindow()">moveTo</a><br/>
+		<a href="javascript:resizeWindow()">resizeTo</a><br/>
+		<a href="javascript:moveByWindow()">moveBy</a><br/>
+		<a href="javascript:resizeByWindow()">resizeBy</a><br/>
+		
+	</div>
+</body>
+</html>

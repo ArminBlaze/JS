@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Поиск узлов в дереве документа</title>
+<style type="text/css">
+html{background:#f93;cursor:default;}
+html, input, button{font:16px calibri, sans-serif;}
+div{margin:0 0 20px;padding:20px;border:5px solid #ffc;}
+p{margin:10px 0;background:#fff;padding:10px;}
+</style>
+
+</head>
+<body>
+<div id="d">
+	<p>Первый параграф</p>
+	<p id="clickable"><a href="javascript:f();">Второй <b>кликабельный</b> параграф</a></p>
+	<p>Третий параграф</p>
+</div>
+<div>
+	<p>Четвертый параграф</p>
+	<p>Пятый параграф</p>
+</div>
+<div>
+	<p>Шестой параграф</p>
+	<p>Седьмой и последний параграф</p>
+</div>
+
+
+<script type="text/javascript">
+	function f() {
+		var p = document.createElement("p");
+		p.appendChild(document.createTextNode("Привет, я текст параграфа"));
+		var strong = document.createElement("strong");
+		strong.appendChild(document.createTextNode("это жирный текст"));
+		
+		var fragment = document.createDocumentFragment();
+		fragment.appendChild(p);
+		fragment.appendChild(strong);
+		
+		
+		var divs = document.body.getElementsByTagName("div");
+		
+		for(var i = 0; i < divs.length; i++) {
+			console.log(divs[i]);
+			divs[i].appendChild(fragment.cloneNode(true));
+		}
+	}
+</script>
+</body>
+</html>

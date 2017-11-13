@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Случайное из интервала (0, max)
+//		важность: 2
+//
+//		Напишите код для генерации случайного значения в диапазоне от 0 до max, не включая max.
+		
+		function max (max) {
+			if(max <= 0) console.log(0);
+			else {
+				var result = Math.floor(Math.random() * max);
+				console.log(result + " max(" + max +")");
+			}
+		}
+		
+		max(5);
+		max(100);
+		max(30);
+	</script>
+</body>
+</html>

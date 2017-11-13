@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		День недели в европейской нумерации
+//		важность: 5
+//
+//		Напишите функцию, getLocalDay(date) которая возвращает день недели для даты date.
+//
+//		День нужно возвратить в европейской нумерации, т.е. понедельник имеет номер 1, вторник номер 2, …, воскресенье – номер 7.
+//
+//		var date = new Date(2012, 0, 3);  // 3 янв 2012
+//		alert( getLocalDay(date) );       // вторник, выведет 2
+//
+//		Открыть песочницу с тестами для задачи.
+		
+		function getLocalDay (date) {
+			var day = date.getDay();
+			
+			if(day == 0) return 7;
+			else return day;
+		}
+		
+		var date = new Date(2012, 0, 3);
+		console.log(date.getDay());
+		console.log(date.toLocaleString("ru", {weekday: 'long'}));
+		alert( getLocalDay(date) );
+	</script>
+</body>
+</html>

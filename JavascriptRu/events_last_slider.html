@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="css/slider_style.css">
+</head>
+
+<body>
+
+  <!-- ваша верстка виджета, ваши стили -->
+
+  
+
+  <div class="slider">
+   	<button class="arrow arrow_left">⇦</button>
+  	<button class="arrow arrow_right">⇨</button>
+    <ul>
+      <li><img src="https://js.cx/carousel/1.png"></li>
+      <li><img src="https://js.cx/carousel/2.png"></li>
+      <li><img src="https://js.cx/carousel/3.png"></li>
+      <li><img src="https://js.cx/carousel/4.png"></li>
+      <li><img src="https://js.cx/carousel/5.png"></li>
+      <li><img src="https://js.cx/carousel/6.png"></li>
+      <li><img src="https://js.cx/carousel/7.png"></li>
+      <li><img src="https://js.cx/carousel/8.png"></li>
+      <li><img src="https://js.cx/carousel/9.png"></li>
+      <li><img src="https://js.cx/carousel/10.png"></li>
+    </ul>
+  </div>
+
+  <script>
+    // этот код помечает картинки цифрами, для удобства разработки
+    // его можно убрать, если не нужен
+    var lis = document.getElementsByTagName('li');
+    for (var i = 0; i < lis.length; i++) {
+      lis[i].style.position = 'relative';
+      var span = document.createElement('span');
+      span.style.cssText = 'position:absolute;left:0;top:0';
+      span.innerHTML = i + 1;
+      lis[i].appendChild(span);
+    }
+  </script>
+
+  <script>
+    // ваш код..
+		var slider = document.querySelector(".slider");
+		var leftArrow = slider.querySelector(".arrow_left");
+		var rightArrow = slider.querySelector(".arrow_right");
+		var ul = slider.querySelector("ul");
+		
+		var imgWidth = 130; //ширина изображения
+		var imgNum = 3; //количество картинок в окне слайдера
+		var margin = 0;
+		var sliderWidth = imgWidth * imgNum; //ширина слайдера
+		var length = (ul.querySelectorAll("li").length - imgNum) * -imgWidth;
+		console.log(length);
+		
+		
+		
+		slider.style.width = sliderWidth + "px";
+		
+		rightArrow.onclick = function () {
+			if(margin > length + sliderWidth ){
+				margin -= sliderWidth;
+				ul.style.marginLeft = margin + "px";
+			} else {
+				margin = length ;
+				ul.style.marginLeft = margin + "px";
+			}
+		};
+		
+		leftArrow.onclick = function () {
+			if(margin <= -sliderWidth){
+				margin += sliderWidth;
+				ul.style.marginLeft = margin + "px";
+			} else {
+				margin = 0;
+				ul.style.marginLeft = margin + "px";
+			}
+		};
+  </script>
+</body>
+
+</html>

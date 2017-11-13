@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Сортировка объектов
+//		важность: 5
+//
+//		Напишите код, который отсортирует массив объектов people по полю age.
+//
+//		Например:
+
+		var vasya = { name: "Вася", age: 23 };
+		var masha = { name: "Маша", age: 18 };
+		var vovochka = { name: "Вовочка", age: 6 };
+		var peka = { name: "Пека"};
+
+		var people = [ vasya , masha , vovochka, peka ];
+
+//		... ваш код ...
+		
+		function sortObjectsInArray (obj1, obj2) {
+//			if(obj1.age && obj2.age) {
+//				return obj1.age - obj2.age;
+//			}
+			
+				return obj1.age - obj2.age;	
+			//Будет NaN, если нет возраста. Но это не повлияет на работу программы
+			
+		}
+		
+		people.sort(sortObjectsInArray);
+
+		// теперь people: [vovochka, masha, vasya]
+		
+		alert(people[0].age) // 6
+		
+		for (var i = 0; i < people.length; i++) {
+			var name = people[i].name;
+			console.log(name);
+		}
+
+//		Выведите список имён в массиве после сортировки.
+	</script>
+</body>
+</html>

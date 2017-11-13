@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Случайный порядок в массиве
+//		важность: 3
+//
+//		Используйте функцию sort для того, чтобы «перетрясти» элементы массива в случайном порядке.
+
+		var arr = [1, 2, 3, 4, 5];
+		
+		function randomSort (a, b) {
+			var value = 0;
+			
+//			do {
+//				value = Math.floor(Math.random() * 3) - 1;
+//			} while (value == 0);
+			
+			value = Math.random() - 0.5;
+			
+			console.log(value);
+			return value;
+		}
+
+		arr.sort(randomSort);
+
+		alert( arr ); // элементы в случайном порядке, например [3,5,1,2,4]
+	</script>
+</body>
+</html>

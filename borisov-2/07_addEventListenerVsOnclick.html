@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		p {
+			padding: 20px;
+			background-color: peachpuff;
+		}
+	</style>
+</head>
+<body>
+
+	<p>Кликнуть здесь 1</p>
+	<p>Кликнуть здесь 2</p>
+	<p>Кликнуть здесь 3</p>
+	
+	
+	<script>
+		var parags = document.querySelectorAll("p");
+		
+		var p1 = parags[0];
+		var p2 = parags[1];
+		
+		p1.onclick = foo;
+		p1.addEventListener("click", foo, false);
+		
+		function foo(event) {
+			console.log(event);
+			console.log(event.target);
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form action="google.com" onsubmit="return foo()">
+		<input type="text" id="input">
+		<input type="submit" value="Отправить">
+	</form>
+	
+	<script>
+		function foo() {
+			alert("Peka");
+			return false;
+		}
+	</script>
+</body>
+</html>

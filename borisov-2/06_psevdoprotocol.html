@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		img {
+			outline: 3px solid lime;
+		}
+	</style>
+</head>
+<body>
+	<a href="#">Css</a>
+	
+	<img src="i/sochi.jpg" alt="">
+	
+	
+	
+	<script>
+		var a = document.links[0];
+		var img = document.images[0];
+//		
+		img.onclick = function (e) { //при вызове обработчик получает "объект события"
+			
+//			var img = e.target; //e - объект события. В свойстве .target хранится объект, вызвавший событие
+//			img.src = name;
+			
+//			e.target.style.border = "3px solid orange";
+			this.style.outline = "3px solid lime";
+			
+//			console.log(this);
+//			console.log(e.target);
+		};
+		
+		img.onmouseout = function (e) {this.style.outline = "";}
+		
+		img.onload = function (e) {this.style.outline = "3px solid red"};
+		
+		img.onerror = function () {
+			alert("Ошибка. Картинка не загрузилась");
+		}
+		
+		a.onfocus = function (e) { //при вызове обработчик получает "объект события"
+			
+			e.target.style.border = "3px solid orange";
+		};
+		
+		a.onblur = function (e) {e.target.style.border = "";}
+		
+//		window.onunload = function(){return "Данные не сохранены. Точно перейти?";};
+		document.body.onbeforeunload = function(){return "bye";};
+	</script>
+</body>
+</html>

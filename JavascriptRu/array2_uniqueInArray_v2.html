@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Оставить уникальные элементы массива
+//		важность: 3
+//
+//		Пусть arr – массив строк.
+//
+//		Напишите функцию unique(arr), которая возвращает массив, содержащий только уникальные элементы arr.
+//
+//		Например:
+		function unique(arr) {
+
+			var uniqArr = [arr[0]];
+
+			for (var i = 1; i < arr.length; i++) {
+				if (uniqArr.indexOf(arr[i]) == -1) {
+					uniqArr.push(arr[i]);
+				}
+			}
+			return uniqArr;
+		}
+
+		var strings = ["кришна", "peka", "кришна", "харе", "харе",
+			"харе", "харе", "кришна", "кришна", "8-()"
+		];
+		
+			for (var i = 0; i < 20; i++) {
+			strings = strings.concat(strings);
+		}
+		
+		console.log(strings.length);
+
+		alert( unique(strings) ); // кришна, харе, 8-()
+	</script>
+</body>
+</html>

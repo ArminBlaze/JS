@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form action="">
+		<input type="text" id="input">
+		
+	</form>
+	
+	<script>
+		var input = document.getElementById("input");
+		
+		input.onselect = function (e) {
+			this.style.outline = "3px solid orange";
+		}
+		
+		input.onchange = function (e) {
+			this.style.outline = "3px solid green";
+		}
+		
+		input.onclick = function (e) {
+			this.style.outline = "";
+		}
+	</script>
+</body>
+</html>

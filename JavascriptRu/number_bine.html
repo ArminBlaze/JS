@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		function fibBinet (n) {
+			var f = (1+Math.sqrt(5)) / 2;
+			
+			var result = Math.round( Math.pow(f, n) / Math.sqrt(5) );
+			console.log(result + " fibBinet(" + n + ")");
+		}
+		
+		function fib(n) {
+			var a = 1,
+				b = 0,
+				x;
+			for (i = 0; i < n; i++) {
+				x = a + b;
+				a = b
+				b = x;
+			}
+			
+			console.log(b + " fib(" + n + ")");
+		}
+		
+		fibBinet(77);
+		fib(77);
+	</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>ddd</title>
+	<meta charset="UTF-8">
+	<style>
+		* {
+			padding: 20px;
+			outline: 1px solid black;
+		}
+	</style>
+	
+	<script type="text/javascript">
+		
+		
+		function showElementTag(obj)
+		{
+			alert(obj.tagName);
+		}
+	</script>	
+</head>
+
+<body onclick="showElementTag(this)">Body
+	<h1 onclick="showElementTag(this)">
+		Всплытие события
+	</h1>
+	<div onclick="showElementTag(this)">Div
+		<h2 onclick="showElementTag(this)">
+			Заголовок
+		</h2>
+		<p onclick="showElementTag(this)">
+			Текст параграфа
+			<strong onclick="showElementTag(this)">
+				Жирный текст
+			</strong>
+		</p>
+	</div>
+</body>
+</html>

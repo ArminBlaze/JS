@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var imagesM = [];
+		
+		for (var i = 0; i < document.images.length; i++) {
+			imagesM.push(document.images[i].currentSrc);
+		}
+		
+		var w = open("", "img");
+		
+		var str = '';
+		
+		for(var j = 0; j < imagesM.length; j++) {
+			str+= '<img src="'+imagesM[j]+'" width="300" height="auto">';
+		}
+		
+		w.document.write(str);
+	</script>
+</body>
+</html>

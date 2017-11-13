@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Создайте дату
+//		важность: 5
+//
+//		Создайте объект Date для даты: 20 февраля 2012 года, 3 часа 12 минут.
+//
+//		Временная зона – местная. Выведите его на экран.
+		
+		var date = new Date("2012-02-20T03:12+03:00");
+		console.log(date.toLocaleString("ru"));
+		console.log(date);
+		
+		var date2 = new Date(2012, 1, 20, 3, 12);
+		console.log(date2);
+	</script>
+</body>
+</html>

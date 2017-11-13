@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		
+		var strings = ["кришна", "peka", "кришна", "харе", "харе",
+				"харе", "харе", "кришна", "кришна", "8-()"
+		];
+		
+		
+		for (var i = 0; i < 20; i++) {
+			strings = strings.concat(strings);
+		}
+		
+		
+		console.log(strings.length);
+		
+		///////////////////////////////
+//		Функция 1
+		///////////////////////////////
+		function peka() {
+			function unique(arr) {
+				/* ваш код */
+
+				var obj = {};
+
+				for (var i = 0; i < arr.length; i++) {
+					obj[arr[i]] = true;
+				}
+
+				return Object.keys(obj);
+			}
+			
+			unique(strings);
+		}
+		
+	
+		
+		
+		///////////////////////////////
+//		Функция 2
+		///////////////////////////////
+		function peka2() {
+			function unique(arr) {
+
+				var uniqArr = [arr[0]];
+
+				for (var i = 1; i < arr.length; i++) {
+					if (uniqArr.indexOf(arr[i]) == -1) {
+						uniqArr.push(arr[i]);
+					}
+				}
+				return uniqArr;
+			}
+			
+			
+			unique(strings);
+		}
+		
+		
+		////////////////////////////////////
+//		Таймер
+		////////////////////////////////////
+		
+		
+		function timer(target) {
+			var start = new Date().getTime();
+			
+			for(var n = 0; n < maxCount; n++) {
+				target();
+			}
+			
+			var elapsed = new Date().getTime() - start;
+			return elapsed;
+		}
+		
+		var start = new Date().getTime();
+		
+		
+		////////////////////////////////////
+//		Количество повторов теста
+		////////////////////////////////////
+		
+		var maxCount = 10;
+		
+		
+		var elapsed1 = timer(peka);
+		////////////////////////////////////////////
+		console.log("Время выполнения варианта 1: " + elapsed1);
+		
+		//////////////////////////////////////////
+		elapsed2 = timer(peka2);
+		console.log("Время выполнения варианта 2: " + elapsed2);
+	
+	</script>
+</body>
+</html>

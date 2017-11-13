@@ -1,0 +1,143 @@
+<!doctype html>
+
+<html>
+<head>
+	<title>Пример простого меню</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		html, body { 
+			margin: 0px; 
+			padding: 0px;
+			position: relative;
+		}
+		
+		h1 { margin-top: 30px }
+		
+		#menu a, #menu li {
+			display: block;
+			font-family: Arial, sans-serif;
+			font-size: 16px;
+			font-weight: bold;
+			text-decoration: none;
+			color: black;
+			border: 1px solid #ddd;						
+		}
+		
+		#menu a:hover, 
+		#menu a:active, 
+		#menu li:hover > a,
+		#menu li:active > a{
+			background-color: #eee;
+			border-color: #999;
+		}		
+		
+		#menu {
+			background-color: #ddd;
+			position: relative;
+			top: 0px;
+			left: 0px;
+			width: 100%;
+			padding: 0;
+			margin: 0;
+			
+		}
+		
+		#menu > li {
+			min-width: 100px;
+			min-height: 100%;
+			display: inline-block;
+			vertical-align: top;
+			border: none;
+			position: relative;
+		}
+		
+		#menu > li a {
+			padding: 10px;
+			cursor: pointer;
+			
+		}
+		
+		.subMenu {
+			width: 150px;
+/*			top: 26px;*/
+			position: absolute;
+			top: 100%;
+			left: 0px;
+			visibility: hidden;
+			padding-top: 10px;
+			padding-left: 10px;
+		}
+		
+		.subMenu a {
+			background-color: #ddd;
+			display: block;
+/*			width: 90%;*/
+			margin: 0px;
+		}
+		
+	</style>
+	<script type="text/javascript">
+		/*
+			1. Оптимизируйте код
+			2. Сделайте так, чтобы выпадающие элементы div не исчезали сразу.	
+		*/
+		
+		/*
+		**	Функция показывает меню с указанным ID
+		*/
+		function showMenu(objID){
+			var obj = document.getElementById(objID);
+			obj.style.visibility = "visible";
+		}
+		/*
+		**	Функция убирает меню с указанным ID
+		*/
+		function hideMenu(objID){
+			var obj = document.getElementById(objID);
+			obj.style.visibility = "";
+		}		
+	</script>
+</head>
+
+<body>
+	
+	<ul id="menu">
+		<li href="#" 
+			onmouseover="showMenu('subMenu1')"
+			onmouseout="hideMenu('subMenu1')"><a href="#">Модуль 1</a>
+				<div id="subMenu1" class="subMenu">
+						<a href="#">Цикл FOR</a>
+						<a href="#">Оператор IF</a>
+						<a href="#">Switch</a>
+				</div>
+		</li>
+		<li href="#" 
+			onmouseover="showMenu('subMenu2')"
+			onmouseout="hideMenu('subMenu2')"><a href="#">Модуль 2</a>
+			<div id="subMenu2" class="subMenu">
+				<a href="#">Array</a>
+				<a href="#">Boolean</a>
+				<a href="#">Date</a>
+				<a href="#">Global</a>
+				<a href="#">Math</a>
+				<a href="#">Number</a>
+			</div>
+		</li>
+		<li href="#" 
+			onmouseover="showMenu('subMenu3')"
+			onmouseout="hideMenu('subMenu3')"><a href="#">Модуль 3</a>
+			<div id="subMenu3" class="subMenu">
+				<a href="#">Document</a>
+				<a href="#">History</a>
+				<a href="#">Location</a>
+				<a href="#">Navigator</a>
+			</div>
+		</li>
+	</ul>
+	<h1>Пример простого меню</h1>
+	
+
+	
+	
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Отфильтровать анаграммы
+//		важность: 3
+//
+//		Анаграммы – слова, состоящие из одинакового количества одинаковых букв, но в разном порядке. Например:
+//
+//		воз - зов
+//		киборг - гробик
+//		корсет - костер - сектор
+//
+//		Напишите функцию aclean(arr), которая возвращает массив слов, очищенный от анаграмм.
+//
+//		Например:
+
+		var arr = ["воз", "киборг", "корсет", "ЗОВ", "гробик", "костер", "сектор"];
+		
+		function aclean(arr) {
+			
+			var obj = {};
+			
+			for (var i = 0; i < arr.length; i++) {
+				var sorted = arr[i].toLowerCase().split("").sort().join("");
+				
+				obj[sorted] = arr[i];
+			}
+			
+			console.log(obj);
+			
+			var result = [];
+			
+			for (prop in obj) {
+				result.push(obj[prop]);
+			}
+			
+			return result;
+		}
+
+		alert( aclean(arr) ); // "воз,киборг,корсет" или "ЗОВ,гробик,сектор"
+
+//		Из каждой группы анаграмм должно остаться только одно слово, не важно какое.
+	</script>
+</body>
+</html>

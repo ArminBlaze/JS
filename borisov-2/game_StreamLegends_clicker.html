@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		
+		function farm() {
+			if(document.querySelector(".srpg-map-nodes-node") && !document.querySelector(".StreamRpgCombat")) {
+				document.querySelector(".srpg-map-nodes-node").click();
+				document.querySelector(".srpg-button").click();
+			} else if (document.querySelector(".srpg-button")) {
+					document.querySelector(".srpg-button").click();
+			}
+		};
+		
+		var timer = setInterval(farm, 500);
+		
+		
+		clearInterval(timer);
+		
+		/////////////////////////////
+		
+		
+		function sellCommon() {
+			if(document.querySelector(".backpack-item-common")) {
+				document.querySelector(".backpack-item-common").click();
+				if(document.querySelector(".srpg-active-item-actions-trash")) {
+					document.querySelector(".srpg-active-item-actions-trash").click();
+				}
+			}
+		}
+		
+		var sellCommonTimer = setInterval(sellCommon, 500);
+		
+		clearInterval(sellCommonTimer);
+			/////////////////////////////
+		
+		
+		function sellUncommon() {
+			if(document.querySelector(".backpack-item-uncommon")) {
+				document.querySelector(".backpack-item-uncommon").click();
+				if(document.querySelector(".srpg-active-item-actions-trash")) {
+					document.querySelector(".srpg-active-item-actions-trash").click();
+					
+					if(document.querySelector(".onboarding-tooltip-container")) {
+						document.querySelector(".onboarding-tooltip-container").querySelector(".btn").click();
+					}
+				}
+			}
+		}
+		
+		var sellUncommonTimer = setInterval(sellUncommon, 500);
+		
+		clearInterval(sellUncommonTimer);
+		
+
+		
+		
+		
+	</script>
+</body>
+</html>

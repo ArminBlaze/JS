@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Как получить дробную часть числа?
+//		важность: 4
+//
+//		Напишите функцию getDecimal(num), которая возвращает десятичную часть числа:
+//
+//		alert( getDecimal(12.345) ); // 0.345
+//		alert( getDecimal(1.2) ); // 0.2
+//		alert( getDecimal(-1.2) ); // 0.2
+//
+//		P.S. Постарайтесь не использовать toFixed
+		
+		function getDecimal (num) {
+			num = Math.abs(num);
+			var numLength = (num + "").length - 1;
+			var integer = Math.floor(num);
+			var integerLength = (integer + "").length;
+			var decimalLength = numLength - integerLength;
+			
+			var result = num - integer; 
+			
+			var pow = Math.pow(10, decimalLength);
+			result = Math.round(result * (pow)) / (pow);
+			console.log("Result: " + result);
+		}
+		
+		getDecimal(12.345) ; // 0.345
+		getDecimal(1.2) ; // 0.2
+		getDecimal(-1.2) ; // 0.2
+		
+//		Ещё вариант 
+//		function getDecimal(x){
+//			let y = Math.abs(x % 1);
+//			return Math.round(y * 1e9) / 1e9;
+//		}
+	</script>
+</body>
+</html>

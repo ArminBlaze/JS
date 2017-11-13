@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Таймеры</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#demoLinks a { display: block; color: blue }
+	</style>
+	
+	<script type="text/javascript">
+		var timer;
+		function demoSetTimeout(){
+			timer = window.setTimeout("alert('setTimeout')", 3000);
+		}
+		function demoClearTimeout(){
+			window.clearTimeout(timer);
+		}
+
+		var interval;
+		function demoSetInterval(){
+			interval = window.setInterval("alert('setInterval')", 3000);
+		}
+		function demoClearInterval(){
+			window.clearInterval(interval);
+		}
+	</script>
+</head>
+
+<body>
+	<h1>Таймеры</h1>
+	<div id="demoLinks">
+		<a href="javascript:demoSetTimeout()">SetTimeout</a><br/>
+		<a href="javascript:demoClearTimeout()">ClearTimeout</a><br/><br/>
+		<a href="javascript:demoSetInterval()">SetInterval</a><br/>
+		<a href="javascript:demoClearInterval()">ClearInterval</a><br/>
+	</div>
+</body>
+</html>

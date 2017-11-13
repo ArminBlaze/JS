@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Функция removeClass
+//		важность: 5
+//
+//		У объекта есть свойство className, которое хранит список «классов» – слов, разделенных пробелами:
+//
+//		var obj = {
+//			className: 'open menu'
+//		};
+//
+//		Напишите функцию removeClass(obj, cls), которая удаляет класс cls, если он есть:
+//
+//		removeClass(obj, 'open'); // obj.className='menu'
+//		removeClass(obj, 'blabla'); // без изменений (нет такого класса)
+//
+//		P.S. Дополнительное усложнение. Функция должна корректно обрабатывать дублирование класса в строке:
+//
+//		obj = {
+//			className: 'my menu menu'
+//		};
+//		removeClass(obj, 'menu');
+//		alert( obj.className ); // 'my'
+//
+//		Лишних пробелов после функции образовываться не должно.
+		
+		var obj = {
+			className: 'open menu data peka peka peka'
+		};
+		
+		function removeClass (obj, cls) {
+			console.log("Удаляем класс: " + cls)
+			cls = cls.trim();
+			
+			if(obj.className) {
+				var arr = obj.className.split(" ");
+			} else {
+				var arr = [];
+			}
+			
+			console.log("Сейчас есть классы: " + arr);
+			
+			while(true) {
+				if(!~arr.indexOf(cls)) {
+					console.log("Такого класса нет.");
+					break;
+				}
+				var pos = arr.indexOf(cls);
+				arr.splice(pos, 1);
+				console.log("Класс " + cls + " удалён.");
+			}
+			
+			obj.className = arr.join(" ");
+			
+			console.log("После удаления остались: " + obj.className + "\n\n");
+		}
+		
+		
+		removeClass(obj, 'open'); // obj.className='menu'
+		removeClass(obj, 'blabla'); // без изменений (нет такого класса)
+		removeClass(obj, 'peka'); // без изменений (нет такого класса)
+	</script>
+</body>
+</html>

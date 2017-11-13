@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Случайное из интервала (min, max)
+//		важность: 2
+//
+//		Напишите код для генерации случайного числа от min до max, не включая max.
+		
+		//Важно учитывать особенности округления, поэтму не подходит Math.round
+		function minMax (min, max) {
+				maxR = (max - min) + 1;
+				var result = Math.floor(Math.random() * maxR) + min;
+				console.log(result + " minMax(" + min + ", " + max +")");
+		}
+		
+		minMax(10, 20)
+		minMax(18, 35)
+	</script>
+</body>
+</html>

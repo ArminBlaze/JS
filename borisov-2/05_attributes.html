@@ -1,0 +1,50 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+	<title>Манипуляция атрибутами элемента</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style>
+		p[align="left"] {
+			background: rgba(0, 128, 0, 0.2);
+		}
+		
+		p[align="right"] {
+			background: rgba(255, 0, 0, 0.19);
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Манипуляция атрибутами элемента</h1>
+	<div>
+		<a href="javascript:changeAttribute()">Изменить атрибут align</a>
+	</div>
+	
+	<p align="left">В этом примере есть несколько параграфов текста</p>
+    <div>
+		<p align="right">Причем эти параграфы находятся на разном уровне</p>
+		<p align="left">Например, некоторые из них вложены в DIV</p>
+		<div>
+			<p align="right">Вложенный P в DIV</p>
+		</div>
+    </div>
+    <p align="left">Это последний параграф</p>
+    
+    
+    <script type="text/javascript">
+		function changeAttribute(){
+			var pars = document.getElementsByTagName("p");
+			
+			for(var i = 0; i < pars.length; i++) {
+				var par = pars[i];
+					if(par.getAttribute("align") == "left") {
+						par.setAttribute("align", "right");
+					} else {
+						par.setAttribute("align", "left");
+					}
+			}
+		}
+	</script>
+</body>
+</html>

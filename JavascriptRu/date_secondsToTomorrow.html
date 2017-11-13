@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Сколько секунд - до завтра?
+//		важность: 5
+//
+//		Напишите функцию getSecondsToTomorrow() которая возвращает, сколько секунд осталось до завтра.
+//
+//		Например, если сейчас 23:00, то:
+//
+//		getSecondsToTomorrow() == 3600
+//
+//		P.S. Функция должна работать в любой день, т.е. в ней не должно быть конкретного значения сегодняшней даты.
+		
+		function getSecondsToTomorrow() {
+			var date = new Date();
+			
+			var date2 = new Date(date);
+			
+			date2.setDate (date2.getDate() + 1);
+			date2.setHours(0,0,0,0);
+			var result = Math.ceil( (date2 - date)/1000 );
+			console.log(result);
+		}
+		
+		getSecondsToTomorrow(); 
+	</script>
+</body>
+</html>

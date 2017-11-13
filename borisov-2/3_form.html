@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Коллекция элементов elements, методы форм reset и submit</title>
+<link rel="stylesheet" type="text/css" href="css/form.css">
+
+</head>
+<body>
+<form action="http://google.ru/search" target="_blank" name="search">
+	<fieldset>
+		<legend>Я ищу</legend>
+		<div class="block">
+			<label><span>Слово</span><input type="text" name="q" value="Уарабей"></label>
+		</div>
+	</fieldset>
+	<fieldset>
+		<legend>Я пишу</legend>
+		<div class="block">
+			<label><span>Слова</span><textarea name="text" id="" cols="30" rows="10"></textarea></label>
+		</div>
+	</fieldset>
+	<div class="block">
+		<button type="button"><a href="javascript:f()">Фокус на инпут</a></button>
+		<button type="button"><a href="javascript:r()">Сбросить</a></button>
+		<button type="button"><a href="javascript:s()">Селект</a></button>
+		<button type="button"><a href="javascript:d()">Нажать</a></button>
+		<button type='submit' name="submit">Submit</button>
+	</div>
+</form>
+
+
+<script type="text/javascript">
+	var form = document.forms["search"];
+	var input = form.q;
+	var text = form.text;
+	
+	function f(){
+		
+		input.focus();
+		input.value = "";
+	}
+	function r(){
+		form.reset();
+	}
+	function s(){
+//		form.submit();
+		input.select();
+	}
+	function d(){
+		//Нажимаем на другой элемент формы, запуская метод click
+		form.submit.click();
+		
+	}
+</script>
+</body>
+</html>

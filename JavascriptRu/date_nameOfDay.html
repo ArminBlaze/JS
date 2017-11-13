@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Имя дня недели
+//		важность: 5
+//
+//		Создайте функцию getWeekDay(date), которая выводит текущий день недели в коротком формате „пн“, „вт“, … „вс“.
+//
+//		Например:
+//
+//		var date = new Date(2012,0,3);  // 3 января 2012
+//		alert( getWeekDay(date) );      // Должно вывести 'вт'
+		
+		function getWeekDay (date) {
+			switch(date.getDay()) {
+				case 0:
+					return "вс";
+					break;
+				case 1:
+					return "пн";
+					break;
+				case 2:
+					return "вт";
+					break;
+				case 3:
+					return "ср";
+					break;
+				case 4:
+					return "чт";
+					break;
+				case 5:
+					return "пт";
+					break;
+				case 6:
+					return "сб";
+					break;
+				default: return "хз";
+					break;
+			}
+		}
+		
+		var date = new Date(2012, 0, 3);
+		
+		alert(getWeekDay(date));
+		
+		var date2 = new Date();
+		
+		alert( date2.toLocaleString("ru", {weekday: "short"}));
+		
+		
+	</script>
+</body>
+</html>

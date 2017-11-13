@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Проверьте спам
+//		важность: 5
+//
+//		Напишите функцию checkSpam(str), которая возвращает true, если строка str содержит „viagra“ или „XXX“, а иначе false.
+//
+//		Функция должна быть нечувствительна к регистру:
+//
+//		checkSpam('buy ViAgRA now') == true
+//		checkSpam('free xxxxx') == true
+//		checkSpam("innocent rabbit") == false
+		
+		function checkSpam (str) {
+			lowStr = str.toLowerCase();
+			
+			if(~lowStr.indexOf("viagra") || ~lowStr.indexOf("xxx")) {
+				return true;
+			}
+			
+			return false;
+		}
+		
+		console.log(checkSpam('buy ViAgRA now'));
+		console.log(checkSpam('free xxxxx'));
+		console.log(checkSpam("innocent rabbit"));
+	</script>
+</body>
+</html>

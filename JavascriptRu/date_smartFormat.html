@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Относительное форматирование даты
+//		важность: 4
+//
+//		Напишите функцию formatDate(date), которая форматирует дату date так:
+//
+//				Если со времени date прошло менее секунды, то возвращает "только что".
+//				Иначе если со времени date прошло менее минуты, то "n сек. назад".
+//				Иначе если прошло меньше часа, то "m мин. назад".
+//				Иначе полная дата в формате "дд.мм.гг чч:мм".
+//
+//		Например:
+//
+//		function formatDate(date) { /* ваш код */ }
+//
+//		alert( formatDate(new Date(new Date - 1)) ); // "только что"
+//
+//		alert( formatDate(new Date(new Date - 30 * 1000)) ); // "30 сек. назад"
+//
+//		alert( formatDate(new Date(new Date - 5 * 60 * 1000)) ); // "5 мин. назад"
+//
+//		alert( formatDate(new Date(new Date - 86400 * 1000)) ); // вчерашняя дата в формате "дд.мм.гг чч:м
+		
+		function formatDate (date) {
+			var now = new Date();
+			
+			var result =  (now - date) / 1000 ;
+			
+			if (result < 1) {
+				return "только что";
+			} else if (result < 60) {
+				return result + " сек. назад";
+			} else if (result < 3600) {
+				return result/60 + " мин. назад";
+			} else {
+				var year = addZero( date.getFullYear() % 100 );
+				var month = addZero( date.getMonth() + 1 );
+				var day = addZero( date.getDate() );
+				var hour = addZero( date.getHours() );
+				var min = addZero( date.getMinutes() );
+				
+				function addZero(n) {
+					return (n < 10) ? "0" + n : n;
+				}
+				
+				return (day + "." + month + "." + year + " " + hour + ":" + min);
+			}
+		}
+		
+		console.log( formatDate(new Date(new Date - 1)) ); // "только что"
+
+		console.log( formatDate(new Date(new Date - 30 * 1000)) ); // "30 сек. назад"
+
+		console.log( formatDate(new Date(new Date - 5 * 60 * 1000)) ); // "5 мин. назад"
+
+		console.log( formatDate(new Date(new Date - 86400 * 1000)) ); // вчерашняя дата в формате "дд.мм.гг
+	</script>
+</body>
+</html>

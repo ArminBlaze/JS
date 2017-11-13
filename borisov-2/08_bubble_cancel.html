@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+	<title>Отмена всплытия</title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		function showElementTag(event)
+		{
+			alert(event.target.tagName);
+			event.stopPropagation();
+		}
+	</script>	
+</head>
+
+<body onclick="showElementTag(event)">
+	<h1 onclick="showElementTag(event)">
+		Всплытие события
+	</h1>
+	<div onclick="showElementTag(event)">
+		<h2 onclick="showElementTag(event)">
+			Заголовок
+		</h2>
+		<p onclick="showElementTag(event)">
+			Текст параграфа
+			<strong onclick="showElementTag(event)">
+				жирный текст
+			</strong>
+		</p>
+	</div>
+</body>
+</html>

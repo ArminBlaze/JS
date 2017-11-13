@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Сумма аргументов
+//		важность: 5
+//
+//		Напишите функцию sum(...), которая возвращает сумму всех своих аргументов:
+//
+//		sum() = 0
+//		sum(1) = 1
+//		sum(1, 2) = 3
+//		sum(1, 2, 3) = 6
+//		sum(1, 2, 3, 4) = 10
+		
+		function sum () {
+			var result = 0;
+			for (var i = 0; i < arguments.length; i++) {
+				result = result + arguments[i];
+			}
+			
+			console.log(result);
+		}
+		
+		sum()// = 0
+		sum(1)// = 1
+		sum(1, 2)// = 3
+		sum(1, 2, 3)// = 6
+		sum(1, 2, 3, 4)// = 10
+	</script>
+</body>
+</html>
