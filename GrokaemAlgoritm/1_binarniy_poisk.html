@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		'use strict';
+		
+		function binarySearch (list, item) {
+			var low = 0;
+			var hight = list.length - 1;
+			
+			while (low <= hight) {
+				var mid = Math.floor( (low + hight) / 2 );
+				var guess = list[mid];
+				
+				if (guess == item) 
+					return mid;
+				if (guess > item) {
+					hight = mid - 1;
+				}
+				else {
+					low = mid + 1;
+				}
+			}
+			
+			return false;
+			
+		}
+		
+		var myList = [1, 3, 5, 7, 9];
+		
+		console.log( binarySearch(myList, 3) ); //должно найти позицию числа 3 в массиве
+		console.log( binarySearch(myList, -1) ); //должно вернуть false
+	</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		var equation = prompt ("Введите выражение", "2*2+1");
+		alert ( eval (equation) ); //это опасно, т.к. посетитель может сделать всё что угодно. Введённую строку нужно проверять регулярками. И удалять всё, кроме цифр, пробелов и мат. операторов.
+	</script>
+</body>
+</html>

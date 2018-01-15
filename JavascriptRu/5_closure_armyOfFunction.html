@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Армия функций
+//		важность: 5
+//
+//		Следующий код создает массив функций-стрелков shooters. По замыслу, каждый стрелок должен выводить свой номер:
+//
+//		function makeArmy() {
+//
+//			var shooters = [];
+//
+//			for (var i = 0; i < 10; i++) {
+//				var shooter = function() { // функция-стрелок
+//					alert( i ); // выводит свой номер
+//				};
+//				shooters.push(shooter);
+//			}
+//
+//			return shooters;
+//		}
+//
+//		var army = makeArmy();
+//
+//		army[0](); // стрелок выводит 10, а должен 0
+//		army[5](); // стрелок выводит 10...
+//		// .. все стрелки выводят 10 вместо 0,1,2...9
+//
+//		Почему все стрелки́ выводят одно и то же? Поправьте код, чтобы стрелки работали как задумано. Предложите несколько вариантов исправления.
+		
+		/////////////////////////////////////
+//		Десять замыканий
+		/////////////////////////////////////
+		
+//		function makeArmy() {
+//
+//			var shooters = [];
+//
+//			for (var i = 0; i < 10; i++) {
+//				
+//				var shooter = function(i) { // функция-стрелок
+//					 // выводит свой номер
+//					return function() {
+//						alert( i );
+//					}
+//				};
+//				shooters.push( shooter(i) );
+//			}
+//
+//			return shooters;
+//		}
+		
+		///////////////////////////////////////////
+//		десять  замыканий
+		///////////////////////////////////////////
+		
+//		function makeArmy() {
+//
+//			var shooters = [];
+//
+//			for (var i = 0; i < 10; i++) {
+//
+//				var shooter = (function(x) {
+//
+//					return function() {
+//						alert( x );
+//					};
+//
+//				})(i);
+//
+//				shooters.push(shooter);
+//			}
+//
+//			return shooters;
+//		}
+		
+		///////////////////////////////////////////
+//		Создаётся 10 функций me. У каждой внутри записано свойство i.
+		///////////////////////////////////////////
+		
+		function makeArmy() {
+
+			var shooters = [];
+
+			for (var i = 0; i < 10; i++) {
+				var shooter = function me() { // функция-стрелок
+					alert( me.i ); // выводит свой номер
+				};
+				shooter.i = i;
+				shooters.push(shooter);
+			}
+
+			return shooters;
+		}
+		
+		////////////////////////////////////////
+//		Создаётся десять анонимных функций, которым передаётся i как аргумент. Получается десять замыканий
+		////////////////////////////////////////
+		
+//		function makeArmy() {
+//
+//			var shooters = [];
+//
+//			for (var i = 0; i < 10; i++) {
+//				(function(i) {
+//					var shooter = function() { // функция-стрелок
+//						alert( i ); // выводит свой номер
+//					};
+//					shooters.push(shooter);
+//				})(i);
+//			}
+//
+//			return shooters;
+//		}
+		
+		////////////////////////////
+//		Через локальную переменную let
+		////////////////////////////
+		
+//		function makeArmy() {
+//			var shooters = [];
+//			for (let i = 0; i < 10; i++) {
+//				var shooter = function() {
+//					alert( i );
+//				};
+//				shooters.push(shooter);
+//			}
+//			return shooters;
+//		}
+
+		var army = makeArmy();
+
+		army[0](); // стрелок выводит 10, а должен 0
+		army[5](); // стрелок выводит 10...
+	</script>
+</body>
+</html>

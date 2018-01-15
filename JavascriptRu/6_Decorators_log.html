@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Логирующий декоратор (1 аргумент)
+//		важность: 5
+//
+//		Создайте декоратор makeLogging(f, log), который берет функцию f и массив log.
+//
+//		Он должен возвращать обёртку вокруг f, которая при каждом вызове записывает («логирует») аргументы в log, а затем передает вызов в f.
+//
+//		В этой задаче можно считать, что у функции f ровно один аргумент.
+//
+//		Работать должно так:
+//
+		function work(a) {
+			/* ... */ // work - произвольная функция, один аргумент
+			return a * a;
+		}
+
+		function makeLogging(f, log) { 
+			/* ваш код */ 
+			return function() {
+				var result = f.apply(this, arguments); // (*)
+
+				log.push(arguments[0]);
+
+				return result;
+			}
+		}
+
+		var log = [];
+		work = makeLogging(work, log);
+		
+		debugger;
+		
+		work(1); // 1, добавлено в log
+		work(5); // 5, добавлено в log
+
+		for (var i = 0; i < log.length; i++) {
+			alert( 'Лог:' + log[i] ); // "Лог:1", затем "Лог:5"
+		}
+		
+		
+	</script>
+</body>
+</html>

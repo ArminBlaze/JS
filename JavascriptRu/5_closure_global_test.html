@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		"use strict";
+		
+		console.log(window.a);
+		function peka (a) {
+			var a = a;
+			var self = this;
+			return function() {
+				console.log(self);
+				console.log(a);
+				var b = 7;
+				
+				return function() {
+					console.log(b);
+				}
+			}
+		}
+		
+		var test = peka(5, 55, {peka: "5", boku: "pika"});
+		var test2 = test();
+		console.log(test2());
+	</script>
+</body>
+</html>

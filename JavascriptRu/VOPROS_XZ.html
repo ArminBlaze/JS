@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		"use strict";
+		
+//		[].push(1,2).unshift(3).join()	//Ошибка. Push возвращает длину массива, а не сам массив
+		
+		//////////////////////////
+		
+		let f = function(x) {
+			alert(x)
+		}
+
+		(function() {
+			f(1)
+		}())
+		
+		//////////////////////////
+		
+		let a = (1,5 - 1) * 2; //Дробные числа через точку! Иначе это перечисление!
+
+		alert(a);
+		
+		//////////////////////////
+		
+		
+	</script>
+</body>
+</html>

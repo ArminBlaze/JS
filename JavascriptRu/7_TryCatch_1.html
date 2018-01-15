@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Eval-калькулятор с ошибками
+//		важность: 5
+//
+//		Напишите интерфейс, который принимает математическое выражение (в prompt) и результат его вычисления через eval.
+//
+//		При ошибке нужно выводить сообщение и просить переввести выражение.
+//
+//		Ошибкой считается не только некорректное выражение, такое как 2+, но и выражение, возвращающее NaN, например 0/0.
+
+		function readPrompt () {
+			debugger;
+			
+			
+				var equation = prompt ("Введите выражение", "2-");
+				
+			if (equation == null) return null;
+			
+				if(!equation || isNaN(eval(equation))) {
+					throw new SyntaxError("Ошибка в данных.");
+				}
+			
+				return eval(equation);
+		}
+		
+		var result;
+		
+		while (result == undefined) {
+			try {
+				result = readPrompt();
+				if(result === null) break;
+				alert ( result ); //это опасно, т.к. посетитель может сделать всё что угодно. Введённую строку нужно проверять регулярками. И удалять всё, кроме цифр, пробелов и мат. операторов.
+			} catch(e) {
+				alert( e.message + " Повторите ввод");
+			}
+		}
+		
+	</script>
+</body>
+</html>

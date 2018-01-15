@@ -1,26 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-</head>
+<html>
+
 <body>
-	<script>
-		function filterRangeInPlace (arr, min, max){
-			var resArr =[];
-			for (var i = 0; i < arr.length; i++) {
-				if (arr[i]>=1&&arr[i]<=4) {
-					resArr.push(arr[i]);
-				}
-			}
-			arr=resArr;
-		}
-		
-		
-		var arr = [5, 3, 8, 1];
+  <script>
+		var timerId = setTimeout(function tick() {
+			alert( "тик" );
+			timerId = setTimeout(tick, 2000);
+		}, 2000);
 
-		filterRangeInPlace(arr, 1, 4); // удалены числа вне диапазона 1..4
-
-		alert( arr );
-	</script>
+		clearTimeout(timerId);
+  </script>
+  
+  1
+  	2 
+  		
+  
 </body>
+
 </html>

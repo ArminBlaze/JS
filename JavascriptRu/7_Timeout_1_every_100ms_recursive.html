@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		function printNumbersInterval() {
+			var i = 0;
+			
+			var timer = setTimeout(function tick() {
+				console.log(i);
+				i++;
+				
+  			
+				
+				if (i <= 20) timer = setTimeout(tick, 100);
+				
+			}, 100)
+		}
+		
+		printNumbersInterval();
+	</script>
+</body>
+</html>

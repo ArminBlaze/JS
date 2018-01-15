@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		function deleteNth(arr, n){
+  	var newArr = [];
+		var tempObj = {};
+
+		for (var i = 0; i < arr.length; i++) {
+			var key = arr[i];
+			tempObj[key] = (tempObj[key] || 0)+1; 
+			if(tempObj[key] > n) arr[i] = undefined;
+		}
+
+//		for (var key in tempObj) {
+//			var repeat = 0;
+//			var pos = 0;
+//
+//			while(true) {
+//				var foundPos = arr.indexOf(+key, pos);
+//				if (foundPos == -1) break;
+//
+//				repeat++;
+//				if(repeat > n) {
+//					arr[foundPos] = undefined;
+//				}
+//
+//				pos = foundPos + 1;
+//			}
+//		}
+
+		newArr = arr.filter( function(item) {
+			return item ? item : false;  //упростить, если будет работать
+		} );
+
+		return newArr;
+	}
+	</script>
+</body>
+</html>

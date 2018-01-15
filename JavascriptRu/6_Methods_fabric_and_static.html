@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Счетчик объектов
+//		важность: 5
+//
+//		Добавить в конструктор Article:
+//
+//				Подсчёт общего количества созданных объектов.
+//				Запоминание даты последнего созданного объекта.
+//
+//		Используйте для этого статические свойства.
+//
+//		Пусть вызов Article.showStats() выводит то и другое.
+//
+//		Использование:
+//
+//
+//
+
+		function Article() {
+			this.created = new Date();
+			
+			Article.numberOfCreated++;
+			
+			Article.lastDate = this.created;
+			// ... ваш код ...
+		}
+		
+		Article.numberOfCreated = 0;
+		
+		Article.showStats = function () {
+			alert ('Всего: ' +this.numberOfCreated + ", Последняя: " + this.lastDate);
+		};
+
+		new Article(127);
+		new Article(555555555555);
+
+		Article.showStats(); // Всего: 2, Последняя: (дата)
+
+		new Article(8888888888);
+
+		Article.showStats(); // Всего: 3, Последняя: (дата)
+		
+		
+	</script>
+</body>
+</html>

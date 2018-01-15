@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Строковый буфер с очисткой
+//		важность: 5
+//
+//		Добавьте буферу из решения задачи Функция - строковый буфер метод buffer.clear(), который будет очищать текущее содержимое буфера:
+//
+//		function makeBuffer() {
+//			...ваш код...
+//		}
+//
+//		var buffer = makeBuffer();
+//
+//		buffer("Тест");
+//		buffer(" тебя не съест ");
+//		alert( buffer() ); // Тест тебя не съест
+//
+//		buffer.clear();
+//
+//		alert( buffer() ); // ""
+		
+		function makeBuffer () {
+			var str = "";
+			
+			function buffer(word) {
+				if(arguments.length == 0) {
+					return str;
+				} else {
+					word = "" + word;
+					str += word;
+				}
+			}
+			
+			buffer.clear = function () {
+				str = "";
+			}
+			
+			return buffer;
+		}
+		
+	</script>
+</body>
+</html>
