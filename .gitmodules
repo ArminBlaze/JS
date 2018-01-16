@@ -1,3 +1,6 @@
 [submodule "code-and-magic"]
 	path = code-and-magic
 	url = https://github.com/ArminBlaze/code-and-magic/
+[submodule "keksobooking-2"]
+	path = keksobooking-2
+	url = https://github.com/ArminBlaze/keksobooking-2/
