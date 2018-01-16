@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		function Animal () {
+			this.eat = true;
+			this.walk = true;
+			this.boom = function() {
+				alert("Boom!");
+			};
+		}
+		
+		function Rabbit (color) {
+			this.jump = true;
+		}
+		
+		Rabbit.__proto__ = new Animal();
+		
+		var blueRabbit = new Rabbit();
+		
+		
+	</script>
+</body>
+</html>

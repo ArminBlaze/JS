@@ -1,0 +1,3 @@
+[submodule "code-and-magic"]
+	path = code-and-magic
+	url = https://github.com/ArminBlaze/code-and-magic/
