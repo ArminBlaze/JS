@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<style>
+    table {
+      border-collapse: collapse;
+    }
+
+    td,
+    th {
+      border: 1px solid black;
+      padding: 3px;
+      text-align: center;
+    }
+
+    th {
+      font-weight: bold;
+      background-color: #E6E6E6;
+    }
+  </style>
+</head>
+<body>
+<div id="calendar"></div>
+
+	<script>
+//		Создать календарь в виде таблицы
+//		важность: 4
+//
+//		Напишите функцию, которая умеет генерировать календарь для заданной пары (месяц, год).
+//
+//		Календарь должен быть таблицей, где каждый день – это TD. У таблицы должен быть заголовок с названиями дней недели, каждый день – TH.
+//
+//		Синтаксис: createCalendar(id, year, month).
+//
+//		Такой вызов должен генерировать текст для календаря месяца month в году year, а затем помещать его внутрь элемента с указанным id.
+//
+//		Например: createCalendar("cal", 2012, 9) сгенерирует в <div id=„cal“></div> следующий календарь:
+		
+		function createCalendar(id, year, month) {
+      var elem = document.getElementById(id);
+      // ... ваш код, который генерирует в elem календарь
+			
+			var date = new Date(year, month-1);
+			
+			var day1 = date.getDay(); //день недели первого дня
+			if(day1 == 0) day1 = 7; //воскресенье - седьмой день
+			
+			console.log(date);
+			console.log(day1);
+			
+			var dayInMonth = new Date(year, month); 
+			
+			dayInMonth.setDate(0);	//получаем последний день месяца
+			dayInMonth = dayInMonth.getDate(); //сколько дней в месяце
+			
+			console.log(dayInMonth);
+			
+			//генерируем таблицу
+			
+			var table = document.createElement('table');
+			
+			var firstTr = document.createElement('tr');
+			
+//			generateFirstRow(firstTr); //отдельная функция для первой строки дней недели
+			
+			var str = "<tr><th>пн</th><th>вт</th><th>ср</th><th>чт</th><th>пт</th><th>сб</th><th>вс</th>";
+			firstTr.innerHTML = str;
+			
+			table.appendChild(firstTr);
+			
+			//теперь генерируем сам календарь
+		
+			var numberOfRows = Math.ceil( (dayInMonth + (day1 - 1)) / 7 );
+			console.log(numberOfRows);
+			
+			//генерируем пустой календарь
+			for(var j = 0; j < numberOfRows; j++) {
+				var row = document.createElement('tr');
+					for (var i = 1; i < 8; i++) {
+						var th = document.createElement('td');
+						row.appendChild(th);
+					}
+				table.appendChild(row);
+			}
+			
+			//заполняем календарь
+			var rowIndex = 1;
+			var cellIndex = 0;
+			
+			for(var j = 1; j < dayInMonth+1; j++) {
+				if(cellIndex > 6) {
+					rowIndex += 1;
+					cellIndex = 0;
+				}
+				
+				if(j == 1) {
+					cellIndex = day1-1;
+				}
+				
+				if(rowIndex >= table.rows.length) break;
+				
+				table.rows[rowIndex].cells[cellIndex].innerHTML = j;
+				cellIndex++;
+			}
+			
+			elem.appendChild(table);
+    }
+		
+
+    createCalendar('calendar', 2018, 2);
+	</script>
+</body>
+</html>

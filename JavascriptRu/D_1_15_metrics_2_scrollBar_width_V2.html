@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<style>
+	
+	</style>
+</head>
+<body>
+
+	<h1>Измерим ширину полосы прокрутки создав новый элемент</h1>
+	<h2>Ширина полосы прокрутки зависит от масштаба в браузере</h2>
+	<button type="button" id="button1">Создать элемент шириной 59px</button> Ширина полосы прокрутки равна: <span id="text1">0</span>
+	<button type="button" id="button2">Создать элемент шириной 60px</button> Ширина полосы прокрутки равна: <span id="text2">0</span>
+	
+	
+	
+
+	<script>
+//		Узнать ширину полосы прокрутки
+//		важность: 3
+//
+//		Напишите код, который возвращает ширину стандартной полосы прокрутки. Именно самой полосы, где ползунок. Обычно она равна 16px, в редких и мобильных браузерах может колебаться от 14px до 18px, а кое-где даже равна 0px.
+//
+//		P.S. Ваш код должен работать на любом HTML-документе, независимо от его содержимого.
+		
+		
+		
+		
+	var button = document.getElementById('button1');
+	var span = document.getElementById('text1');
+		
+		button.onclick = function() {
+			var div = document.createElement('div');
+			
+			//нельзя указывать слишком маленькую высоту дива (30), иначе в фаерфоксе не создастся полоса прокрутки
+			div.style.cssText = 
+				"width: 59px;\
+				height: 50px;\
+//				position: fixed;\
+				overflow-y: scroll;";
+			
+			document.body.appendChild(div);
+			span.innerHTML = div.offsetWidth - div.clientWidth;
+			console.log(div.offsetWidth);
+			console.log(div.clientWidth);
+			
+			document.body.removeChild(div);
+		};	
+		
+	var button2 = document.getElementById('button2');
+	var span2 = document.getElementById('text2');
+		
+		button2.onclick = function() {
+			var div = document.createElement('div');
+			
+			//нельзя указывать слишком маленькую высоту дива (30), иначе в фаерфоксе не создастся полоса прокрутки
+			div.style.cssText = 
+				"width: 60px;\
+				height: 50px;\
+//				position: fixed;\
+				padding: 0;\
+				overflow-y: scroll;";
+			
+			document.body.appendChild(div);
+			span2.innerHTML = div.outerWidth - div.innerWidth;
+			console.log(div.outerWidth);
+			console.log(div.innerWidth);
+			
+			document.body.removeChild(div);
+		};
+	</script>
+</body>
+</html>

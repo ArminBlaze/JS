@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <style>
+    #field {
+      width: 200px;
+      border: 10px groove black;
+      background-color: #00FF00;
+      position: relative;
+    }
+
+    #ball {
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div id="field">
+    <img src="https://js.cx/clipart/ball.svg" width="40" height="40" id="ball"> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+  </div>
+
+
+
+	<script>
+//		Поместите мяч в центр поля.
+		
+//		Высота и ширина изображения неизвестны браузеру до тех пор, пока оно не загрузится, если размер не указан явно.
+//
+//После первой загрузки изображение уже будет в кеше браузера, и его размеры будут известны. Но когда браузер впервые видит документ – он ничего не знает о картинке, поэтому значение ball.offsetWidth равно 0. Вычислить координаты невозможно.
+//
+//Чтобы это исправить, добавим width/height к картинке:
+		
+		var field = document.getElementById('field');
+		var ball = document.getElementById('ball');
+		
+		ball.style.left = field.clientWidth/2 - ball.offsetWidth/2  + "px";
+		ball.style.top = field.clientHeight/2 - ball.offsetHeight/2  + "px";
+	</script>
+</body>
+
+</html>

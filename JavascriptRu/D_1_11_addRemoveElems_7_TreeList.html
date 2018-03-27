@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+<div id="container"></div>
+
+	<script>
+//		Создайте дерево из объекта
+//		важность: 5
+//
+//		Напишите функцию, которая создаёт вложенный список UL/LI (дерево) из объекта.
+
+
+		var data = {
+			"Рыбы": {
+				"Форель": {},
+				"Щука": {}
+			},
+			
+			"Peka": null,
+
+			"Деревья": {
+				"Хвойные": {
+					"Лиственница": {},
+					"Ель": {}
+				},
+				"Цветковые": {
+					"Берёза": {},
+					"Тополь": {}
+				}
+			}
+		};
+		
+		
+		
+		//		Создать строку, а затем присвоить через container.innerHTML.
+		
+		function createTree (parent, obj) {
+			var str = "";
+			
+			createList(obj);
+
+			
+			function createList (obj) {
+				str += "<ul>";
+				for (prop in obj) {
+					if(typeof obj[prop] == "object" && obj[prop] !== null) {
+						console.log("Это свойство объект: " + prop);
+						str += "<li>" + prop;
+						createList(obj[prop]);
+						str += "</li>";
+					}
+				}
+				str += "</ul>";
+			}
+			
+			parent.innerHTML = str;
+		}
+
+
+
+		var container = document.getElementById('container');
+		createTree(container, data); // создаёт
+	</script>
+</body>
+</html>

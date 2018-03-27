@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<style>
+		#box {
+			width: 50px;
+			height: 50px;
+/*			border: 1px solid black;*/
+			overflow: auto;
+		}
+	</style>
+</head>
+<body>
+<div id="box">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis aspernatur beatae maxime natus odio magni autem non eos, accusantium aperiam. Ab provident hic itaque odit, laborum, blanditiis eligendi ipsa repudiandae numquam odio veniam aliquam sequi magni cum labore facilis corporis mollitia fugiat recusandae accusamus laboriosam repellat! Pariatur ratione odio asperiores dolorem alias autem laboriosam nulla fugiat quam nisi, sequi reprehenderit eligendi expedita temporibus tempore animi earum culpa id praesentium deleniti illo, quis voluptatem! Possimus enim excepturi, minus repudiandae repellat tempora dolorem deleniti laudantium voluptas quam fugiat culpa necessitatibus optio exercitationem expedita ipsum, asperiores obcaecati maiores, voluptates quasi, pariatur quibusdam neque.</div>
+	
+	<button type="button" id="button1">scrollWidth</button> <span id="text1">0</span>
+	<button type="button" id="button2">scrollWidth</button> <span id="text2">0</span>
+	
+
+	<script>
+//		Узнать ширину полосы прокрутки
+//		важность: 3
+//
+//		Напишите код, который возвращает ширину стандартной полосы прокрутки. Именно самой полосы, где ползунок. Обычно она равна 16px, в редких и мобильных браузерах может колебаться от 14px до 18px, а кое-где даже равна 0px.
+//
+//		P.S. Ваш код должен работать на любом HTML-документе, независимо от его содержимого.
+		
+		var div = document.getElementById('box');
+		var button = document.getElementById('button1');
+		var span = document.getElementById('text1');
+		
+		button.onclick = function() {
+			span.innerHTML = Math.round( div.offsetWidth - div.clientLeft * 2 - div.clientWidth );
+		};
+		
+		
+
+//		Узнать ширину полосы прокрутки
+//		важность: 3
+//
+//		Напишите код, который возвращает ширину стандартной полосы прокрутки. Именно самой полосы, где ползунок. Обычно она равна 16px, в редких и мобильных браузерах может колебаться от 14px до 18px, а кое-где даже равна 0px.
+//
+//		P.S. Ваш код должен работать на любом HTML-документе, независимо от его содержимого.
+		
+		
+	var button2 = document.getElementById('button2');
+	var span2 = document.getElementById('text2');
+		
+		button2.onclick = function() {
+			var div = document.createElement('div');
+			
+			//нельзя указывать слишком маленькую высоту дива (30), иначе в фаерфоксе не создастся полоса прокрутки
+			div.style.cssText = 
+				"width: 50px;\
+				height: 50px;\
+				position: fixed;\
+				overflow-y: scroll;";
+			
+			document.body.appendChild(div);
+			span2.innerHTML = div.offsetWidth - div.clientWidth;
+			console.log(div.offsetWidth);
+			console.log(div.clientWidth);
+			
+//			document.body.removeChild(div);
+		};
+	</script>
+</body>
+</html>

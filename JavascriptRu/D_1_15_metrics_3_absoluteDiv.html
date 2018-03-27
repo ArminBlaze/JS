@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <style>
+    #moving-div {
+      border: 5px groove green;
+      background-color: yellow;
+      padding: 5px;
+      margin: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  Before Before Before
+
+  <div id="moving-div">
+    Text Text Text
+    <br> Text Text Text
+    <br>
+  </div>
+
+  After After After
+
+  <script>
+    // .. Add your code here
+
+    var div = document.getElementById('moving-div');
+    div.style.position = 'absolute';
+    div.style.right = div.style.top = 0;
+		
+		var div2 = document.createElement('div');
+		div2.style.height = div.offsetHeight + "px";	//получаем высоту первого дива
+		
+		var computedStyle = getComputedStyle(div);	//получаем маргин первого дива
+		div2.style.marginTop = computedStyle.marginTop;
+		div2.style.marginBottom = computedStyle.marginBottom;
+		
+		div.parentElement.insertBefore(div2, div);
+  </script>
+
+</body>
+
+</html>

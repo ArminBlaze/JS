@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		function Animal(name) {
+			this.name = name;
+			this.speed = 0;
+		}
+
+		Animal.prototype.run = function(speed) {
+			this.speed += speed;
+			alert( this.name + ' бежит, скорость ' + this.speed );
+		};
+
+		Animal.prototype.stop = function() {
+			this.speed = 0;
+			alert( this.name + ' стоит' );
+		};
+
+		
+		function Rabbit(name) {
+			this.name = name;
+			this.speed = 0;
+		}
+		
+		Rabbit.prototype = new Animal();
+
+		Rabbit.prototype.jump = function() {
+			this.speed++;
+			alert( this.name + ' прыгает' );
+		};
+
+		var rabbit = new Rabbit('Кроль');
+	</script>
+</body>
+</html>

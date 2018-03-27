@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<style>
+		.box {
+			width: 300px;
+			height: 300px;
+			overflow: auto;
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+<div class="box">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, quas temporibus inventore natus ea doloribus voluptatem voluptate similique possimus, officia quae magni quod vel illo saepe laboriosam. Temporibus culpa veritatis recusandae exercitationem ex ullam eveniet officia, at velit ab dolorum incidunt tenetur quos mollitia assumenda similique ipsam neque nobis iure animi excepturi dicta sapiente, odit adipisci! Dolore veniam eligendi quibusdam ipsum maxime, consequuntur possimus tempore aliquid repudiandae rerum ipsam fugiat eveniet iure provident nemo aliquam fuga soluta recusandae praesentium culpa deserunt tenetur. Quisquam neque placeat, odit dicta quaerat explicabo alias vitae a harum facilis hic vel dolorum ipsam libero commodi sapiente ipsum odio molestias excepturi nemo, quis! Atque neque, architecto molestiae, dolores eligendi et ipsum nostrum distinctio quo commodi explicabo. Esse corrupti magnam, quam nemo libero incidunt rerum minima officiis saepe veritatis aliquid vel fugiat quo atque! Delectus reiciendis voluptate omnis voluptatibus repellat fugiat ad ducimus eaque, amet cupiditate nobis minus nesciunt veritatis. Et accusantium sint aliquam eum alias fugit ab consectetur ex recusandae? Soluta, dolore. Dolorem est veniam minima omnis eaque quidem tempora reprehenderit blanditiis nisi impedit. Eveniet error cum minima voluptas optio libero, in et, sequi suscipit, id quasi! Architecto quasi optio consectetur ea, ullam incidunt recusandae veritatis, nisi eum voluptas? Doloribus eius recusandae iusto ullam expedita culpa minima ab optio dignissimos, nesciunt dolores ipsum dolorem accusantium cumque delectus voluptate est quasi ratione eaque officia rerum veniam enim. In earum illum nihil labore saepe ratione mollitia perspiciatis numquam odio, recusandae dolorum aspernatur ullam voluptates laboriosam praesentium vel unde accusantium accusamus, ex omnis quas. Aut officiis provident facere sapiente sequi, aliquid fugiat dicta mollitia. Assumenda nesciunt fugiat porro autem debitis voluptates expedita, consequuntur architecto ducimus sint, pariatur, illo ex eaque, modi. Porro sunt ducimus reiciendis, magnam necessitatibus esse enim earum omnis quas! Minima, beatae vero dolor maxime quaerat magni.</div>
+
+<button type="button" id="scroll">Scroll</button> <span id="text1"></span> <br>
+<button type="button" id="scrollBottom">ScrollBottom</button> <span id="text2"></span>
+	<script>
+//		Найти размер прокрутки снизу
+//		важность: 5
+//
+//		Свойство elem.scrollTop содержит размер прокрученной области при отсчете сверху. А как подсчитать размер прокрутки снизу?
+//
+//		Напишите соответствующее выражение для произвольного элемента elem.
+//
+//		Проверьте: если прокрутки нет вообще или элемент полностью прокручен – оно должно давать ноль.
+//		
+		var div = document.querySelector('.box');
+		var button = document.getElementById('scroll');
+		var button2 = document.getElementById('scrollBottom');
+		
+		
+		button.onclick = function() {
+			document.getElementById('text1').innerHTML = Math.round( div.scrollTop );
+		}
+		button2.onclick = function() {
+			document.getElementById('text2').innerHTML = Math.round( div.scrollHeight - div.scrollTop - div.clientHeight );
+		}
+	</script>
+</body>
+</html>

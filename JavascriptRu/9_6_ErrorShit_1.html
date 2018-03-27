@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Унаследуйте от SyntaxError
+//		важность: 5
+//
+//		Создайте ошибку FormatError, которая будет наследовать от встроенного класса SyntaxError.
+//
+//		Синтаксис для её создания – такой же, как обычно:
+//
+//		var err = new FormatError("ошибка форматирования");
+//
+//		alert( err.message ); // ошибка форматирования
+//		alert( err.name ); // FormatError
+//		alert( err.stack ); // стек на момент генерации ошибки
+//
+//		alert( err instanceof SyntaxError ); // true
+		
+		
+		function FormatError(message) {
+			this.name = "FormatError";
+			this.message = message;
+			SyntaxError.call(this, message) ;
+
+			if (Error.captureStackTrace) {
+				Error.captureStackTrace(this, this.constructor);
+			} else {
+				this.stack = (new Error()).stack;
+			}
+		}
+		
+		FormatError.prototype = Object.create(SyntaxError.prototype);
+		FormatError.prototype.constructor = FormatError;
+		
+		
+		var err = new FormatError("ошибка форматирования");
+
+		alert( err.message ); // ошибка форматирования
+		alert( err.name ); // FormatError
+		alert( err.stack ); // стек на момент генерации ошибки
+
+		alert( err instanceof SyntaxError ); // true
+	</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style type="text/css" media="all">
+		
+    button {
+    	cursor: pointer;
+			border: none;
+			background-color: transparent;
+			outline: none;
+  	}
+  
+		.menu ul {
+			display: none;
+			margin: 0;
+			list-style: none;
+		}
+
+		.menu.opened ul {
+			display: block;
+		}
+
+		button:before {
+			color: green;
+			content: "▶ ";
+			display: inline-block;
+			min-width: 23px;
+			line-height: 25px;
+			padding-right: 5px;
+		}
+
+		.menu.opened button:before {
+			content: "▼ ";
+		}
+  </style>
+  
+</head>
+
+<body>
+
+ <div id="sweets" class="menu">
+  	<button type="button">Сладости (нажми меня)!</button>
+  	<ul>
+  	  <li>Торт</li>
+  	  <li>Пончик</li>
+  	  <li>Пирожное</li>
+  	</ul>
+  </div>
+
+<script type="text/javascript" charset="utf-8">
+//  var ul = document.body.querySelector('ul');
+//  var button = document.body.querySelector('button');
+	
+	var menu = document.getElementById("sweets");
+	
+	var button = menu.querySelector('button');
+  
+  
+  button.onclick = function() {
+    menu.classList.toggle("opened");
+  }
+</script>
+</body>
+
+</html>

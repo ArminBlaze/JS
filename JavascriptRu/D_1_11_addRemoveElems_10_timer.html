@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+
+<body>
+
+
+	<input type="button" onclick="clockStart()" value="Start">
+  
+
+  <input type="button" onclick="clockStop()" value="Stop">
+
+	<script>
+		var clock = document.createElement('div');
+		clock.id = "clock";
+		document.body.insertBefore(clock, document.body.firstElementChild);
+		
+		clock.innerHTML = 
+"<span class='clock__hours' style='color: red;'>00</span>\
+:<span class='clock__minutes' style='color: green;'>00</span>\
+:<span class='clock__seconds' style='color: blue;'>00</span>";
+		
+		var hoursSpan = document.body.querySelector(".clock__hours");
+		var minutesSpan = document.body.querySelector(".clock__minutes");
+		var secondsSpan = document.body.querySelector(".clock__seconds");
+		
+		var timer;
+		
+		function clockStart () {
+			tick();
+			
+			timer = setInterval(function() {
+				tick();
+			}, 1000);
+		}
+		
+		function clockStop () {
+			clearInterval(timer);
+		}
+			
+//		('0' + date.getHours()).slice(-2);
+		function tick () {
+			var date = new Date();
+
+			var hours = ('0' + date.getHours()).slice(-2);
+			var minutes = ('0' + date.getMinutes()).slice(-2);
+			var seconds = ('0' + date.getSeconds()).slice(-2);
+
+			hoursSpan.textContent = hours;
+			minutesSpan.textContent = minutes;
+			secondsSpan.textContent = seconds;
+		}
+	</script>
+</body>
+</html>

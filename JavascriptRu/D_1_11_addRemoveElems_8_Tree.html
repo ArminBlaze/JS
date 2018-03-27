@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+  <ul>
+    <li>Животные
+      <ul>
+        <li>Млекопитающие
+          <ul>
+            <li>Коровы</li>
+            <li>Ослы</li>
+            <li>Собаки</li>
+            <li>Тигры</li>
+          </ul>
+        </li>
+        <li>Другие
+          <ul>
+            <li>Змеи</li>
+            <li>Птицы</li>
+            <li>Ящерицы</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Рыбы
+      <ul>
+        <li>Аквариумные
+          <ul>
+            <li>Гуппи</li>
+            <li>Скалярии</li>
+          </ul>
+
+        </li>
+        <li>Морские
+          <ul>
+            <li>Морская форель</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  
+  
+  
+	<script>
+//		Дерево
+//		важность: 5
+//
+//		Есть дерево, организованное в виде вложенных списков <ul>/<li>.
+//
+//		Напишите код, который добавит каждому элементу списка <li> количество вложенных в него элементов. Узлы нижнего уровня, без детей – пропускайте.
+		
+		var ul = document.body.firstElementChild;
+		console.log(ul);
+		
+		function markLis (parent) {
+			var lis = parent.getElementsByTagName('li');
+			
+			for (var i = 0, length = lis.length; i < length; i++) {
+//				lis[i].textContent += "[]";
+				var numberOfChilds = lis[i].getElementsByTagName('li').length;
+				
+				if(!numberOfChilds) continue;
+				
+				var text = document.createTextNode("[" + numberOfChilds + "]");
+				lis[i].insertBefore(text, lis[i].firstChild.nextSibling);
+			}
+			
+		}
+		
+		markLis(ul);
+	</script>
+</body>
+</html>

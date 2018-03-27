@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Добавить функциям defer с аргументами
+//		важность: 4
+//
+//		Добавьте всем функциям в прототип метод defer(ms), который возвращает обёртку, откладывающую вызов функции на ms миллисекунд.
+//
+//		Например, должно работать так:
+//
+//		function f(a, b) {
+//			alert( a + b );
+//		}
+//
+//		f.defer(1000)(1, 2); // выведет 3 через 1 секунду.
+//
+//		То есть, должны корректно передаваться аргументы.
+		
+		
+		
+		
+		
+		Function.prototype.defer = function(ms) {
+			var self = this;
+			
+			return function(a, b) {
+				var args = arguments;
+				setTimeout(function() {
+					self.apply(self, args)
+				}, ms);
+			}
+		};
+		
+		function f(a, b) {
+			alert( a + b );
+		}
+
+		f.defer(1000)(1, 2); // выведет 3 через 1 секунду.
+	</script>
+</body>
+</html>

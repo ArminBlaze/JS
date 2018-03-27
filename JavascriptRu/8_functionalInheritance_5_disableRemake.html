@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Переопределите disable
+//		важность: 5
+//
+//		Переопределите метод disable холодильника, чтобы при наличии в нём еды он выдавал ошибку.
+
+
+
+
+		
+		function Machine(power) {
+			this._power = power;
+			this._enabled = false;
+
+			var self = this;
+
+			this.enable = function() {
+				self._enabled = true;
+			};
+
+			this.disable = function() {
+				self._enabled = false;
+			};
+		}
+		
+		
+		
+		function Fridge(power) {
+			Machine.apply(this, arguments);
+
+			var food = [];
+			var maxFood = power / 100;
+
+			this.addFood = function() {
+//				console.log("MaxFood = " + maxFood);
+				if (!this._enabled) {
+					alert("Сначала нужно включить холодильник!");
+					return;
+				}
+				
+				if ( (food.length + arguments.length) > maxFood ) {
+					alert("Столько еды не поместится!");
+					return;
+				}
+				
+				if(arguments.length) {
+					var args = [].slice.call(arguments);
+					food = food.concat(args);
+					console.log(food);
+				}
+				
+			};
+
+			this.getFood = function() {
+				return food.slice();
+			};
+			
+			this.removeFood = function(item) {
+				
+				if(typeof item == "string") {
+					remove(item);
+				} else if (typeof item == "object") {
+					remove(item.title);
+				}
+				
+				function remove(item) {
+					var pos = food.indexOf(item);
+					if(pos != -1) food.splice(pos, 1);
+				}
+				
+			}
+			
+			this.filterFood = function(func) {
+				return food.filter(func);
+			};
+			
+			//переопределяем disable. Если в холодильнике есть еда - его нельзя выключить
+			var parentDisable = this.disable;
+			this.disable = function() { 
+				if(food.length) {
+					alert("Нельзя выключить холодильник, в нём есть еда!");
+					return;
+				} 
+				
+				parentDisable.call(this); 
+			}
+
+		}
+		
+		
+		
+//		Код для проверки:
+
+		var fridge = new Fridge(500);
+		fridge.enable();
+		fridge.addFood("кус-кус");
+		fridge.disable(); // ошибка, в холодильнике есть еда
+	</script>
+</body>
+</html>

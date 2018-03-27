@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+<div id="container"></div>
+
+	<script>
+//		Создайте дерево из объекта
+//		важность: 5
+//
+//		Напишите функцию, которая создаёт вложенный список UL/LI (дерево) из объекта.
+
+		var data = {
+			"Рыбы": {
+				"Форель": {},
+				"Щука": {}
+			},
+			
+			"Peka": null,
+
+			"Деревья": {
+				"Хвойные": {
+					"Лиственница": {},
+					"Ель": {}
+				},
+				"Цветковые": {
+					"Берёза": {},
+					"Тополь": {}
+				}
+			}
+		};
+		
+		
+		
+		
+//		Создавать узлы через методы DOM.
+		
+		function createTree (parent, obj) {
+			var ul = document.createElement('ul');
+			parent.appendChild(ul);
+			
+				for (prop in obj) {
+					if(typeof obj[prop] == "object" && obj[prop] !== null) {
+						console.log("Это свойство объект: " + prop);
+//						Создать ЛИ с текстом prop
+//						Рекурсия с ЛИ родителем
+						var li = document.createElement('li');
+						li.textContent = prop;
+						ul.appendChild(li);
+						
+						if(isEmptyObject(obj[prop])) {
+							continue; //если пустой объект - не создаём пустой список внутри li
+						}
+						
+						createTree(li ,obj[prop]);
+					}
+				}
+		}
+		
+		function isEmptyObject(obj) {
+			for (var i in obj) {
+					if (obj.hasOwnProperty(i)) {
+							return false;
+					}
+			}
+			return true;
+		}
+
+
+
+		var container = document.getElementById('container');
+		createTree(container, data); // создаёт
+	</script>
+</body>
+</html>

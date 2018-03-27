@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+<table>
+	<tr>
+		<th>Имя</th>
+		<th>Фамилия</th>
+		<th>Отчество</th>
+		<th onclick="ageSort()">Возраст</th>
+	</tr>
+	<tr>
+		<td>Вася</td>
+		<td>Петров</td>
+		<td>Александрович</td>
+		<td>10</td>
+	</tr>
+	<tr>
+		<td>Петя</td>
+		<td>Иванов</td>
+		<td>Петрович</td>
+		<td>15</td>
+	</tr>
+	<tr>
+		<td>Владимир</td>
+		<td>Ленин</td>
+		<td>Ильич</td>
+		<td>9</td>
+	</tr>
+</table>
+
+	<script>
+//		Отсортировать таблицу
+//		важность: 5
+//
+//		Есть таблица:
+//		Имя 	Фамилия 	Отчество 	Возраст
+//		Вася 	Петров 	Александрович 	10
+//		Петя 	Иванов 	Петрович 	15
+//		Владимир 	Ленин 	Ильич 	9
+//		... 	... 	... 	...
+//
+//		Строк в таблице много: может быть 20, 50, 100… Есть и другие элементы в документе.
+//
+//		Как бы вы предложили отсортировать содержимое таблицы по полю Возраст? Обдумайте алгоритм, реализуйте его.
+//
+//		Как сделать, чтобы сортировка работала как можно быстрее? А если в таблице 10000 строк (бывает и такое)?
+//
+//		P.S. Может ли здесь помочь DocumentFragment?
+//
+//		P.P.S. Если предположить, что у нас заранее есть массив данных для таблицы в JavaScript – что быстрее: отсортировать эту таблицу или сгенерировать новую?
+		
+		var ageSorted = false;
+		
+		function ageSort () {
+			var table = document.body.querySelector("table");
+			
+//			берём все строки таблицы, кроме первой
+			
+			var rows = table.querySelectorAll("tr:not(:first-child)");
+			
+			//превращаем коллекцию строк в массив
+			
+			rows = [].slice.call(rows);
+			
+			console.log(rows);
+			
+			//сортируем по возрасту - значению третьей td
+			
+			rows.sort(function(a, b) {
+				if(ageSorted) return b.cells[3].textContent - a.cells[3].textContent
+				return a.cells[3].textContent - b.cells[3].textContent;
+			})
+			
+			ageSorted = !ageSorted;
+			
+			console.log(rows);
+			
+//			создаём новую таблицу клонированием старой. Хотя от старой нам нужна только первая строчка, ну и, возможно, классы (в теории)
+			var newTable = table.cloneNode(true);
+			
+//			записываем в новую таблицу строки отсортированные по возрасту
+			for (var i = 0; i < rows.length; i++) {
+				newTable.rows[i+1].innerHTML = rows[i].innerHTML;
+			}
+			console.log(newTable);
+			
+			//старую таблицу заменяем на новую
+			table.innerHTML = newTable.innerHTML;
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Бесконечная "рекурсия" не забивающая память. 
+//		Хотя она тоже начинает подтормаживать на больших числах > 3000
+//		Заметно замедляется
+		
+		function recursion(c){
+				setTimeout(function(){
+						c = c || 0;
+						console.log(c++);
+						recursion(c);
+				},c);
+		}
+
+		recursion(0);
+	</script>
+</body>
+</html>

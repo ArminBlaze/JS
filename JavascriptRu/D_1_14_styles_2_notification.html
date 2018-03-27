@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<style>
+		.notification {
+			position: fixed;
+			z-index: 1000;
+			padding: 5px;
+			border: 1px solid black;
+			font: normal 20px Georgia;
+			background: white;
+			text-align: center;
+		}
+
+		.welcome {
+			background: red;
+			color: yellow;
+		}
+	</style>
+</head>
+<body>
+	<script>
+//		Создать уведомление
+//		важность: 5
+//
+//		Напишите функцию showNotification(options), которая показывает уведомление, пропадающее через 1.5 сек.
+//
+//		Описание функции:
+//
+//		/**
+//		 * Показывает уведомление, пропадающее через 1.5 сек
+//		 *
+//		 * @param options.top {number} вертикальный отступ, в px
+//		 * @param options.right {number} правый отступ, в px
+//		 * @param options.cssText {string} строка стиля
+//		 * @param options.className {string} CSS-класс
+//		 * @param options.html {string} HTML-текст для показа
+//		 */
+//		function showNotification(options) {
+//			// ваш код
+//		}
+//
+//		Пример использования:
+//
+//		// покажет элемент с текстом "Привет" и классом welcome справа-сверху окна
+//		showNotification({
+//			top: 10,
+//			right: 10,
+//			html: "Привет",
+//			className: "welcome"
+//		});
+//
+//		Демо в новом окне
+//
+//		Элемент уведомления должен иметь CSS-класс notification, к которому добавляется класс из options.className, если есть. Исходный документ содержит готовые стили.
+		
+		function showNotification(options) {
+			var top = options.top + "px" || "50%";
+			var right = options.right + "px" || "50%";
+			var className = options.className || undefined;
+			var text = options.html || "Привет!";
+			
+			var popup = document.createElement('div');
+			if(options.cssText) popup.style.cssText = options.cssText;
+			popup.style.top = top;
+			popup.style.right = right;
+			popup.classList.add("notification");
+			if(className) popup.classList.add(className);
+			popup.innerHTML = text;
+			
+			document.body.appendChild(popup);
+			
+			setTimeout(function() {
+				popup.parentElement.removeChild(popup);
+			},1500)
+		}
+		
+//		 покажет элемент с текстом "Привет" и классом welcome справа-сверху окна
+		showNotification({
+			top: 10,
+			right: 10,
+			html: "Привет",
+			className: "welcome"
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+  <button onclick="loadPhones()" id="button">Загрузить phones.json!</button>
+	<ul id="log"></ul>
+  <script>
+//		Выведите телефоны
+//		важность: 5
+//
+//		Создайте код, который загрузит файл phones.json из текущей директории и выведет все названия телефонов из него в виде списка.
+		
+    function loadPhones() {
+
+      var xhr = new XMLHttpRequest();
+
+      xhr.open('GET', 'phones.json', true);
+
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState != 4) return;
+
+        button.innerHTML = 'Готово!';
+
+        if (xhr.status != 200) {
+          // обработать ошибку
+          alert(xhr.status + ': ' + xhr.statusText);
+        } else {
+//					Обратите внимание – код обрабатывает возможную ошибку при чтении JSON при помощи try..catch.
+					 try {
+						var phones = JSON.parse(xhr.responseText);
+					} catch (e) {
+						alert( "Некорректный ответ " + e.message );
+					}
+					
+					console.log(phones);
+					
+					//перебираем коллекцию phones и выводим названия телефонов в виде списка
+					for (var i = 0; i < phones.length; i++) {
+						write(phones[i].name);
+					}
+					
+        }
+
+      }
+			
+			function write(text) {
+				var li = log.appendChild(document.createElement('li'));
+				li.innerHTML = text;
+			}
+
+      xhr.send();
+
+      button.innerHTML = 'Загружаю...';
+      button.disabled = true;
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Добавить метод isRunning
+//		важность: 5
+//
+//		Из внешнего кода мы хотели бы иметь возможность понять – запущена кофеварка или нет.
+//
+//		Для этого добавьте кофеварке публичный метод isRunning(), который будет возвращать true, если она запущена и false, если нет.
+//
+//
+//		
+		
+	function CoffeeMachine(power, capacity) {
+		var waterAmount = 0;
+
+		var WATER_HEAT_CAPACITY = 4200;
+		
+		var running = false;
+
+		function getTimeToBoil() {
+			return waterAmount * WATER_HEAT_CAPACITY * 80 / power;
+		}
+
+		this.setWaterAmount = function(amount) {
+			// ... проверки пропущены для краткости
+			waterAmount = amount;
+		};
+
+		this.getWaterAmount = function(amount) {
+			return waterAmount;
+		};
+
+		function onReady() {
+				alert( 'Кофе готов!' );
+		}
+
+		this.run = function() {
+			running = setTimeout(function() {
+				running = false;
+				onReady();	//анонимная ф-ция, чтобы функцию onReady можно изменить в любой момент до её срабатывания.
+			}, getTimeToBoil());
+		};
+
+		//тут важно чтобы параметр назывался как угодно, кроме onReady. Т.к. иначе мы не получим доступ к onReady в конструкторе.
+		this.setOnReady = function(fn) {
+			if(arguments.length) {
+				onReady = fn;
+			}
+		}
+		
+		this.isRunning = function() {
+			return running ? true : false;
+		}
+	}
+		
+		
+		var coffeeMachine = new CoffeeMachine(20000, 500);
+		coffeeMachine.setWaterAmount(100);
+
+		alert( 'До: ' + coffeeMachine.isRunning() ); // До: false
+
+		coffeeMachine.run();
+		alert( 'В процессе: ' + coffeeMachine.isRunning() ); // В процессе: true
+
+		coffeeMachine.setOnReady(function() {
+			alert( "После: " + coffeeMachine.isRunning() ); // После: false
+		});
+	</script>
+</body>
+</html>

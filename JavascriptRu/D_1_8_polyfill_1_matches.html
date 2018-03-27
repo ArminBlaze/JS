@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Полифилл для matches
+//		важность: 5
+//
+//		Метод elem.matches(css) в некоторых старых браузерах поддерживается под старым именем matchesSelector или с префиксами, то есть: webkitMatchesSelector (старый Chrome, Safari), mozMatchesSelector (старый Firefox) или Element.prototype.msMatchesSelector (старый IE).
+//
+//		Создайте полифилл, который гарантирует стандартный синтаксис elem.matches(css) для всех браузеров.
+		
+//		if (document.documentElement.matches === undefined) { // (1)
+//			
+//			var matchesFunc;
+//
+//			if(document.documentElement.matchesSelector !== undefined) {
+//				matchesFunc = document.documentElement.matchesSelector;
+//			} 
+//			else if (document.documentElement.webkitMatchesSelector !== undefined) {
+//				matchesFunc = document.documentElement.webkitMatchesSelector;
+//			}
+//			else if (document.documentElement.mozMatchesSelector !== undefined) {
+//				matchesFunc = document.documentElement.mozMatchesSelector;
+//			}
+//			else if (Element.prototype.msMatchesSelector !== undefined) {
+//				matchesFunc = Element.prototype.msMatchesSelector;
+//			}
+//			
+//			
+//			if(matchesFunc) Element.prototype.matches = matchesFunc;
+//		}
+		
+		if (Element.prototype.matches === undefined) {
+			Element.prototype.matches = 
+				Element.prototype.matchesSelector || 
+				Element.prototype.webkitMatchesSelector || 
+				Element.prototype.mozMatchesSelector || 
+				Element.prototype.msMatchesSelector;
+		}
+	</script>
+</body>
+</html>

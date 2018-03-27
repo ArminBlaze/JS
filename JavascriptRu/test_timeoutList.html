@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		function createList(list) {
+			let ul = list;
+			if (!list) {
+				ul = document.createElement('ul');
+				document.body.insertBefore(ul, document.body.firstChild);
+			}
+			
+			let val, li;
+			let timerId = setTimeout(function write() {
+				val = prompt('enter value', '');
+				if (val) {
+					li = document.createElement('li');
+					li.appendChild( document.createTextNode(val) );
+
+					ul.appendChild(li);
+					timerId = setTimeout(write, 0);
+				}
+			}, 0);
+		}
+
+		createList();
+	</script>
+</body>
+</html>

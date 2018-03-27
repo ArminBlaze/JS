@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Добавьте методы в холодильник
+//		важность: 5
+//
+//		Добавьте в холодильник методы:
+//
+//				Публичный метод filterFood(func), который возвращает всю еду, для которой func(item) == true
+//				Публичный метод removeFood(item), который удаляет еду item из холодильника.
+
+
+		
+		function Machine(power) {
+			this._power = power;
+			this._enabled = false;
+
+			var self = this;
+
+			this.enable = function() {
+				self._enabled = true;
+			};
+
+			this.disable = function() {
+				self._enabled = false;
+			};
+		}
+		
+		
+		
+		function Fridge(power) {
+			Machine.apply(this, arguments);
+
+			var food = [];
+			var maxFood = power / 100;
+
+			this.addFood = function() {
+//				console.log("MaxFood = " + maxFood);
+				if (!this._enabled) {
+					alert("Сначала нужно включить холодильник!");
+					return;
+				}
+				
+				if ( (food.length + arguments.length) > maxFood ) {
+					alert("Столько еды не поместится!");
+					return;
+				}
+				
+				if(arguments.length) {
+					var args = [].slice.call(arguments);
+					food = food.concat(args);
+					console.log(food);
+				}
+				
+			};
+
+			this.getFood = function() {
+				return food.slice();
+			};
+			
+			this.removeFood = function(item) {
+				
+				if(typeof item == "string") {
+					remove(item);
+				} else if (typeof item == "object") {
+					remove(item.title);
+				}
+				
+				function remove(item) {
+					var pos = food.indexOf(item);
+					if(pos != -1) food.splice(pos, 1);
+				}
+				
+			}
+			
+			this.filterFood = function(func) {
+				return food.filter(func);
+			};
+
+		}
+		
+		
+		
+//		Код для проверки:
+
+		var fridge = new Fridge(500);
+		
+		fridge.enable();
+		
+		fridge.addFood({
+			title: "котлета",
+			calories: 100
+		});
+		
+		fridge.addFood({
+			title: "сок",
+			calories: 30
+		});
+		
+		fridge.addFood({
+			title: "зелень",
+			calories: 10
+		});
+		
+		fridge.addFood({
+			title: "варенье",
+			calories: 150
+		});
+
+		fridge.removeFood("нет такой еды"); // без эффекта
+		alert( fridge.getFood().length ); // 4
+		
+		fridge.removeFood("варенье"); // удалили варенье
+		alert( fridge.getFood().length ); // 3
+
+		var dietItems = fridge.filterFood(function(item) {
+			return item.calories < 50;
+		});
+		
+
+		dietItems.forEach(function(item) {
+			alert( item.title ); // сок, зелень
+			fridge.removeFood(item);
+		});
+		
+		console.log(fridge.getFood() );
+
+		alert( fridge.getFood().length ); // 2
+	</script>
+</body>
+</html>

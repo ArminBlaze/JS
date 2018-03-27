@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<style>
+	
+	</style>
+</head>
+<body>
+
+	
+	<button type="button" id="button1">Измерим ширину прокрутки создав невидимый элемент</button> <span id="text1">0</span>
+	
+	
+	
+
+	<script>
+//		Узнать ширину полосы прокрутки
+//		важность: 3
+//
+//		Напишите код, который возвращает ширину стандартной полосы прокрутки. Именно самой полосы, где ползунок. Обычно она равна 16px, в редких и мобильных браузерах может колебаться от 14px до 18px, а кое-где даже равна 0px.
+//
+//		P.S. Ваш код должен работать на любом HTML-документе, независимо от его содержимого.
+		
+		
+//	var button = document.getElementById('button1');
+//	var span = document.getElementById('text1');
+		
+	 'use strict';
+    // создадим элемент с прокруткой
+    var div = document.createElement('div');
+    
+    div.style.overflowY = 'scroll';
+    div.style.width = '50px';
+    div.style.height = '50px';
+    
+    // при display:none размеры нельзя узнать
+    // нужно, чтобы элемент был видим,
+    // visibility:hidden - можно, т.к. сохраняет геометрию
+    div.style.visibility = 'hidden';
+    
+    document.body.appendChild(div);
+    var scrollWidth = div.offsetWidth - div.clientWidth;
+    // document.body.removeChild(div);
+    
+    alert( scrollWidth );
+			
+		
+	</script>
+</body>
+</html>

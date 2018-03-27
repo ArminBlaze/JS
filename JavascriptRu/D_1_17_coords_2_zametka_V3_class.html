@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<style>
+		.note {
+			position: fixed;
+			z-index: 1000;
+			padding: 5px;
+			border: 1px solid black;
+			background: white;
+			text-align: center;
+			font: italic 14px Georgia;
+		}
+
+		blockquote {
+			background: #f9f9f9;
+			border-left: 10px solid #ccc;
+			margin: 0 0 0 100px;
+			padding: .5em 10px;
+			quotes: "\201C""\201D""\2018""\2019";
+			display: inline-block;
+			white-space: pre;
+			width: 240px;
+		}
+
+		blockquote:before {
+			color: #ccc;
+			content: open-quote;
+			font-size: 4em;
+			line-height: .1em;
+			margin-right: .25em;
+			vertical-align: -.4em;
+		}
+	</style>
+</head>
+<body>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit sint atque dolorum fuga ad incidunt voluptatum error fugiat animi amet! Odio temporibus nulla id unde quaerat dignissimos enim nisi rem provident molestias sit tempore omnis recusandae
+    esse sequi officia sapiente.</p>
+
+
+  <blockquote>
+    - Что на завтрак, Бэрримор?
+    - Овсянка, сэр. 
+    - А на обед? 
+    - Овсянка, сэр. 
+    - Ну а на ужин? 
+    - Котлеты, сэр. 
+    - Уррра!!! 
+    - Из овсянки, сэр!!!
+  </blockquote>
+
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit sint atque dolorum fuga ad incidunt voluptatum error fugiat animi amet! Odio temporibus nulla id unde quaerat dignissimos enim nisi rem provident molestias sit tempore omnis recusandae
+    esse sequi officia sapiente.</p>
+
+
+
+	<script>
+//		Разместить заметку рядом с элементом
+//		важность: 5
+//
+//		Создайте функцию positionAt(anchor, position, elem), которая позиционирует элемент elem, в зависимости от position, сверху ("top"), справа ("right") или снизу ("bottom") от элемента anchor.
+//
+//		Используйте её, чтобы сделать функцию showNote(anchor, position, html), которая показывает элемент с классом note и текстом html на позиции position рядом с элементом anchor.
+
+		/**
+     * Позиционирует элемент elem относительно элемента anchor, как указано в
+     * в position.
+     *
+     * @param {Node} anchor     Элемент-якорь, относительно которого задана позиция
+     * @param {string} position Позиция: одно из top/right/bottom
+     * @param {Node} elem       Элемент, который будет позиционирован
+     */
+   
+
+    /**
+     * Показывает заметку с текстом html на позиции position
+     * относительно элемента anchor
+     */
+    function ShowNote(anchor, position, html) {
+      // ваш код ...
+			this.anchor = anchor;
+			this.position = position;
+			this.html = html;
+			
+			this.note = document.createElement('div');
+			this.note.innerHTML = this.html;
+			this.note.classList.add('note');
+			
+			this.positionAt(this.anchor, this.position, this.note);
+			
+			this.anchor.appendChild(this.note);
+    }
+		
+		ShowNote.prototype.positionAt = function() {
+			 // ваш код...
+			var coords = this.anchor.getBoundingClientRect();
+			
+			if(this.position == "top") {
+				this.note.style.top = coords.top + "px";
+				this.note.style.left = coords.left + "px";
+				this.note.style.transform = "translateY(-100%)";
+			} 
+			else if(this.position == "right") {
+				this.note.style.top = coords.top + "px";
+				this.note.style.left = coords.right + "px";
+			} 
+			else if (this.position == "bottom") {
+				this.note.style.top = coords.bottom + "px";
+				this.note.style.left = coords.left + "px";
+			}
+		}
+
+    // проверка работоспособности
+    var blockquote = document.querySelector('blockquote');
+		
+    new ShowNote(blockquote, "top", "заметка сверху");
+    new ShowNote(blockquote, "right", "заметка справа");
+    new ShowNote(blockquote, "bottom", "заметка снизу");
+	</script>
+</body>
+</html>

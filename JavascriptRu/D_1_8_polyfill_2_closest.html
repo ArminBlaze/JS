@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Полифилл для closest
+//		важность: 5
+//
+//		Метод elem.closest(css) для поиска ближайшего родителя, удовлетворяющего селектору css, не поддерживается некоторыми браузерами, например IE11-.
+//
+//		Создайте для него полифилл.
+		
+		if (Element.prototype.closest === undefined) {
+			
+			Element.prototype.closest = function (css) {
+				var elem = this;
+				
+				var parent = elem.parentNode;
+				
+				while (true) {
+				
+					if(!parent) return null;
+
+					if(parent.matches(css)) {
+						return parent;
+					} else {
+						parent = parent.parentNode;
+					}
+				}
+				
+				///////////
+			}
+		}
+	</script>
+</body>
+</html>

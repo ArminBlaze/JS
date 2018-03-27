@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		function Animal(breed) {
+			this.eat = true;
+			this.breed = breed;
+			
+			var localVar = 5;
+			
+			this.bark = function() {
+				alert("Woof " + localVar);
+			}
+		}
+		
+		var dog = new Animal(dog);
+		dog.bark();
+	</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Часики</title>
+  <meta charset="utf-8">
+  <style>
+    .hour {
+      color: green
+    }
+
+    .min {
+      color: blue
+    }
+
+    .sec {
+      color: red
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="clock" class="clock">
+    <span class="hour">00</span>:<span class="min">00</span>:<span class="sec">00</span>
+  </div>
+
+  <script>
+		
+		//Можно посмотреть 9_5 Часы на прототипах. Похожая реализация
+    // .. ваш код Clock
+    function Clock(options) {
+      this.elem = options.elem;
+      
+      this.hourSpan = this.elem.querySelector(".hour");
+      this.minSpan = this.elem.querySelector(".min");
+      this.secSpan = this.elem.querySelector(".sec");
+    }
+    
+    Clock.prototype.start = function() {
+			var self = this;
+			
+			innerTimer();
+      this.timer = setInterval(innerTimer
+      , 1000);
+			
+			
+			//Вариант двухзначных часов без IE11+ метода toLocaleString;
+			//('0' + date.getHours()).slice(-2);
+			function innerTimer() {
+				self.date = new Date();
+				self.dateFormatted = self.date.toLocaleString("ru", {hour: 'numeric', minute: 'numeric', second: 'numeric'}).split(":");
+				// console.log(this.dateFormatted);
+				self.hourSpan.innerHTML = self.dateFormatted[0];
+				self.minSpan.innerHTML = self.dateFormatted[1];
+				self.secSpan.innerHTML = self.dateFormatted[2];
+			};
+    };
+		
+		Clock.prototype.stop = function() { 
+			clearInterval(this.timer);
+		};
+
+    var pageClock = new Clock({
+      elem: document.getElementById('clock')
+    });
+  </script>
+
+  <input type="button" onclick="pageClock.start()" value="Старт">
+  <input type="button" onclick="pageClock.stop()" value="Стоп">
+
+  <input type="button" onclick="alert('Часы должны останавливаться во время alert,\nи продолжать корректно работать после нажатия на ОК')" value="alert для проверки корректного возобновления">
+
+</body>
+
+</html>

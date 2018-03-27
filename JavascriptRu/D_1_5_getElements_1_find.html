@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+
+  <form name="search">
+    <label>Поиск по сайту:
+      <input name="search" type="text">
+    </label>
+    <input value="Искать!" type="submit">
+  </form>
+
+  <hr>
+
+  <form name="search-person">
+    Поиск по посетителям:
+    <table id="age-table">
+      <tbody><tr>
+        <td>Возраст:</td>
+        <td id="age-list">
+          <label>
+            <input name="age" value="young" type="radio">до 18</label>
+          <label>
+            <input name="age" value="mature" type="radio">18-50</label>
+          <label>
+            <input name="age" value="senior" type="radio">более 50</label>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Дополнительно:</td>
+        <td>
+          <input name="info[0]" type="text">
+          <input name="info[1]" type="text">
+          <input name="info[2]" type="text">
+        </td>
+      </tr>
+
+    </tbody></table>
+
+    <input value="Искать!" type="submit">
+  </form>
+
+
+
+
+	<script>
+//		Поиск элементов
+//		важность: 4
+//
+//		Ниже находится документ с таблицей и формой.
+//
+//		Найдите (получите в переменную) в нём:
+//
+//				Все элементы label внутри таблицы. Должно быть 3 элемента.
+//				Первую ячейку таблицы (со словом "Возраст").
+//				Вторую форму в документе.
+//				Форму с именем search, без использования её позиции в документе.
+//				Элемент input в форме с именем search. Если их несколько, то нужен первый.
+//				Элемент с именем info[0], без точного знания его позиции в документе.
+//				Элемент с именем info[0], внутри формы с именем search-person.
+//
+
+		var labels = document.getElementById("age-table").querySelectorAll("label");
+//		var td = document.getElementById("age-table").rows[0].cells[0];
+//		var td = document.getElementById("age-table").getElementsByTagName("td")[0];
+		var td = document.querySelector("#age-table td");
+		var form2 = document.forms[1];
+		var form1 = document.querySelector("form[name='search']");
+		var input = form1.querySelector("input");
+		var info1 = document.querySelector("[name='info[0]']");
+		var info2 = form2.querySelector("[name='info[0]']");
+		
+	</script>
+</body>
+</html>
