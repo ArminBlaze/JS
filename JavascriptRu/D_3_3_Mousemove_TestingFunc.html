@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <style>
+		.blue {
+			background: blue;
+			width: 160px;
+			height: 160px;
+			position: relative;
+			display: inline-block;
+			vertical-align: top;
+		}
+
+		.red {
+			background: red;
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			left: 30px;
+			top: 30px;
+		}
+
+		textarea {
+			height: 400px;
+			width: 400px;
+			display: inline-block;
+		}
+	</style>
+</head>
+
+<body>
+
+  <div class="blue" onmouseover="mouselog(event)" onmouseout="mouselog(event)">
+    <div class="red" onmouseover="mouselog(event)" onmouseout="mouselog(event)"></div>
+  </div>
+
+  <textarea id="text">
+  </textarea>
+  <input type="button" onclick="text.value=''" value="Очистить">
+  
+  <script>
+		function mouselog(event) {
+			// text.value += event.type + ' [target: ' + event.target.className +  ', обработчик сработал на: '+ event.currentTarget.className  +']\n'
+			// text.scrollTop = text.scrollHeight;
+
+			log(event.type + ' [target: ' + event.target.className +  ', обработчик сработал на: '+ event.currentTarget.className  +']\n');
+		}
+
+		var lastMessageTime = 0;
+		var lastMessage = "";
+		var repeatCounter = 1;
+
+		function log(message) {
+			if (lastMessageTime == 0) lastMessageTime = new Date();
+
+			var time = new Date();
+
+			if (time - lastMessageTime > 500) {
+				message = '------------------------------\n' + message;
+			}
+
+			if (message === lastMessage) {
+				repeatCounter++;
+				if (repeatCounter == 2) {
+					text.value = text.value.trim() + ' x 2\n';
+				} else {
+					text.value = text.value.slice(0, text.value.lastIndexOf('x') + 1) + repeatCounter + "\n";
+				}
+
+			} else {
+				repeatCounter = 1;
+				text.value += message + "\n";
+			}
+
+			text.scrollTop = text.scrollHeight;
+
+			lastMessageTime = time;
+			lastMessage = message;
+		}
+	</script>
+
+
+</body>
+
+</html>

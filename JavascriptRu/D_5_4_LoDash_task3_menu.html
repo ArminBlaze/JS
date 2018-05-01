@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js"></script>
+  
+  <style>
+		.menu ul {
+			display: none;
+			margin: 0;
+		}
+
+		.menu .title {
+			font-weight: bold;
+			cursor: pointer;
+		}
+
+		.menu .title:before {
+			content: '▶';
+			padding-right: 6px;
+			color: green;
+		}
+
+		.menu.open ul {
+			display: block;
+		}
+
+		.menu.open .title:before {
+			content: '▼';
+		}
+	</style>
+</head>
+
+<body>
+
+
+  <script type="text/template" id="menu-template">
+		<div class="menu">
+			<span class="title"><%-title%></span>
+		</div>
+		
+	</script>
+	
+
+	<script type="text/template" id="menu-list-template">
+		<ul>
+			<% for (var key in items) { %>
+				<li>
+					<a href="#<%-encodeURIComponent(key)%>">
+						<%-items[key]%>
+					</a>
+				</li>
+			<% }; %>
+		</ul>
+	</script>
+
+  <script>
+//		$0.href.slice( $0.href.indexOf("#") + 1 );
+		
+//		  onclick="alert( this.getAttribute('href').slice(1) )" 
+    'use strict';
+		
+		
+//	Сделайте меню ссылками
+//	важность: 5
+//
+//	Возьмите в качестве исходного кода меню на шаблонах и модифицируйте его, чтобы оно выводило не просто список, а список ссылок.
+//
+//			Вместо массива items меню должно принимать объект items
+//
+//	Вывод в шаблоне пусть будет не просто <li>Пончик</li>, а через ссылку: <a href="#donut">Пончик</a>. При клике на ссылку должно выводиться название из её href.
+
+		
+		var menu = new Menu({
+			title: "Сладости",
+			template: _.template(document.getElementById('menu-template').innerHTML),
+			listTemplate: _.template(document.getElementById('menu-list-template').innerHTML),
+			items: {
+				"donut": "Пончик",
+				"cake": "Пирожное",
+				"chocolate": "Шоколадка"
+			}
+		});
+
+		document.body.appendChild(menu.getElem());
+
+		
+		
+		function Menu(options) {
+			var elem;
+
+			function getElem() {
+				if (!elem) render();
+				return elem;
+			}
+
+			function render() {
+				var html = options.template({
+					title: options.title
+				});
+
+				elem = document.createElement('div');
+				elem.innerHTML = html;
+				elem = elem.firstElementChild;
+
+				elem.onmousedown = function() {
+					return false;
+				}
+
+				elem.onclick = function(event) {
+					if (event.target.closest('.title')) {
+						toggle();
+					}
+					
+					if (event.target.closest('a')) {
+						event.preventDefault();
+						select(event.target.closest('a'));
+					}
+				}
+			}
+
+			function renderItems() {
+				if (elem.querySelector('ul')) return;
+
+				var listHtml = options.listTemplate({
+					items: options.items
+				});
+				elem.insertAdjacentHTML("beforeEnd", listHtml);
+			}
+			
+			function select(link) {
+				alert(link.getAttribute('href').slice(1));
+			}
+
+			function open() {
+				renderItems();
+				elem.classList.add('open');
+			};
+
+			function close() {
+				elem.classList.remove('open');
+			};
+
+			function toggle() {
+				if (elem.classList.contains('open')) close();
+				else open();
+			};
+
+			this.getElem = getElem;
+			this.toggle = toggle;
+			this.close = close;
+			this.open = open;
+		}
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<style>
+		body {
+			background-color: dodgerblue;
+			height: 300px;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		// при нажатии на body будут ошибки
+		// потому что при назначении в атрибут функция будет преобразована в строку
+		document.body.setAttribute('onclick', function() { alert(1) });
+	</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js"></script>
+  <style>
+		td {
+			border: 1px solid black;
+			padding-left: 5px;
+			padding-right: 5px;
+			text-align: center;
+		}
+		
+		table {
+			border-collapse: collapse;
+		}
+	</style>
+</head>
+
+<body>
+
+  <div id="grid-holder"></div>
+
+  <script type="text/template" id="grid-template">
+      <table>
+				<tr><th>Имя</th><th>Возраст</th></tr>
+        <% list.forEach(function(user) { %>
+        <tr>
+					<td><%-user.name%></td>
+					<td><%-user.age%></td>
+        </tr>
+        <% }); %>
+      </table>
+  </script>
+
+  <script>
+    'use strict';
+		
+//		Шаблон для таблицы с пользователями
+//		важность: 5
+		
+  var users = [
+  {name: "Вася", age: 10},
+  {name: "Петя", age: 15},
+  {name: "Женя", age: 20},
+  {name: "Маша", age: 25},
+  {name: "Даша", age: 30},
+];
+
+    // ваш код, чтобы сгенерировать таблицу с юзерами (table/tr/td) по шаблону и данным users
+    // выведите таблицу внутри #grid-holder
+
+    //шаблон загружается из другого элемента script и из него удаляются пробелы по краям
+   var template = document.getElementById('grid-template').innerHTML.trim();
+    
+    alert( _.template(template)({list: users}) ); // <ul><li>1</li><li>2</li>...</ul>
+    
+    var div = document.getElementById('grid-holder');
+		
+		//запускаем компиляцию шаблона, передав шаблон (template)
+		//Результат возвращается в виде функции, которую можно повторно запустить передав данные (users)
+    div.innerHTML = _.template(template)({list: users});
+  </script>
+
+</body>
+
+</html>

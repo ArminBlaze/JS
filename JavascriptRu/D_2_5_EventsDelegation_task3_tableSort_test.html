@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+		<table id="table">
+			<thead>
+				<tr>
+					<th data-type="number">Возраст</th>
+					<th data-type="string">Имя</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>5</td>
+					<td>Вася</td>
+				</tr>
+				<tr>
+					<td>11</td>
+					<td>Абба</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>Бука</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>Яша</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>Петя</td>
+				</tr>
+				<tr>
+					<td>12</td>
+					<td>Женя</td>
+				</tr>
+				<tr>
+					<td>9</td>
+					<td>Маша</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>Илья</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		
+		
+	<script>
+		//		Сделать сортировку таблицы при клике на заголовок. Использовать делегирование.
+		
+		//обработчик с делегированием
+		table.tHead.onclick = function(e) {
+      var t = e.target;
+      var i = t.cellIndex;
+      var rows = [].slice.call(table.tBodies[0].rows);
+      rows.sort(function(a, b) {
+        var ai = a.cells[i].textContent;
+        ai = +ai || ai;
+        var bi = b.cells[i].textContent;
+        bi = +bi || bi;
+        if (ai > bi) return 1
+        else return -1;
+      });
+      rows.forEach(function(row) {
+        table.tBodies[0].appendChild(row);
+      })
+    }
+	</script>
+</body>
+</html>

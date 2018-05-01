@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    #contents {
+      padding: 5px;
+      border: 1px green solid;
+    }
+  </style>
+</head>
+
+<body>
+
+  <fieldset id="contents">
+    <legend>#contents</legend>
+    <p>
+      Как насчет почитать <a href="http://wikipedia.org">Википедию</a>, или посетить <a href="http://w3.org"><i>W3.org</i></a> и узнать про современные стандарты?
+    </p>
+  </fieldset>
+
+
+	<script>
+//		Поймайте переход по ссылке
+//		важность: 5
+//
+//		Сделайте так, чтобы при клике на ссылки внутри элемента #contents пользователю выводился вопрос о том, действительно ли он хочет покинуть страницу и если он не хочет, то прерывать переход по ссылке.
+
+//    Содержимое #contents может быть загружено динамически и присвоено при помощи innerHTML. Так что найти все ссылки и поставить на них обработчики нельзя. Используйте делегирование.
+//    Содержимое может содержать вложенные теги, в том числе внутри ссылок, например, <a href=".."><i>...</i></a>.
+
+		
+		
+		contents.onclick = function(event) {
+			var target = event.target;
+
+			// цикл двигается вверх от target к родителям до this
+			while (target != this) {
+				if ( target.tagName != 'A' ) {
+					// нашли элемент, который нас интересует!
+					return confirm("Вы хотите уйти?");
+				}
+				target = target.parentNode;
+			}
+		}
+	</script>
+</body>
+
+</html>

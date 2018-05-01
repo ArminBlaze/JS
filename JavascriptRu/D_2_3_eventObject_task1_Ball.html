@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    #field {
+      width: 200px;
+      height: 150px;
+      border: 10px groove black;
+      background-color: #00FF00;
+      position: relative;
+      overflow: hidden;
+			cursor: default;
+    }
+
+    #ball {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -20px;
+      margin-top: -20px;
+			transition: all 0.7s;
+    }
+  </style>
+</head>
+
+<body style="height:2000px">
+
+  Кликните на любое место поля, чтобы мяч перелетел туда.
+  <br> Мяч никогда не вылетит за границы поля.
+  <br> Мяч никогда не вылетит за границы поля.
+  <br> Мяч никогда не вылетит за границы поля.
+  <br> Мяч никогда не вылетит за границы поля.
+  <br> Мяч никогда не вылетит за границы поля.
+  <br> Мяч никогда не вылетит за границы поля.
+  <br> Мяч никогда не вылетит за границы поля.
+  <br> Мяч никогда не вылетит за границы поля.
+  <br> Мяч никогда не вылетит за границы поля.
+  <br> Мяч никогда не вылетит за границы поля.
+
+
+  <div id="field">
+    <img src="https://js.cx/clipart/ball.svg" id="ball"> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+  </div>
+
+	<script>
+		var ball = document.getElementById('ball');
+		var field = document.getElementById('field');
+		
+		field.addEventListener('click', moveBall);
+		
+		//1 - перевести координаты клика во внутренние координаты поля
+//		2 - спозиционировать мяч
+		
+//		1 - координаты события совпадают с field.getBoundingClientRect()
+//		Нужно вычесть из координат события field.getBoundingClientRect(), тогда мы получим координаты клика относительно поля
+		
+		function moveBall (e) {
+			console.log( e.clientX + ":" + e.clientY + " - координаты клика относительно экрана");
+			
+			var fieldSize = field.getBoundingClientRect();
+			
+			var left = e.clientX;
+			var top = e.clientY;
+			
+//			3 - сделать защиту от вылета мяча за поле
+
+			var ballSize = ball.getBoundingClientRect();
+			var ballHalfSize = Math.round( (ballSize.right - ballSize.left)/2 );
+
+			var minX = Math.round(fieldSize.left + field.clientLeft + ballHalfSize) ;
+			var minY = Math.round(fieldSize.top + field.clientTop + ballHalfSize) ;
+
+			//максимальные координаты справа и снизу - длина поля минус половина мяча
+			var maxX = Math.round( fieldSize.left + field.clientLeft + field.clientWidth - ballHalfSize);
+			var maxY = Math.round( fieldSize.top + field.clientTop + field.clientHeight - ballHalfSize );
+
+			console.log(maxX + " maxX");
+			console.log(maxY + " maxY");
+
+			if(left < minX) left = minX;
+			if(top < minY) top = minY;
+			if(left > maxX) left = maxX;
+			if(top > maxY) top = maxY;
+
+			var relativeClick = {left: Math.round( left - fieldSize.left - field.clientLeft  ),
+												 top: Math.round(top - fieldSize.top - field.clientTop)};
+			
+			ball.style.left = relativeClick.left + "px";
+			ball.style.top = relativeClick.top + "px";
+		}
+		
+	
+		
+	</script>
+</body>
+
+</html>

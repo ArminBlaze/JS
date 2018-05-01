@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+		<table id="table">
+			<thead>
+				<tr>
+					<th data-type="number">Возраст</th>
+					<th data-type="string">Имя</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>5</td>
+					<td>Вася</td>
+				</tr>
+				<tr>
+					<td>11</td>
+					<td>Абба</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>Бука</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>Яша</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>Петя</td>
+				</tr>
+				<tr>
+					<td>12</td>
+					<td>Женя</td>
+				</tr>
+				<tr>
+					<td>9</td>
+					<td>Маша</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>Илья</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		
+		
+	<script>
+		//		Сделать сортировку таблицы при клике на заголовок. Использовать делегирование.
+		
+		//обработчик с делегированием
+		table.onclick = function(e) {
+			var target = e.target;
+      var action = target.getAttribute('data-type');
+      if (action) {
+        sort(action);
+      }
+		};
+		
+		//Функция сортировки
+		
+		var ageSorted = false;
+		var nameSorted = false;
+		
+		function sort (action) {
+			
+			var table = document.body.querySelector("table");
+			var tbody = table.tBodies[0];
+			var rows = [];
+
+			//добавляем все строки таблицы в массив
+//			for (var i = 0; i < tbody.rows.length; i++) {
+//				rows.push(tbody.rows[i]);
+//			}
+			
+			rows = [].slice.call(tbody.rows);
+
+			//сортируем строки
+			if(action == "string") {
+				rows.sort(function(a, b) {
+					if(nameSorted) return b.cells[1].textContent > a.cells[1].textContent ? 1 : -1;
+					return a.cells[1].textContent > b.cells[1].textContent ? 1 : -1;
+				});
+				nameSorted = !nameSorted;
+			} 
+			else {
+				rows.sort(function(a, b) {
+					if(ageSorted) return b.cells[0].textContent - a.cells[0].textContent;
+					return a.cells[0].textContent - b.cells[0].textContent;
+				});
+				ageSorted = !ageSorted;
+			}
+
+			
+			//добавляем новую таблицу
+//			tbody.innerHTML = "";
+			
+			// Убрать tbody из большого DOM документа для лучшей производительности
+      table.removeChild(tbody);
+
+			for (var i = 0; i < rows.length; i++) {
+				tbody.appendChild(rows[i]);
+			}
+			
+			table.appendChild(tbody);
+		}
+	</script>
+</body>
+</html>

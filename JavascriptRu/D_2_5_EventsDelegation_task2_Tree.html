@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+		span:hover {
+			font-weight: bold;
+		}
+		
+		.hidden {
+			display: none;
+		}
+		
+		li {
+/*			outline: 1px solid black;*/
+		}
+		
+		li > span {
+      cursor: pointer;
+    }
+		
+		li > span::-moz-selection,
+		li > span::-moz-selection {
+			background-color: transparent;
+		}
+
+		li > span::selection,
+		li > span::selection {
+			background-color: transparent;
+		}
+	</style>
+</head>
+
+<body>
+
+  <ul class="tree">
+    <li>Животные
+      <ul>
+        <li>Млекопитающие
+          <ul>
+            <li>Коровы</li>
+            <li>Ослы</li>
+            <li>Собаки</li>
+            <li>Тигры</li>
+          </ul>
+        </li>
+        <li>Другие
+          <ul>
+            <li>Змеи</li>
+            <li>Птицы</li>
+            <li>Ящерицы</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Рыбы
+      <ul>
+        <li>Аквариумные
+          <ul>
+            <li>Гуппи</li>
+            <li>Скалярии</li>
+          </ul>
+
+        </li>
+        <li>Морские
+          <ul>
+            <li>Морская форель</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  
+
+	<script>
+		var list = document.querySelector(".tree");
+		
+		//обернуть текст внутри Li в span. В реальности span уже будет. Дерево со спанами сгенерирует либо сервер, либо код на JS.
+		var lis = list.querySelectorAll('li');
+		
+		for (var i = 0; i < lis.length; i++) {
+			var li = lis[i];
+			
+			var span = document.createElement('span');
+			span.appendChild(li.firstChild);
+			li.insertBefore(span, li.firstChild);
+			
+//			 span.appendChild(span.nextSibling); //как вариант
+		}
+		
+		
+		//обработчик
+		list.onclick = function(event) {
+			var target = event.target;
+			
+			if (target.tagName != 'SPAN') {
+				return; // клик был не на заголовке
+			}
+			
+			// нашли элемент, который нас интересует!
+			var li = target.parentNode;
+//					скрыть ul внутри этого li
+			
+			var ul = li.querySelector('ul');
+			if(!ul) return;
+			
+			li.querySelector('ul').classList.toggle('hidden');
+			
+		}
+	</script>
+</body>
+
+</html>

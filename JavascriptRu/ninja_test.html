@@ -73,18 +73,18 @@
 		////////////////////////////////////
 		
 		
-		function timer(target) {
-			var start = new Date().getTime();
+		function timer(func) {
+//			var start = new Date().getTime();	//ALL IE
+			var start = performance.now();	//IE 10+
 			
 			for(var n = 0; n < maxCount; n++) {
-				target();
+				func();
 			}
 			
-			var elapsed = new Date().getTime() - start;
+//			var elapsed = new Date().getTime() - start;
+			var elapsed = performance.now() - start;
 			return elapsed;
 		}
-		
-		var start = new Date().getTime();
 		
 		
 		////////////////////////////////////
@@ -92,6 +92,11 @@
 		////////////////////////////////////
 		
 		var maxCount = 1;
+		
+		
+		////////////////////////////////////
+//		Запуск и результаты
+		////////////////////////////////////
 		
 		
 		var elapsed1 = timer(peka);

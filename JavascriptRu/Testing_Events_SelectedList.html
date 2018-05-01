@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    .selected {
+      background: #0f0;
+    }
+		
+		.list {
+			border: 1px solid black;
+			margin: 20px 0;
+			box-shadow: 3px 3px 3px rgba(0,0,0, 0.7);
+		}
+
+    li {
+      cursor: pointer;
+    }
+		
+		li::-moz-selection,
+		li::-moz-selection {
+			background-color: transparent;
+		}
+
+		li::selection,
+		li::selection {
+			background-color: transparent;
+		}
+		
+  </style>
+  <script src="https://js.cx/test/libs.js"></script>
+<!--   <script src="test.js"></script>-->
+</head>
+
+<body>
+
+  Клик на элементе выделяет только его.
+  <br> Ctrl(Cmd)+Клик добавляет/убирает элемент из выделенных.
+  <br> Shift+Клик добавляет промежуток от последнего кликнутого к выделению.
+  <br>
+
+  <ul class="list">
+    <li>Кристофер Робин</li>
+    <li>Винни-Пух</li>
+    <li>Ослик Иа</li>
+    <li>Мудрая Сова</li>
+    <li>Кролик. Просто кролик.</li>
+  </ul>
+
+  <script>
+    // ... ваш код
+		'use strict';
+		
+		class SelectableList {
+		
+			constructor({parent}) {
+
+				this.ul = parent;
+				this.lis = this.ul.getElementsByTagName('li');
+				this.lis = Array.prototype.slice.call(this.lis);
+				this.lastClicked;
+				
+//				Чтобы this был этот объект, нужно либо использовать стрелочную ф-цию, у которой нет this
+//				Либо привязать bind этот объект: this.prevButton.onclick = this.prev.bind(this);
+//				this.ul.onclick = (e) => this.selectHandler(e);
+				
+//				this.ul.addEventListener('click', this.selectHandler.bind(this));
+				
+				//третий вариант назначения события. Такой вызов обратится к handleEvent объекта
+//				handleEvent - это стандартное название обработчика в объекте
+				this.ul.addEventListener('click', this);
+			}
+			
+			//это общий метод, где обрабатываются ВСЕ события, не только клик
+//			Поэтому нужна проверка на тип события
+			handleEvent(e) {
+				if(e.type == 'click') {
+					this.selectHandler(e);
+				}
+			}
+
+			selectHandler (e) {
+//				У нас висит один обработчик на списке, вместо множества на каждом li. Это называется делегированием. Поэтому нам нужно проверять на каком именно элементе был клик
+				if (e.target.tagName != "LI") return; //клик по Ul, но не по li
+
+				if(e.shiftKey) { 
+					var start, end;
+
+					(this.lis.indexOf(e.target) < this.lis.indexOf(this.lastClicked)) ? 
+						(start = e.target, end = this.lastClicked) :
+						(start = this.lastClicked, end = e.target);
+
+					var firstIndex = Math.max(this.lis.indexOf(start), 0);
+
+					for (var i = firstIndex, length = this.lis.indexOf(end); i <= length; i++) {
+						this.lis[i].classList.add('selected');
+					}
+				}
+
+				else if(e.ctrlKey || e.metaKey) {
+					e.target.classList.toggle('selected');
+				}
+
+				else  {
+					for (var i = 0, length = this.lis.length; i < length; i++) {
+						this.lis[i].classList.remove('selected');
+					}
+					e.target.classList.add('selected');
+				}
+
+				this.lastClicked = e.target;
+			}
+		
+		}
+		
+		
+		let list = new SelectableList({ parent: document.getElementsByTagName('ul')[0] });
+  </script>
+	
+	<script>
+		//Код теста
+		
+		describe("SelectableList", function() {
+			
+			it("first item becomes selected on click", function() {
+				let ul = document.querySelector('ul');
+				let li = ul.children[0];
+				
+				//генерируем событие на элементе (клик по нему)
+				li.dispatchEvent(new MouseEvent('click', {
+					bubbles: true
+				}));
+				
+				//Проверяем что у Li теперь есть класс selected
+				assert.equal(li.className, 'selected');
+			});
+			
+		});
+	</script>
+</body>
+
+</html>

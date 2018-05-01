@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  
+  
+  <style>
+		
+    .tree li {
+      cursor: pointer;
+/*			outline: 1px solid black;*/
+/*			display: inline;*/
+    }
+  </style>
+</head>
+
+<body>
+
+  <ul class="tree" id="tree">
+    <li>Животные
+      <ul>
+        <li>Млекопитающие
+          <ul>
+            <li>Коровы</li>
+            <li>Ослы</li>
+            <li>Собаки</li>
+            <li>Тигры</li>
+          </ul>
+        </li>
+        <li>Другие
+          <ul>
+            <li>Змеи</li>
+            <li>Птицы</li>
+            <li>Ящерицы</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Рыбы
+      <ul>
+        <li>Аквариумные
+          <ul>
+            <li>Гуппи</li>
+            <li>Скалярии</li>
+          </ul>
+
+        </li>
+        <li>Морские
+          <ul>
+            <li>Морская форель</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <script>
+//		Однако, проблема в том, что скрытие-раскрытие происходит даже при клике вне заголовка, на пустом пространстве справа от него.
+//
+//		Как скрывать/раскрывать детей только при клике на заголовок?
+//
+//		В задаче Раскрывающееся дерево это решено так: заголовки завёрнуты в элементы SPAN и проверяются клики только на них. Представим на минуту, что мы не хотим оборачивать текст в SPAN, а хотим оставить как есть. Например, по соображениям производительности, если дерево и так очень большое, ведь оборачивание всех заголовков в SPAN увеличит количество DOM-узлов в 2 раза.
+//
+//		Решите задачу без обёртывания заголовков в SPAN, используя работу с координатами.
+//
+//		Исходный документ содержит кликабельное дерево.
+//
+//		P.S. Задача – скорее на сообразительность, однако подход может быть полезен в реальной жизни.
+		
+		
+    var tree = document.getElementById('tree');
+
+    tree.onclick = function(evt) {
+      var evt = evt || event;
+      var target = evt.target || evt.srcElement;
+			
+			
+			
+			if(target.tagName != "LI") return;
+			
+			var innerUL = target.getElementsByTagName('ul')[0];
+      if (!innerUL) return; // нет детей
+			
+			var textValue = target.firstChild.data.trim();
+			var compStyle = getComputedStyle(target);
+			
+			var tempDiv = document.createElement('div');
+			tempDiv.style.font = compStyle.font;
+			tempDiv.innerHTML = textValue;
+			tempDiv.style.position = "absolute"; 
+			tempDiv.style.left = "-1000px";
+			document.body.appendChild(tempDiv);
+			
+			var targetWidth = tempDiv.clientWidth;
+			
+			document.body.removeChild(tempDiv);
+			var coords = target.getBoundingClientRect();
+			
+			if(evt.clientX > coords.left + targetWidth) {
+				console.log("клик правее текста");
+				return;
+			}
+
+      /* раскрыть-закрыть детей */
+      var innerUL = target.getElementsByTagName('ul')[0];
+      if (!innerUL) return; // нет детей
+
+      innerUL.style.display = innerUL.style.display ? '' : 'none';
+    }
+  </script>
+
+</body>
+
+</html>
