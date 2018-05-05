@@ -87,9 +87,6 @@
         <br>Earth
         <br>Yellow
         <br>Direction
-        <br>Earth
-        <br>Yellow
-        <br>Direction
       </td>
     </tr>
     <tr>
@@ -133,23 +130,16 @@
   <script>
 		var table = document.getElementById('bagua-table');
 		
-		var cells = table.querySelectorAll('td');
-		[].slice.call(cells).forEach(function(td){
-			td.setAttribute("tabindex", "-1");
-		});
-		
 		var divForEdit;
 		
-		table.addEventListener("focus", onFocus,true);
+		table.addEventListener("click", onClick);
 		
-		function onFocus (event) {
+		function onClick (event) {
 			var target = event.target;
-
 			// цикл ищёт TD
 			while (target != this) {
 				if ( target.tagName == 'TD' ) {
 					// нашли элемент, который нас интересует!
-//					console.log(target);
 					break;
 				}
 				target = target.parentNode;
@@ -158,28 +148,33 @@
 			
 			var td = target;
 			
-			if(!divForEdit) {
-				divForEdit = createDiv(td);
-				divForEdit.onclick = function(e) {
-					var target = e.target;
-					
-					if(!target.hasAttribute("data-button")) return;
-					var action = target.getAttribute('data-button');
-					if(action == "cancel") {
-						td.removeChild(divForEdit);
-						divForEdit = null;
-					} else if (action == "ok") {
-//						td.innerHTML = "";
-						
-					}
-				}	
-			}
-				
-			target.onblur = function(event) {
-				
-			}
+			if(divForEdit) return;
+			
+			divForEdit = createDiv(td);
+			var textarea = divForEdit.querySelector('textarea');
+			textarea.focus();
+			textarea.selectionStart = textarea.value.length
+
+			divForEdit.onclick = function(e) {
+				e.stopPropagation();
+				var target = e.target;
+
+				var action = target.getAttribute('data-button');
+				if(!action) return;
+
+				if(action == "cancel") {
+					td.removeChild(divForEdit);
+				} 
+				else if (action == "ok") {
+					td.innerHTML = textarea.value;
+				}
+				divForEdit = null;
+			}	
 		}
-	
+		
+		function finishEdit (arguments) {
+			
+		}
 		
 		function createDiv (td) {
 			var tdContent = td.innerHTML;
@@ -187,14 +182,10 @@
 			var div = document.createElement('div');
 			div.style.cssText = "position: absolute; width: 100%; height: 100%; box-sizing: border-box; top: 0px; left: 0px; z-index: 1;";
 			
-			var textarea = document.createElement('textarea');
-			textarea.style.cssText = 'width: 100%; height: 100%; box-sizing: border-box; vertical-align: top; overflow: hidden;';
-			textarea.innerHTML = tdContent;
-			div.appendChild(textarea);
-			
-			console.log(div.innerHTML);
-			
-			div.innerHTML += "\
+			div.innerHTML = "\
+			<textarea autofocus style='width: 100%; height: 100%; box-sizing: border-box; vertical-align: top; overflow: hidden;'>"
+			+ tdContent + 
+			"</textarea>\
 			<div>\
 				<button type='button' data-button='ok'>OK</button>\
 				<button type='button' data-button='cancel'>Cancel</button>\
