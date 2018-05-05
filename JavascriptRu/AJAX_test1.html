@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body>
+<a href="http://test-api.javascript.ru/v1/">Полное описание всех методов</a>
+<script>
+//	Полное описание методов
+//	http://test-api.javascript.ru/v1/
+if(0) {
+  let xhr = new XMLHttpRequest();
+  xhr.open('POST', 'http://test-api.javascript.ru/v1/toster1/users');
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(JSON.stringify({
+    fullName: "Bender",
+    email: 'bender@mail.ru'
+  }));
+  
+  xhr.onload = function() {
+    if (xhr.status != 200) {
+      alert("Error: " + xhr.responseText);
+    } else {
+      alert('Ok');
+      console.log(xhr.responseText);
+    }
+  }
+  
+  xhr.onerror = function() {
+    alert("Sorry error! Try again later");
+  };
+}
+</script>
+</body>
+
+</html>

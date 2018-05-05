@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body>
+<script>
+//	PATCH позволяет изменить конкретного пользователя
+//	В open указываем адрес с users/id нужного пользователя
+//	В send указываем любой ключ: значение, которые хотим изменить
+if(0) {
+  let xhr = new XMLHttpRequest();
+  xhr.open('PATCH', 'http://test-api.javascript.ru/v1/toster1/users/5ae9109c7f0d1fac2ba88ce7');
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(JSON.stringify({
+    email: 'bender@mail2.ru'
+  }));
+  
+  xhr.onload = function() {
+    if (xhr.status != 200) {
+      alert("Error: " + xhr.responseText);
+    } else {
+      alert('Ok');
+      console.log(xhr.responseText);
+    }
+  }
+  
+  xhr.onerror = function() {
+    alert("Sorry error! Try again later");
+  };
+}
+</script>
+</body>
+
+</html>

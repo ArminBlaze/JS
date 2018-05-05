@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="messages.css">
+  <meta charset="utf-8">
+</head>
+
+<body>
+  
+  
+  <form id="form">
+    <p>Name: <input type="text" name="fullName" required></p>
+    <p>Email: <input type="email" name="email" required></p>
+    <p>Birthdate: <input type="date" name="birthdate" required></p>
+    <input type="submit">
+  </form>
+  
+<script>
+
+  form.onsubmit = function(event) {
+    event.preventDefault();
+    
+    let fullName = form.fullName.value;
+    let email = form.email.value;
+    let birthdate = form.birthdate.value;
+    // Date birthdate -- дата рождения ?
+    
+    alert(fullName);
+    alert(email);
+		
+		let xhr = new XMLHttpRequest();
+		xhr.open('POST', 'http://test-api.javascript.ru/v1/toster1/users/');
+		xhr.setRequestHeader('Content-Type', 'application/json');
+		xhr.send(JSON.stringify({
+			fullName: fullName,
+			email: email,
+			birthdate: birthdate
+		}));
+
+		xhr.onload = function() {
+			if (xhr.status != 200) {
+				alert("Error: " + xhr.responseText);
+			} else {
+				alert('Ok');
+				console.log(xhr.responseText);
+			}
+		}
+
+		xhr.onerror = function() {
+			alert("Sorry error! Try again later");
+		};
+		
+  }
+  /*
+
+ 
+*/
+</script>
+</body>
+
+</html>

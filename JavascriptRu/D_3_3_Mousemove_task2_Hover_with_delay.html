@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+		.hours {
+			color: red;
+		}
+
+		.minutes {
+			color: green;
+		}
+
+		.seconds {
+			color: blue;
+		}
+
+		.clock {
+			border: 1px dashed black;
+			padding: 5px;
+			display: inline-block;
+			background: yellow;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+
+		.tooltip {
+			position: absolute;
+			background: #eee;
+			border: 1px brown solid;
+			padding: 3px;
+		}
+		
+		.popup {
+			border: 1px solid gray;
+			box-shadow: 3px 3px 3px gray;
+			border-radius: 5px;
+			padding: 10px 20px;
+			position: fixed;
+			background-color: #fff;
+/*			transform: translate(-50%, -100%);*/
+		}
+	</style>
+</head>
+
+<body>
+
+  <div id="elem" class="clock">
+    <span class="hours">12</span> :
+    <span class="minutes">30</span> :
+    <span class="seconds">00</span>
+  </div>
+
+  <div id="tooltip" hidden>Tooltip</div>
+
+  <script>
+		function HoverIntent(options) {
+			this.currentElem = null;
+			this.timer;
+			this.elem = options.elem;
+			this.elem.onmouseover = options.over;
+			this.elem.onmouseout = options.out;
+			
+			
+			/* ваш код для инициализации и работы HoverIntent */
+			this.destroy = function() {
+				// для удаления HoverIntent тесты вызывают эту функцию
+			};
+
+		}
+		
+		// образец подсказки
+		var tooltip = document.createElement('div');
+		tooltip.className = "tooltip";
+		tooltip.innerHTML = "Подсказка";
+
+		// при "наведении на элемент" показать подсказку
+		var peka = new HoverIntent({
+			elem: elem,
+			over: over,
+			out: out
+		});
+		
+		
+		/////////////////////////////
+
+//		var this.currentElem = null;
+//		var timer;
+		
+		function over(e) {
+//				console.log("hover на часы");
+			if (this.currentElem) {
+				// перед тем, как зайти в новый элемент, курсор всегда выходит из предыдущего
+				//
+				// если мы еще не вышли, значит это переход внутри элемента, отфильтруем его
+				return;
+			}
+
+			var target = e.target;
+//			if (!e.target.hasAttribute('data-tooltip')) return;
+			while (target != this) {
+//					if (target.hasAttribute('data-tooltip')) break;
+//					if (target == this) return;
+				target = target.parentNode;
+			}
+
+			this.currentElem = makeTooltip(target);
+			
+			this.timer = setTimeout(function(){
+				this.currentElem.style.visibility = "";
+			}.bind(this), 150);
+			
+			////////////////
+			
+			function makeTooltip (elem) {
+				console.log("делаем попап");
+				var coords = elem.getBoundingClientRect();
+
+				var popup = document.createElement('div');
+	//				popup.innerHTML = elem.getAttribute('data-tooltip');
+				popup.innerHTML = "Peka";
+				popup.classList.add('popup');
+	//			popup.className = 'popup'; // Для старых браузеров без classList (IE < 10) 
+				elem.parentElement.appendChild(popup);
+
+				popup.style.visibility = "hidden";
+
+				var popupVerticalMargin = 5;
+
+				var left = coords.left + (elem.offsetWidth/2) - (popup.offsetWidth/2);
+				var top = coords.top - popupVerticalMargin - popup.offsetHeight;
+
+				if(left < 0) left = 0;
+				if(top < 0) top = coords.bottom + popupVerticalMargin;
+
+				popup.style.left = left + "px";
+				popup.style.top = top + "px";
+
+
+
+				return popup;
+			}
+		};
+
+	//предусмотреть ситуацию когда мы переходим на другой элемент с data-tooltip
+			function out(e) {
+				if (!this.currentElem) return;
+//				 произошёл уход с элемента - проверим, куда, может быть на потомка?
+				var relatedTarget = event.relatedTarget; //на какой элемент ушла мышь
+				if (relatedTarget) { // может быть relatedTarget = null, если мышь ушла за пределы окна
+					while (relatedTarget) { //поднимаемся по родителям вверх, и ищём среди родителей текущий TD
+						if (relatedTarget == elem) return;
+						if("hasAttribute" in relatedTarget && relatedTarget.hasAttribute('data-tooltip') && relatedTarget != this.currentElem) break;
+						// идём по цепочке родителей и проверяем,
+						// если переход внутрь currentElem - игнорируем это событие
+						relatedTarget = relatedTarget.parentNode;
+					}
+				}
+
+				console.log("уходим с часов");
+				// произошло событие mouseout, курсор ушёл
+				this.currentElem.parentElement.removeChild(this.currentElem);
+				this.currentElem = null;
+				clearTimeout(this.timer);
+//				console.log(currentElem);
+			}
+
+
+
+
+		
+  </script>
+
+</body>
+</html>

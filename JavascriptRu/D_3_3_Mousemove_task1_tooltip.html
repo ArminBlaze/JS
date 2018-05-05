@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      height: 2000px;
+      /* подсказка должна работать при прокрутке */
+    }
+
+    #house {
+      margin-top: 50px;
+      width: 400px;
+      border: 1px solid brown;
+    }
+
+    #roof {
+      width: 0;
+      height: 0;
+      border-left: 200px solid transparent;
+      border-right: 200px solid transparent;
+      border-bottom: 20px solid brown;
+      margin-top: -20px;
+    }
+
+    p {
+      text-align: justify;
+      margin: 10px 3px;
+    }
+		
+		.popup {
+			border: 1px solid gray;
+			box-shadow: 3px 3px 3px gray;
+			border-radius: 5px;
+			padding: 10px 20px;
+			position: fixed;
+			background-color: #fff;
+/*			transform: translate(-50%, -100%);*/
+		}
+  </style>
+</head>
+
+<body>
+
+
+  <div data-tooltip="Это – внутренность дома" id="house">
+    <div data-tooltip="Это – крыша" id="roof"></div>
+
+    <p>Жили-были на свете три поросёнка. Три брата.</p>
+
+    <p>Все одинакового роста, кругленькие, розовые, с одинаковыми весёлыми хвостиками.</p>
+
+    <p>Даже имена у них были похожи. Звали поросят Ниф-Ниф, Нуф-Нуф и Наф-Наф. Всё лето они кувыркались в зелёной траве, грелись на солнышке, нежились в лужах.</p>
+
+    <p>Но вот наступила осень. <a href="http://ru.wikipedia.org/wiki/Три_поросёнка" data-tooltip="Читать дальше&hellip;">Наведи на меня</a></p>
+
+  </div>
+  
+  <script>
+		var currentElem = null;
+		
+		document.onmouseover = function(e) {
+			if (currentElem) {
+				// перед тем, как зайти в новый элемент, курсор всегда выходит из предыдущего
+				//
+				// если мы еще не вышли, значит это переход внутри элемента, отфильтруем его
+				return;
+			}
+			
+			var target = e.target;
+//			if (!e.target.hasAttribute('data-tooltip')) return;
+			while (target != this) {
+				if (target.hasAttribute('data-tooltip')) break;
+				target = target.parentNode;
+			}
+			if (target == this) return;
+			
+			currentElem = makeTooltip(target);
+			
+			
+			
+			
+			//предусмотреть ситуацию когда мы переходим на другой элемент с data-tooltip
+			target.onmouseout = function(e) {
+				if (!currentElem) return;
+
+//				 произошёл уход с элемента - проверим, куда, может быть на потомка?
+				var relatedTarget = event.relatedTarget; //на какой элемент ушла мышь
+				if (relatedTarget) { // может быть relatedTarget = null, если мышь ушла за пределы окна
+					while (relatedTarget) { //поднимаемся по родителям вверх, и ищём среди родителей текущий TD
+						if (relatedTarget == currentElem) return;
+						if("hasAttribute" in relatedTarget && relatedTarget.hasAttribute('data-tooltip') && relatedTarget != currentElem) break;
+						// идём по цепочке родителей и проверяем,
+						// если переход внутрь currentElem - игнорируем это событие
+						relatedTarget = relatedTarget.parentNode;
+					}
+				}
+
+				// произошло событие mouseout, курсор ушёл
+				target.parentElement.removeChild(currentElem);
+				currentElem = null;
+//				console.log(currentElem);
+			}
+		};
+		
+		
+		
+		
+		function makeTooltip (elem) {
+			var coords = elem.getBoundingClientRect();
+			
+			var popup = document.createElement('div');
+			popup.innerHTML = elem.getAttribute('data-tooltip');
+			popup.classList.add('popup');
+//			popup.className = 'popup'; // Для старых браузеров без classList (IE < 10) 
+			elem.parentElement.appendChild(popup);
+			
+			popup.style.visibility = "hidden";
+			
+			var popupVerticalMargin = 5;
+			
+			var left = coords.left + (elem.offsetWidth/2) - (popup.offsetWidth/2);
+			var top = coords.top - popupVerticalMargin - popup.offsetHeight;
+			
+			if(left < 0) left = 0;
+			if(top < 0) top = coords.bottom + popupVerticalMargin;
+			
+			popup.style.left = left + "px";
+			popup.style.top = top + "px";
+			
+			popup.style.visibility = "";
+			
+			return popup;
+		}
+	</script>
+
+</body>
+
+</html>

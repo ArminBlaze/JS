@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <style>
+		#view,
+		#area {
+			height: 150px;
+			width: 400px;
+			font-family: arial;
+			font-size: 14px;
+		}
+
+		#view {
+			/* padding + border = 3px */
+
+			padding: 2px;
+			border: 1px solid black;
+		}
+
+		#area {
+			display: none;
+			/* replace padding with border (still 3px not to shift the contents) */
+
+			border: 3px groove blue;
+			padding: 0px;
+		}
+
+		#area:focus {
+			outline: none;
+			/* remove focus border in Safari */
+		}
+	</style>
+</head>
+
+<body>
+
+  <ul>
+    <li>Ctrl-E to start editing.</li>
+    <li>While editing: Ctrl-S to save, Esc to cancel.</li>
+  </ul>
+
+
+  <textarea id="area"></textarea>
+  <div id="view" tabindex="0">Text</div>
+
+	<script>
+//		Горячие клавиши
+//		важность: 5
+//
+//		Создайте <div>, который при нажатии Ctrl+E превращается в <textarea>.
+//
+//		Изменения, внесенные в поле, можно сохранить обратно в <div> сочетанием клавиш Ctrl+S, при этом <div> получит в виде HTML содержимое <textarea>.
+//
+//		Если же нажать Esc, то <textarea> снова превращается в <div>, изменения не сохраняются.
+		
+		view.onkeydown = function(e) {
+			console.log(e.keyCode);
+			
+			//нажали ctrl+e
+			if(e.ctrlKey && e.keyCode == 69) {
+				e.preventDefault();
+				
+				area.value = view.innerHTML;
+				area.style.display = "block";
+				view.style.display = "none";
+				area.focus();
+			}
+			
+			//нажали ctrl+s
+			if(e.ctrlKey && e.keyCode == 83) {
+				return false;
+			}
+		}
+		
+		area.onkeydown = function(e) {
+			console.log(e.keyCode);
+			
+			//нажали ctrl+s
+			if(e.ctrlKey && e.keyCode == 83) {
+				e.preventDefault();
+				view.innerHTML = area.value;
+				area.style.display = "none";
+				view.style.display = "block";
+				view.focus();
+			}
+			
+			//нажали esc
+			if(e.keyCode == 27) {
+				area.style.display = "none";
+				view.style.display = "block";
+				view.focus();
+			}
+			
+			//нажали ctrl+e
+			if(e.ctrlKey && e.keyCode == 69) {
+				return false;
+			}
+		}
+	</script>
+</body>
+
+</html>

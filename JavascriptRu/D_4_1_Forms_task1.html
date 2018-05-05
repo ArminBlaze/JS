@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+<form action="">
+	<select>
+  	<option value="Rock">Рок</option>
+  	<option value="Blues" selected>Блюз</option>
+	</select>
+</form>
+
+
+
+	<script>
+//		Добавьте опцию к селекту
+//		важность: 5
+//
+//		Есть селект:
+//
+//		<select>
+//			<option value="Rock">Рок</option>
+//			<option value="Blues" selected>Блюз</option>
+//		</select>
+//
+//		При помощи JavaScript:
+//
+//    Выведите значение и текст текущей выбранной опции.
+//    Добавьте опцию: <option value="Classic">Классика</option>.
+//    Сделайте её выбранной.
+		var select = document.forms[0].elements[0];
+		
+		for (var i = 0; i < select.options.length; i++) {
+			var option = select.options[i];
+			if(option.selected) {
+				alert(option.value + " : " + option.text)
+			}
+		}
+		
+		var newOption = new Option("Классика", "Classic", false, true);
+		select.appendChild(newOption);
+	</script>
+</body>
+</html>

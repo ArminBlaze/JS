@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    #mouse {
+      display: inline-block;
+      cursor: pointer;
+      margin: 0;
+			position: relative;
+    }
+
+    #mouse:focus {
+      outline: 1px dashed black;
+    }
+  </style>
+</head>
+
+<body>
+
+  <p>Кликните на мышонка и передвигайте его, нажимая клавиши со стрелками.</p>
+
+  <pre id="mouse" tabindex="0">
+ _   _
+(q\_/p)
+ /. .\
+=\_t_/=   __
+ /   \   (
+((   ))   )
+/\) (/\  /
+\  Y  /-'
+ nn^nn
+</pre>
+
+
+  <script>
+//		Мышонок на "клавиатурном" приводе
+//		важность: 4
+//
+//		Кликните по мышонку. Затем нажимайте клавиши со стрелками, и он будет двигаться.
+//
+//		Демо в новом окне
+//
+//		В этой задаче запрещается ставить обработчики куда-либо, кроме элемента #mouse.
+//
+//		Можно изменять атрибуты и классы в HTML.
+		
+		mouse.onfocus = function(e) {
+			mouse.addEventListener('keydown', mouseMove);
+		};
+		
+		mouse.onblur = function(e) {
+			mouse.removeEventListener('keydown', mouseMove);
+		};
+		
+		function mouseMove (e) {
+			var key = e.keyCode;
+			
+			if(!mouse.style.left)	mouse.style.left = 0;
+			if(!mouse.style.top)	mouse.style.top = 0;
+			console.log(mouse.style.left);
+			console.log(mouse.style.top);
+			var left = parseInt(mouse.style.left);
+			var top = parseInt(mouse.style.top);
+			
+			
+			switch (key) {
+				case 37:
+					console.log("<");
+					mouse.style.left = left - mouse.offsetWidth + "px";
+					break;
+				case 38:
+					console.log("^");
+					mouse.style.top = top - mouse.offsetHeight + "px";
+					break;
+				case 39:
+					mouse.style.left = left + mouse.offsetWidth + "px";
+					console.log(">");
+					break;
+				case 40:
+					console.log("v");
+					mouse.style.top = top + mouse.offsetHeight + "px";
+					break;
+			}
+		}
+  </script>
+
+</body>
+
+</html>

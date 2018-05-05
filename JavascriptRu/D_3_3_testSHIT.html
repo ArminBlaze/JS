@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <!--<script src="hoverIntent.js"></script>-->
+<!--  <script src="https://js.cx/test/libs.js"></script>-->
+<!--  <script src="test.js"></script>-->
+</head>
+
+<body>
+
+  <div id="elem" class="clock">
+    <span class="hours">12</span> :
+    <span class="minutes">30</span> :
+    <span class="seconds">00</span>
+  </div>
+
+  <div id="tooltip" hidden>Tooltip</div>
+
+  <script>
+function HoverIntent(options) {
+	var currentElem = null;
+	var timer;
+	var elem = elem;
+	elem.addEventListener('mouseover', over);
+	elem.addEventListener('mouseout', out);
+
+	function over(e) {
+//				console.log("hover на часы");
+		if (currentElem) {
+			// перед тем, как зайти в новый элемент, курсор всегда выходит из предыдущего
+			//
+			// если мы еще не вышли, значит это переход внутри элемента, отфильтруем его
+			return;
+		}
+
+		var target = e.target;
+//			if (!e.target.hasAttribute('data-tooltip')) return;
+		while (target != this) {
+//					if (target.hasAttribute('data-tooltip')) break;
+//					if (target == this) return;
+			target = target.parentNode;
+		}
+
+		currentElem = true;
+
+		timer = setTimeout(function(){
+//				this.currentElem.style.visibility = "";
+			tooltip.hidden = false;
+		}.bind(this), 150);
+
+		////////////////
+
+		function makeTooltip (elem) {
+			console.log("делаем попап");
+			var coords = elem.getBoundingClientRect();
+
+			var popup = document.createElement('div');
+//				popup.innerHTML = elem.getAttribute('data-tooltip');
+			popup.innerHTML = "Peka";
+			popup.classList.add('popup');
+//			popup.className = 'popup'; // Для старых браузеров без classList (IE < 10) 
+			elem.parentElement.appendChild(popup);
+
+			popup.style.visibility = "hidden";
+
+			var popupVerticalMargin = 5;
+
+			var left = coords.left + (elem.offsetWidth/2) - (popup.offsetWidth/2);
+			var top = coords.top - popupVerticalMargin - popup.offsetHeight;
+
+			if(left < 0) left = 0;
+			if(top < 0) top = coords.bottom + popupVerticalMargin;
+
+			popup.style.left = left + "px";
+			popup.style.top = top + "px";
+
+
+
+			return popup;
+		}
+	};
+	
+	
+	
+	function out(e) {
+		if (!currentElem) return;
+//				 произошёл уход с элемента - проверим, куда, может быть на потомка?
+		var relatedTarget = e.relatedTarget; //на какой элемент ушла мышь
+		if (relatedTarget) { // может быть relatedTarget = null, если мышь ушла за пределы окна
+			while (relatedTarget) { //поднимаемся по родителям вверх, и ищём среди родителей текущий TD
+				if (relatedTarget == elem) return;
+				if("hasAttribute" in relatedTarget && relatedTarget.hasAttribute('data-tooltip') && relatedTarget != currentElem) break;
+				// идём по цепочке родителей и проверяем,
+				// если переход внутрь currentElem - игнорируем это событие
+				relatedTarget = relatedTarget.parentNode;
+			}
+		}
+
+		console.log("уходим с часов");
+		// произошло событие mouseout, курсор ушёл
+//				this.currentElem.parentElement.removeChild(this.currentElem);
+		tooltip.hidden = true;
+		currentElem = null;
+		clearTimeout(timer);
+//				console.log(currentElem);
+	}
+	
+
+
+
+	/* ваш код для инициализации и работы HoverIntent */
+	 this.destroy = function() {
+		// elem.removeEventListener('mousemove', onMouseMove);
+		elem.removeEventListener('mouseover', options.over);
+		elem.removeEventListener('mouseout', options.out);
+	};
+	
+	
+
+	
+
+		}
+		
+		// образец подсказки
+		// var tooltip = document.createElement('div');
+		// tooltip.className = "tooltip";
+		// tooltip.innerHTML = "Подсказка";
+
+		// при "наведении на элемент" показать подсказку
+		var peka = new HoverIntent({
+			elem: elem,
+		});
+		
+		
+		/////////////////////////////
+
+//		var this.currentElem = null;
+//		var timer;
+		
+
+
+	//предусмотреть ситуацию когда мы переходим на другой элемент с data-tooltip
+			
+  </script>
+
+</body>
+</html>

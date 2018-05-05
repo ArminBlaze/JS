@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <style>
+    /* стиль для input с плейсхолдером */
+
+    .placeholder {
+      color: blue;
+      font-family: Georgia;
+    }
+    /* стиль для подсказки над элементом (вместо плейсхолдера при фокусировке) */
+
+    .placeholder-tooltip {
+      color: blue;
+      font-family: Georgia;
+      position: fixed;
+    }
+  </style>
+</head>
+
+<body>
+
+  <p>Красивый placeholder:</p>
+
+  <input type="email" data-placeholder="E-mail">
+
+
+  <script>
+//		Улучшенный плейсхолдер
+//		важность: 5
+//
+//		Реализуйте более удобный плейсхолдер-подсказку на JavaScript через атрибут data-placeholder.
+//
+//		Правила работы плейсхолдера:
+//
+//				Элемент изначально содержит плейсхолдер. Специальный класс placeholder придает ему синий цвет.
+//				При фокусировке плейсхолдер показывается уже над полем, становясь «подсказкой».
+//				При снятии фокуса, подсказка убирается, если поле пустое – плейсхолдер возвращается в него.
+//
+//
+//		В этой задаче плейсхолдер должен работать на одном конкретном input. Подумайте, если input много, как здесь применить делегирование?
+		
+    var input = document.querySelector('[data-placeholder]');
+
+    showPlaceholder(input);
+
+    // Показать placeholder внутри input
+    // Также можно сделать это при помощи вёрстки, отдельным элементом
+    function showPlaceholder(input) {
+      input.classList.add('placeholder');
+      input.value = input.dataset.placeholder;
+    }
+		
+		input.onfocus = function(e) {
+			showTooltip(input);
+			
+			if(!input.value || input.value == input.dataset.placeholder) input.value = "";
+			input.classList.remove('placeholder');
+		}
+		
+		input.onblur = function(e) {
+			var tooltip = document.querySelector(".placeholder-tooltip");
+			if(tooltip) tooltip.parentNode.removeChild(tooltip);
+			if(!input.value) showPlaceholder(input);
+			
+		}
+		
+		function showTooltip (input) {
+			var coords = input.getBoundingClientRect();
+			
+			var tooltip = document.createElement('div');
+			tooltip.classList.add('placeholder-tooltip');
+			tooltip.innerHTML = input.dataset.placeholder;
+			tooltip.style.left = coords.left + "px";
+			tooltip.style.font = getComputedStyle(input).font;
+			document.body.appendChild(tooltip);
+			tooltip.style.top = coords.top - tooltip.offsetHeight  + "px";
+		}
+
+    // ...ваш код для input...
+  </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<style> 
+		.focused { outline: 1px solid red; } 
+		#form {padding: 5px;}
+	</style>
+</head>
+<body>
+	<!-- при фокусировке на форме ставим ей класс -->
+<form id="form">
+  <input type="text" name="name" value="Ваше имя">
+  <input type="text" name="surname" value="Ваша фамилия">
+</form>
+
+
+	<script>
+		form.addEventListener('focus', function(e) {
+			this.classList.add('focused');
+		}, true);
+		form.addEventListener('blur', function(e) {
+			this.classList.remove('focused');
+		}, true);
+	
+	</script>
+</body>
+</html>
