@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+
+  Введите текст(например, пароль) с нажатым CapsLock:
+  <input type="text" id="input" />
+
+  <div style="display:none;color:red" id="capsIndicator">Внимание: нажат CapsLock!</div>
+
+
+	<script>
+//		Поле, предупреждающее о включенном CapsLock
+//		важность: 3
+//
+//		Создайте поле, которое будет предупреждать пользователя, если включен CapsLock. Выключение CapsLock уберёт предупреждение.
+//
+//		Такое поле может помочь избежать ошибок при вводе пароля.
+		
+		var capsState;
+		var inputLength = 0;
+		
+		
+		document.onkeyup = function(e) {
+			var key = e.keyCode;
+			console.log(key);
+			
+			if(key == 20) {
+				console.log("был нажат CapsLock");
+				if(capsState !== undefined) {
+					capsState = !capsState;
+					showIndicator();
+				}
+				return;
+			}
+
+			var target = e.target;
+			console.log(target);
+			if(target.tagName != "INPUT") return;
+			
+			//если в инпут ничего не ввели - это функциональная клавиша. Игнорируем
+			if(inputLength && inputLength == input.value.length) return;
+
+			var lastLetter = input.value.slice(-1);
+			if(!lastLetter) return;
+			
+			if(lastLetter.toUpperCase() == lastLetter.toLocaleLowerCase()) return;
+			console.log(e.shiftKey + " - e.shiftKey");
+			
+			if(lastLetter.toUpperCase() < lastLetter) {
+				console.log(lastLetter + " - это маленькая буква");
+				capsState = (e.shiftKey);
+//				capsState = false;
+			} else {
+				console.log(lastLetter + " - Это большая буква");
+				capsState = !(e.shiftKey);
+//				capsState = true;
+			} 
+			
+			showIndicator();
+			inputLength = input.value.length;
+		}
+		
+		function methodName (arguments) {
+			
+		}
+			
+		function showIndicator () {
+//			if(!capsState) return;
+			if(capsState) capsIndicator.style.display = "block";
+			else capsIndicator.style.display = "none";
+		}
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+<input type="text" id='input'>
+	<script>
+		input.onkeyup = function(e) {
+			var key = e.keyCode;
+			console.log(key);
+			
+			if(key == 20) {
+				console.log("был нажат CapsLock");
+				return;
+			}
+			
+//			console.log( String.fromCharCode(key) );
+//			console.log(input.value.slice(-1));
+//			маленькие буквы боль в Юникоде
+			var lastLetter = input.value.slice(-1);
+			
+			
+			if(lastLetter.toUpperCase() < lastLetter) {
+				console.log(lastLetter + " - это маленькая буква");
+			} else {
+				console.log(lastLetter + " - Это большая буква");
+			}
+		}
+	</script>
+</body>
+</html>

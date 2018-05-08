@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <style>
+		body {
+			font-size: 16px;
+		}
+		
+    p {
+      margin-bottom: 1.5em;
+    }
+    
+    input {
+      margin: 0.5em 0;
+      border: none;
+      border-bottom: 1px solid #ccc;
+      width: 11.5em;
+      height: 1em;
+      display: block;
+      background: transparent;
+    }
+    
+    input:focus {
+      outline: none;
+    }
+    
+    input:focus + .placeholder,
+    input.value + .placeholder {
+      top: -3em;
+    }
+    
+    .placeholder {
+      position: relative;
+      top: -1.8em;
+      z-index: -1;
+      color: gray;
+      font: 0.8em Georgia;
+      transition: 0.5s all;
+    }
+  </style>
+</head>
+
+<body>
+  <p>Красивый placeholder:</p>
+  <input type="text" data-placeholder="Name">
+  <input type="email" data-placeholder="E-mail">
+  <script>
+    var inputs = document.querySelectorAll('[data-placeholder]');
+    Array.prototype.forEach.call(inputs, function(input) {
+      showPlaceholder(input);
+    });
+
+    function showPlaceholder(input) {
+      var placeholder = document.createElement('div');
+      placeholder.className = 'placeholder';
+      placeholder.textContent = input.dataset.placeholder;
+      document.body.insertBefore(placeholder, input.nextSibling);
+    }
+
+    document.body.addEventListener('blur', function(event) {
+      var target = event.target;
+      if (target.tagName != 'INPUT') return;
+      target.className = target.value ? 'value' : ''; 
+    }, true);
+  </script>
+</body>
+
+</html>

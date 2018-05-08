@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+
+  Введите текст(например, пароль) с нажатым CapsLock:
+  <input type="text" id="input" />
+
+  <div style="display:none;color:red" id="capsIndicator">Внимание: нажат CapsLock!</div>
+
+
+	<script>
+//		Поле, предупреждающее о включенном CapsLock
+//		важность: 3
+//
+//		Создайте поле, которое будет предупреждать пользователя, если включен CapsLock. Выключение CapsLock уберёт предупреждение.
+//
+//		Такое поле может помочь избежать ошибок при вводе пароля.
+		
+		
+//		Современное решение для Caps Lock
+//		https://stackoverflow.com/questions/348792/how-do-you-tell-if-caps-lock-is-on-using-javascript/34277417#34277417
+		
+//		document.addEventListener( 'keydown', function( event ) {
+//			var caps = event.getModifierState && event.getModifierState( 'CapsLock' );
+//			console.log( caps ); // true when you press the keyboard CapsLock key
+//		});
+		
+		var capsState = null;
+		var inputLength = 0;
+		
+		if (navigator.platform.substr(0, 3) != 'Mac') { // событие для CapsLock глючит под Mac
+      document.onkeydown = function(e) {
+        if (e.keyCode == 20 && capsState !== null) {
+          capsState = !capsState;
+					showIndicator();	//так подсказка о капсе будет появляться всё время
+					//если	нужно, чтобы подсказка появлялась только при начале ввода - нужно делать ф-цию на focus поля ввода
+        }
+      }
+    }
+		
+		document.onkeypress = function(e) {
+			var key = e.keyCode;
+			console.log(key);
+
+			var target = e.target;
+			console.log(target);
+//			if(target.tagName != "INPUT") return; //если нужно отлавливать только при вводе
+			
+
+			var lastLetter = getChar(e);
+			if(!lastLetter) return;
+			
+			if(lastLetter.toUpperCase() == lastLetter.toLocaleLowerCase()) return;
+			console.log(e.shiftKey + " - e.shiftKey");
+			
+			if(lastLetter.toUpperCase() < lastLetter) {
+				console.log(lastLetter + " - это маленькая буква");
+				capsState = (e.shiftKey);
+//				capsState = false;
+			} else {
+				console.log(lastLetter + " - Это большая буква");
+				capsState = !(e.shiftKey);
+//				capsState = true;
+			} 
+			
+			showIndicator();
+		}
+		
+		 function getChar(event) {
+      if (event.which == null) {
+        if (event.keyCode < 32) return null;
+        return String.fromCharCode(event.keyCode) // IE
+      }
+
+      if (event.which != 0 && event.charCode != 0) {
+        if (event.which < 32) return null;
+        return String.fromCharCode(event.which) // остальные
+      }
+
+      return null; // специальная клавиша
+    }
+			
+		function showIndicator () {
+//			if(!capsState) return;
+			if(capsState) capsIndicator.style.display = "block";
+			else capsIndicator.style.display = "none";
+		}
+	</script>
+</body>
+
+</html>

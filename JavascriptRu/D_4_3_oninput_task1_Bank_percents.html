@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    td select,
+    td input {
+      width: 150px;
+    }
+
+    #diagram td {
+      vertical-align: bottom;
+      text-align: center;
+      padding: 10px;
+    }
+
+    #diagram div {
+      margin: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  Калькулятор процентов, из расчёта <b>12%</b> годовых.
+  <form name="calculator">
+    <table>
+      <tr>
+        <td>Сумма</td>
+        <td>
+          <input name="money" type="text" value="10000" id="moneyInput">
+        </td>
+      </tr>
+      <tr>
+        <td>Срок в месяцах</td>
+        <td>
+          <select name="months">
+            <option value="3">3 (минимум)</option>
+            <option value="6">6 (полгода)</option>
+            <option value="12" selected>12 (год)</option>
+            <option value="18">18 (1.5 года)</option>
+            <option value="24">24 (2 года)</option>
+            <option value="30">30 (2.5 года)</option>
+            <option value="36">36 (3 года)</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>С капитализацией</td>
+        <td>
+          <input name="capitalization" type="checkbox">
+        </td>
+      </tr>
+    </table>
+
+
+  </form>
+
+
+  <table id="diagram">
+    <tr>
+      <th>Было:</th>
+      <th>Станет:</th>
+    </tr>
+    <tr>
+      <th id="money-before"></th>
+      <th id="money-after"></th>
+    </tr>
+    <tr>
+      <td>
+        <div style="background: red;width:40px;height:0" id="height-before"></div>
+      </td>
+      <td>
+        <div style="background: green;width:40px;height:150px" id="height-after"></div>
+      </td>
+    </tr>
+  </table>
+
+  <script>
+//		Автовычисление процентов по вкладу
+//		важность: 5
+//
+//		Создайте интерфейс для автоматического вычисления процентов по вкладу.
+//
+//		Ставка фиксирована: 12% годовых. При включённом поле «капитализация» – проценты приплюсовываются к сумме вклада каждый месяц (сложный процент).
+		
+		var form = document.forms.calculator;
+    var beforeTD = window['money-before'];
+		var afterTD = window['money-after'];
+		var beforeGraph = window['height-before'];
+		var afterGraph = window['height-after'];
+		var capitalCheckbox = form.querySelector('[name="capitalization"]');
+		var PERCENT = 0.12;
+		var select = document.querySelector("select[name='months']");
+		var moneyInput = form.elements.money;
+		
+		calculateAndDraw();
+		
+		function calculateAndDraw () {
+			var selectedOptionIndex = select.selectedIndex;
+			var months = select.options[selectedOptionIndex].value;
+			
+			var before = +moneyInput.value;
+			if( isNaN(before) ) return;
+			
+			var result;
+			
+			var graphHeight = parseInt( afterGraph.style.height ) ;
+			
+			beforeTD.innerHTML = before;
+			
+			if(capitalCheckbox.checked) {
+				result = before * Math.pow( (1 + ((PERCENT*1) / 12 )), months); 
+			} else {
+				result = before + ( (before * PERCENT * months) / 12 );
+			}
+			
+			afterTD.innerHTML = Math.floor( result );
+			beforeGraph.style.height = graphHeight / (result / before) + "px";
+		}
+		
+		moneyInput.onkeypress = function(e) {
+			var key = getChar(e);
+			console.log(key);
+			if( isNaN(key) ) e.preventDefault();
+		}
+		
+		form.oninput = function (e) {
+			calculateAndDraw();
+		}
+		
+    // вспомогательная функция для получения символа из события keypress
+    // (вдруг понадобится))
+		
+		function getChar(event) {
+      if (event.which == null) {
+        if (event.keyCode < 32) return null;
+        return String.fromCharCode(event.keyCode) // IE
+      }
+
+      if (event.which != 0 && event.charCode != 0) {
+        if (event.which < 32) return null;
+        return String.fromCharCode(event.which) // остальные
+      }
+
+      return null; // специальная клавиша
+    }
+  </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    td select,
+    td input {
+      width: 150px;
+    }
+
+    label {
+      display: block;
+    }
+    /* ваши стили */
+		
+		.input_error {
+			color: red;
+		}
+		
+		.input_error > input,
+		.input_error > select,
+		.input_error > textarea {
+			outline: 2px solid red;
+		}
+  </style>
+</head>
+
+<body>
+
+
+  <form>
+    <table>
+      <tr>
+        <td>От кого</td>
+        <td>
+          <input name="from" type="text">
+        </td>
+      </tr>
+      <tr>
+        <td>Ваш пароль</td>
+        <td>
+          <input name="password" type="password">
+        </td>
+      </tr>
+      <tr>
+        <td>Повторите пароль</td>
+        <td>
+          <input name="password2" type="password">
+        </td>
+      </tr>
+      <tr>
+        <td>Куда</td>
+        <td>
+          <select name="to">
+            <option></option>
+            <option value="1">Отдел снабжения</option>
+            <option value="2">Отдел разработки</option>
+            <option value="3">Директору</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+
+    Сообщение:
+    <label>
+      <textarea name="message" style="display:block;width:400px;height:100px"></textarea>
+    </label>
+
+    <input type="submit" value="Проверить">
+  </form>
+
+  <script>
+//		Валидация формы
+//		важность: 3
+//
+//		Напишите функцию validate(form), которая проверяет содержимое формы по клику на кнопку «Проверить».
+//
+//		Ошибки:
+//
+//		Одно из полей не заполнено.
+//		Пароли не совпадают.
+		
+		var form = document.forms[0];
+		var sendButton = form.querySelector('input[type="button"]');
+		
+		form.onsubmit = function(e) {
+			e.preventDefault();
+			
+			if(validate(form)) {
+				form.submit();
+			};
+		}
+		
+    function validate(form) {
+			var noErrors = true;
+			var elements = form.elements;
+			
+			for (var i = 0; i < elements.length; i++) {
+				var element = elements[i];
+//				element.parentNode.classList.remove("input_error", "input_error_"+endName);
+				removeError(element.parentNode);
+				
+				if(element.name == "password2") continue;
+				
+				if(!element.value) {
+					noErrors = false;
+//					element.parentNode.classList.add("input_error", "input_error_"+endName);
+					createError(element.parentNode, element.name);
+				}
+			}
+			
+			var password = elements.password;
+			var password2 = elements.password2;
+//			password.parentNode.classList.remove("input_error_passwordNotMatch");
+//			removeError(password.parentNode);
+			
+			if(password.value && password.value != password2.value) {
+				noErrors = false;
+//				password.parentNode.classList.add("input_error", "input_error_passwordNotMatch");
+				createError(password.parentNode, "doNotMatch");
+			}
+			
+			return noErrors;
+    }
+		
+		function createError(parent, text) {
+//			console.log(text);
+			parent.classList.add('input_error');
+			
+			var span = document.createElement('span');
+			span.className = 'error_text';
+			
+			switch (text) {
+				case "from":
+					text = "Укажите от кого.";
+					break;
+				case "password":
+					text = "Укажите пароль.";
+					break;
+				case "to":
+					text = "Укажите, куда.";
+					break;
+				case "message":
+					text = "Отсутствует текст.";
+					break;
+				case "doNotMatch":
+					text = "Пароли не совпадают.";
+					break;
+				default:
+					text = "Заполните поле.";
+			}
+			
+			span.innerHTML = text;
+			parent.appendChild(span);
+		}
+		
+		function removeError(parent) {
+			if(!parent.classList.contains('input_error')) {
+				console.log(parent);
+				return;
+			} 
+			
+			parent.classList.remove('input_error');
+			var span = parent.querySelector('.error_text');
+			if(span) {
+//				debugger;
+				parent.removeChild(span);
+			}
+		}
+  </script>
+
+
+</body>
+
+</html>

@@ -56,7 +56,7 @@
 		function throttle (f, ms) {
 			var timer;
 			var args;
-			var call = false;
+			var called = false;
 			
 			return function() {	
 //				debugger;
@@ -64,7 +64,7 @@
 				args = [].slice.call(arguments);
 				
 				if(timer) {
-					call = true;
+					called = true;
 					return;
 				}
 				
@@ -72,24 +72,29 @@
 
 				timer = setInterval(function() {
 					f.apply(self, args);
-					if(!call) {
+					if(!called) {
 						clearInterval(timer);
 						timer = null;
 					}
-					call = false;
+					called = false;
 				}, ms, args);
 			};
 		}
 		
 		var f = function(a) {
-			console.log(a)
+			console.log(a);
 		};
 
 		// затормозить функцию до одного раза в 1000 мс
-		var f1000 = throttle(f, 5000);
+		// тут получаем обертку
+		var f1000 = throttle(f, 1000);
 		
 		var n = 1;
 
+//		запускаем обертку раз в 500 мс. Т.к. задержка установлена в 1000мс - половина вызовов будет игнорироваться
+		setInterval(function(){
+			f1000(n++);
+		},500)
 		
 
 		// когда пройдёт 1000 мс...

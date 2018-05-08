@@ -1,0 +1,226 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+		/* общие стили для таблицы */
+
+		th {
+			text-align: center;
+			font-weight: bold;
+		}
+
+		td {
+			width: 150px;
+			white-space: nowrap;
+			text-align: center;
+			vertical-align: middle;
+			padding: 10px;
+		}
+
+		.nw {
+			background-color: #999;
+		}
+
+		.n {
+			background-color: #03f;
+			color: #fff;
+		}
+
+		.ne {
+			background-color: #ff6;
+		}
+
+		.w {
+			background-color: #ff0;
+		}
+
+		.c {
+			background-color: #60c;
+			color: #fff;
+		}
+
+		.e {
+			background-color: #09f;
+			color: #fff;
+		}
+
+		.sw {
+			background-color: #963;
+			color: #fff;
+		}
+
+		.s {
+			background-color: #f60;
+			color: #fff;
+		}
+
+		.se {
+			background-color: #0c3;
+			color: #fff;
+		}
+		
+		.edit-td .edit-area {
+			border: none;
+			margin: 0;
+			padding: 0;
+			display: block;
+			resize: none;
+			/* remove resizing handle in Firefox */
+
+			outline: none;
+			/* remove outline on focus in Chrome */
+
+			overflow: auto;
+			/* remove scrollbar in IE */
+		}
+
+		.edit-controls {
+			position: absolute;
+		}
+
+		.edit-td {
+			position: relative;
+			padding: 0;
+		}
+	</style>
+</head>
+
+<body>
+ <style></style>
+
+
+  <p>Кликните на ячейке для начала редактирования. Когда закончите -- нажмите OK или CANCEL.</p>
+
+  <table id="bagua-table">
+    <tr>
+      <th colspan="3"><em>Bagua</em> Chart: Direction, Element, Color, Meaning</th>
+    </tr>
+    <tr>
+      <td class="nw"><strong>Northwest</strong>
+        <br>Metal
+        <br>Silver
+        <br>Elders
+      </td>
+      <td class="n"><strong>North</strong>
+        <br>Water
+        <br>Blue
+        <br>Change
+      </td>
+      <td class="ne"><strong>Northeast</strong>
+        <br>Earth
+        <br>Yellow
+        <br>Direction
+      </td>
+    </tr>
+    <tr>
+      <td class="w"><strong>West</strong>
+        <br>Metal
+        <br>Gold
+        <br>Youth
+      </td>
+      <td class="c"><strong>Center</strong>
+        <br>All
+        <br>Purple
+        <br>Harmony
+      </td>
+      <td class="e"><strong>East</strong>
+        <br>Wood
+        <br>Blue
+        <br>Future
+      </td>
+    </tr>
+    <tr>
+      <td class="sw"><strong>Southwest</strong>
+        <br>Earth
+        <br>Brown
+        <br>Tranquility
+      </td>
+      <td class="s"><strong>South</strong>
+        <br>Fire
+        <br>Orange
+        <br>Fame
+      </td>
+      <td class="se"><strong>Southeast</strong>
+        <br>Wood
+        <br>Green
+        <br>Romance
+      </td>
+    </tr>
+
+  </table>
+
+
+  
+	<script>
+		var table = document.getElementById('bagua-table');
+
+		var editingTd;
+
+		table.onclick = function(event) {
+
+			var target = event.target;
+
+			while (target != table) {
+				if (target.className == 'edit-cancel') {
+					finishTdEdit(editingTd.elem, false);
+					return;
+				}
+
+				if (target.className == 'edit-ok') {
+					finishTdEdit(editingTd.elem, true);
+					return;
+				}
+
+				if (target.nodeName == 'TD') {
+					if (editingTd) return; // already editing
+
+					makeTdEditable(target);
+					return;
+				}
+
+				target = target.parentNode;
+			}
+		}
+
+		function makeTdEditable(td) {
+			editingTd = {
+				elem: td,
+				data: td.innerHTML
+			};
+
+			td.classList.add('edit-td'); // td, not textarea! the rest of rules will cascade
+
+			var textArea = document.createElement('textarea');
+			textArea.style.width = td.clientWidth + 'px';
+			textArea.style.height = td.clientHeight + 'px';
+			textArea.className = 'edit-area';
+
+			textArea.value = td.innerHTML;
+			td.innerHTML = '';
+			td.appendChild(textArea);
+//			textArea.focus();
+			
+
+			td.insertAdjacentHTML("beforeEnd",
+				'<div class="edit-controls"><button class="edit-ok">OK</button><button class="edit-cancel">CANCEL</button></div>'
+			);
+			var testArea = td.querySelector('textarea');
+			testArea.focus();
+		}
+
+		function finishTdEdit(td, isOk) {
+			if (isOk) {
+				td.innerHTML = td.firstChild.value;
+			} else {
+				td.innerHTML = editingTd.data;
+			}
+			td.classList.remove('edit-td'); // remove edit class
+			editingTd = null;
+		}
+	</script>
+
+</body>
+
+</html>

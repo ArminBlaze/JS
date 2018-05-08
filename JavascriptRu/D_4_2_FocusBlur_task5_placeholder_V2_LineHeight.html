@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+		body {
+			font: 14px/14px Arial, sans-serif;
+		}
+
+		input {
+			font: 14px/14px Arial, sans-serif;
+			width: 12em;
+			padding: 0;
+			margin: 0;
+		}
+
+		#placeholder {
+			font: 14px/14px Arial, sans-serif;
+			position: absolute;
+/*			margin: -1.2em 0 0 0.2em;*/
+			color: red;
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+
+
+  <div>Добро пожаловать</div>
+  <input type="password" id="input">
+
+  <div id="placeholder">Скажи пароль, друг</div>
+
+  <div>.. и заходи</div>
+
+
+	<script>
+//		Красивый плейсхолдер для INPUT
+//		важность: 5
+//
+//		Создайте для <input type="password"> красивый, стилизованный плейсхолдер
+//
+//		При клике плейсхолдер просто исчезает и дальше не показывается.
+		
+		var coords = input.getBoundingClientRect();
+		var inputStyle = getComputedStyle(input);
+		input.style.lineHeight = input.clientHeight + "px";
+		
+		placeholder.style.display = "block";
+		placeholder.style.top = coords.top + input.clientTop + "px";
+		placeholder.style.left = coords.left + input.clientLeft + "px";
+		placeholder.style.lineHeight = input.clientHeight + "px";
+		
+		input.onclick = placeholder.onclick = function() {
+			placeholder.style.display = "";
+			input.focus();
+		}
+	</script>
+</body>
+
+</html>

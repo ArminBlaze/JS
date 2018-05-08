@@ -70,6 +70,7 @@
 				
 				f.apply(self, args);
 
+				//рекурсивный вызов timeout вместо interval
 				timer = setTimeout(function runTimer() {
 //					debugger;
 					if(!called) {
@@ -91,7 +92,7 @@
 		};
 
 		// затормозить функцию до одного раза в 1000 мс
-		var f1000 = throttle(f, 5000);
+		var f1000 = throttle(f, 1000);
 		
 		var n = 1;
 

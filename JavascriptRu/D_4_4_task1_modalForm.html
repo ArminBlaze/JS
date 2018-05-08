@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    #prompt-form {
+      display: inline-block;
+      padding: 5px 5px 5px 70px;
+      width: 200px;
+      border: 1px solid black;
+      background: white url(https://js.cx/clipart/prompt.png) no-repeat left 5px;
+      vertical-align: middle;
+    }
+
+    #prompt-form-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+			display: none;
+			background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    #prompt-form-container:before {
+      display: inline-block;
+      height: 100%;
+      content: '';
+      vertical-align: middle;
+    }
+
+    #prompt-form input[name="text"] {
+      display: block;
+      margin: 5px;
+      width: 180px;
+    }
+  </style>
+</head>
+
+<body>
+	<button type="button" id="showForm">Показать форму</button>
+
+
+  <div id="prompt-form-container">
+    <form id="prompt-form">
+      <div id="prompt-message">Введите, пожалуйста...
+        <br>Что-то..</div>
+      <input name="text" type="text">
+      <input type="submit" value="Ок">
+      <input type="button" name="cancel" value="Отмена">
+    </form>
+  </div>
+  
+  
+  <script>
+//		Модальное диалоговое окно
+//		важность: 5
+//
+//		Создайте функцию showPrompt(text, callback), которая выводит форму для ввода с сообщением text и кнопками ОК/Отмена.
+//
+//		При отправке формы (OK/ввод в текстовом поле) – должна вызываться функция callback со значением поля.
+//		При нажатии на Отмена или на клавишу Esc – должна вызываться функция callback(null). Клавиша Esc должна закрывать форму всегда, даже если поле для ввода сообщения не в фокусе.
+//
+//		Особенности реализации:
+//
+//		Форма должна показываться в центре окна (и оставаться в центре при изменении его размеров, а также при прокрутке окна!).
+//		Текст может состоять из нескольких строк, возможен любой HTML
+//		При показе формы остальные элементы страницы использовать нельзя, не работают другие кнопки и т.п, это окно – модальное.
+//		При показе формы – сразу фокус на INPUT для ввода.
+//		Нажатия Tab/Shift+Tab переключают в цикле только по полям формы, они не позволяют переключиться на другие элементы страницы.
+//
+//		Пример использования:
+//
+//		showPrompt("Введите что-нибудь<br>... умное :)", function(value) {
+//			alert( value );
+//		});
+		
+		var container = window["prompt-form-container"];
+		var form = window["prompt-form"];
+		var messageArea = window["prompt-message"];
+		
+		var cancelButton = form.elements.cancel;
+		
+		showForm.onclick = function() {
+			showPrompt("И входит, и выходит...<br>Что это?", myAlert);
+		}
+		
+		function showPrompt (text, f) {	
+			messageArea.innerHTML = text;
+			container.style.display = "block";
+			form.elements.text.focus();
+			
+			form.onsubmit = function(e) {
+				e.preventDefault();
+				
+				var value = form.elements.text.value;
+				if(value) {
+					finishModal(value);
+				}
+			};
+			
+			cancelButton.onclick = function() {
+				finishModal(null);
+			};
+			
+			//Функция обработки Tab в форме
+			//Esc - Закрывает форму, Tab - переключает только по элементам внутри формы
+			document.onkeydown = function(e) {
+				var key = e.keyCode;
+//				console.log(key + " keyCode");
+				
+				if(key == 27 && container.style.display == "block" ) {
+					finishModal(null);
+				}
+				else if(key == 9) {
+					e.preventDefault();
+					
+					var elements = form.elements;
+					elements = [].slice.call(elements);
+					var index = elements.indexOf(e.target);
+					console.log(index);
+					
+					if(!e.shiftKey) {
+						(index < elements.length - 1) ? elements[index+1].focus() : elements[0].focus();
+					} else {
+						(index > 0) ? elements[index-1].focus() : elements[elements.length-1].focus();
+					}
+				}
+			}
+			
+//			var lastElement = form.elements[form.elements.length-1];
+//			var firstElement = form.
+			
+			function finishModal (value) {
+				f(value);
+				container.style.display = "";
+			}
+		}
+		
+		function myAlert (value) {
+			alert(value);
+		}
+		
+	</script>
+</body>
+
+</html>
