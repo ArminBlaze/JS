@@ -1,8 +1,4 @@
-﻿borisov-2/Доп. материалы
-borisov-1/Доп. материалы
-node_modules/
-.vscode/
-!JavascriptRu\Node\node_modules/
+﻿node_modules/
 
 # Windows image file caches
 Thumbs.db

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body style="height: 200px">
+
+  <p>Кликните по мячу и тяните, чтобы двигать его.</p>
+  <p>Если запустить этот код, то мы заметим нечто странное. При начале переноса мяч «раздваивается» и переносится не сам мяч, а его «клон».</p>
+  <p>Попробуйте перенести мяч мышкой и вы увидите описанное, довольно-таки странное, поведение.</p>
+
+	<p>Это потому, что браузер имеет свой собственный Drag’n’Drop, который автоматически запускается и вступает в конфликт с нашим. Это происходит именно для картинок и некоторых других элементов.</p>
+
+	<p>Его нужно отключить</p>
+
+  <img src="https://js.cx/clipart/ball.svg" style="cursor:pointer" id="ball" width="40" height="40">
+
+
+  <script>
+    var ball = document.getElementById('ball');
+
+    ball.onmousedown = function(e) { // 1. отследить нажатие
+			
+			// подготовить к перемещению
+  		// 2. разместить на том же месте, но в абсолютных координатах
+      ball.style.position = 'absolute';
+      moveAt(e);
+			
+			// переместим в body, чтобы мяч был точно не внутри position:relative
+      document.body.appendChild(ball);
+
+      ball.style.zIndex = 1000; // показывать мяч над другими элементами
+			
+			// передвинуть мяч под координаты курсора
+  		// и сдвинуть на половину ширины/высоты для центрирования
+      function moveAt(e) {
+        ball.style.left = e.pageX - ball.offsetWidth / 2 + 'px';
+        ball.style.top = e.pageY - ball.offsetHeight / 2 + 'px';
+      }
+			
+			// 3, перемещать по экрану
+      document.onmousemove = function(e) {
+        moveAt(e);
+      };
+			
+			// 4. отследить окончание переноса
+      ball.onmouseup = function() {
+        document.onmousemove = null;
+        ball.onmouseup = null;
+      };
+    }
+  </script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+		.slider {
+			border-radius: 5px;
+			background: #E0E0E0;
+/*			background: -moz-linear-gradient(left top, #E0E0E0, #EEEEEE) repeat scroll 0 0 transparent;*/
+/*			background: -webkit-gradient(linear, left top, right bottom, from(#E0E0E0), to(#EEEEEE));*/
+			background-image: linear-gradient(to left top, #E0E0E0, #EEEEEE);
+			width: 310px;
+			height: 15px;
+			margin: 5px;
+			margin-left: 200px;
+		}
+
+		.thumb {
+			width: 10px;
+			height: 25px;
+			border-radius: 3px;
+			position: relative;
+			left: 10px;
+			top: -5px;
+			background: blue;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+
+  <div id="slider" class="slider">
+    <div class="thumb"></div>
+  </div>
+  
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo repellat voluptate repudiandae, nesciunt ullam, impedit veniam nisi rem dolores eum veritatis alias, eos vitae. Dolor provident, nulla inventore sed, esse totam enim, aliquam, magni numquam rem tempora vero incidunt dolorum nemo harum amet asperiores exercitationem. Architecto non officia possimus dolorem ipsa modi rerum veniam numquam distinctio excepturi aperiam minus deserunt consectetur similique, laboriosam quas asperiores iusto, eius soluta esse, impedit! Debitis eaque alias facilis iste commodi quis placeat, architecto obcaecati labore odio quo dolor temporibus ipsam cupiditate, laudantium impedit. Iusto nobis minus natus. Autem rem iusto tenetur fuga dolores sunt.</p>
+
+  <script>
+//		Слайдер
+//		важность: 5
+//
+//		Слайдер должен нормально работать при резком движении мыши влево или вправо, за пределы полосы. При этом бегунок должен останавливаться четко в нужном конце полосы.
+//		При нажатом бегунке мышь может выходить за пределы полосы слайдера, но слайдер пусть все равно работает (это удобно для пользователя).
+		
+		var slider = document.getElementById('slider');
+		var thumb = slider.querySelector('.thumb');
+		var sliderCoords = slider.getBoundingClientRect();
+		var sliderMaxWidth = slider.clientWidth - thumb.offsetWidth;
+		
+    thumb.onmousedown = function(e) { // 1. отследить нажатие
+			e.preventDefault(); //отмена выделения текста на странице
+			
+			var coords = thumb.getBoundingClientRect();
+			console.log(coords);
+			
+//			запоминаем место клика по элементу и учитываем координаты родителя-слайдера,
+//			т.к. будем задавать ползунку относительные координаты, а не абсолютные
+			var shiftX = e.pageX - coords.left + sliderCoords.left;
+			console.log(shiftX);
+			
+			var width = slider.parentNode.clientWidth;
+			
+			
+			moveAt(e);
+			
+			function moveAt(e) {
+				var left = e.pageX - shiftX;
+				if(left < 0) left = 0;
+				else if (left > sliderMaxWidth) left = sliderMaxWidth;
+						
+						
+        thumb.style.left = left + 'px';
+      }
+			
+			// 3, перемещать по экрану
+      document.onmousemove = function(e) {
+        moveAt(e);
+      };
+			
+			// 4. отследить окончание переноса
+      document.onmouseup = function() {
+        document.onmousemove = null;
+        document.onmouseup = null;
+      };
+			
+			
+		}
+		
+		
+		slider.ondragstart = function() {
+			return false;
+		};
+  </script>
+
+</body>
+
+</html>

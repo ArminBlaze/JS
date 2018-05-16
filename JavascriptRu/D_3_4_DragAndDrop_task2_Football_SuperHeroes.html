@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		#field {
+			background: url(https://js.cx/drag-heroes/field.png);
+			width: 800px;
+			height: 600px;
+			float: left;
+		}
+		/* герои и мяч (переносимые элементы) */
+
+		.hero {
+			background: url(https://js.cx/drag-heroes/heroes.png);
+			width: 130px;
+			height: 128px;
+			float: left;
+		}
+
+		#hero1 {
+			background-position: 0 0;
+		}
+
+		#hero2 {
+			background-position: 0 -128px;
+		}
+
+		#hero3 {
+			background-position: -120px 0;
+		}
+
+		#hero4 {
+			background-position: -125px -128px;
+		}
+
+		#hero5 {
+			background-position: -248px -128px;
+		}
+
+		#hero6 {
+			background-position: -244px 0;
+		}
+
+		.draggable {
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+
+  <h2>Расставьте супергероев по полю.</h2>
+
+  <p>Супергерои и мяч -- это элементы с классом "draggable". Сделайте так, чтобы их можно было переносить.</p>
+
+  <p>Важно: если супергероя подносят к низу или верху страницы, она должна автоматически прокручиваться. Если страница помещается на вашем экране целиком и не имеет вертикальной прокрутки -- сделайте окно браузера меньше, чтобы протестировать эту возможность.</p>
+
+  <p>Да, и ещё: супергерои ни при каких условиях не должны попасть за край экрана.</p>
+
+  <div id="field">
+
+  </div>
+
+  <div class="hero draggable" id="hero1"></div>
+  <div class="hero draggable" id="hero2"></div>
+  <div class="hero draggable" id="hero3"></div>
+  <div class="hero draggable" id="hero4"></div>
+  <div class="hero draggable" id="hero5"></div>
+  <div class="hero draggable" id="hero6"></div>
+
+  <img src="https://js.cx/drag-heroes/ball.png" class="draggable">
+
+  <div style="clear:both"></div>
+  
+  <p style="width: 300px">
+  	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi repellendus natus possimus, modi velit quam, distinctio sapiente quidem ipsum debitis quo, ullam. Assumenda, dolore optio labore modi! Deleniti iure ipsam reiciendis unde, praesentium cum eum, animi eos assumenda aperiam hic sit. Nesciunt aperiam magnam quam asperiores veritatis commodi tempore, beatae laborum sapiente omnis atque in. Quaerat a excepturi illo, quae est totam hic sint cum, ipsa perferendis. Labore illum deserunt amet ut quod obcaecati animi nobis eveniet quia quisquam voluptatibus in, illo, adipisci modi possimus, cumque ipsum, earum commodi! Suscipit asperiores excepturi repellat dolore, fugiat voluptatum consectetur repellendus deserunt aperiam debitis, deleniti molestias molestiae consequatur quod natus officiis sunt, ipsum delectus expedita, sed fuga maxime cum facere. Alias fugiat voluptas, perferendis eum ad eligendi facilis sed esse corrupti tempore molestiae, natus excepturi qui ut cum quidem animi labore repudiandae reprehenderit officiis dolorem placeat debitis odit. Ad recusandae numquam ratione optio in, quo eaque esse magni tempora qui ipsam quas magnam aperiam sapiente soluta id, voluptates quaerat ea asperiores. Magni, minus, quaerat, voluptatibus eligendi quidem beatae delectus explicabo neque eos sed voluptate? Suscipit ea labore, ipsam voluptatibus voluptate! Sequi officiis laudantium rem officia molestiae aperiam corporis quo, eos excepturi ducimus sapiente consequatur amet provident enim facilis, sint modi beatae! Minus, facilis expedita molestias ducimus alias eveniet esse ratione harum temporibus enim, sint ad voluptatibus ipsum illo necessitatibus itaque nam, quod dolor vitae nisi modi distinctio. Cupiditate nulla officia eligendi nihil, fugiat ipsa voluptas adipisci pariatur nobis inventore. Modi magnam autem reiciendis culpa, minus vel excepturi sunt, non doloribus quos perferendis, veritatis animi cum incidunt quas amet voluptatibus dolorum at optio. Nisi autem unde et at dignissimos! Quod earum alias, aut tempora in, quibusdam minus recusandae voluptas, blanditiis eaque corporis, aliquam sit tenetur dicta rerum. Illum pariatur neque facilis aliquid asperiores adipisci nihil velit corporis recusandae amet, cumque deleniti soluta quibusdam, fuga iure ipsum quo nulla magnam doloremque voluptatibus id quos, quidem suscipit! Iste non veritatis delectus voluptates atque obcaecati earum sequi. Quaerat deleniti omnis voluptates alias accusamus, aliquid quibusdam qui dignissimos animi, esse obcaecati fugiat corrupti illo. Rem dignissimos veniam aliquam recusandae vel laudantium dolor quae id necessitatibus repellat, commodi, voluptatibus a placeat. Nam fuga assumenda, repellat iste! Illo perspiciatis ipsum culpa eum, temporibus architecto tempore nulla omnis pariatur adipisci dolor dolorem voluptas sint distinctio iusto, asperiores fuga non blanditiis est alias. Reiciendis autem, odio incidunt iste numquam, voluptatibus expedita quibusdam voluptas. Molestiae nemo rem quo commodi veritatis quod doloribus dolorem voluptates fugit, sit numquam culpa, error ullam? Dignissimos, velit deserunt officiis, modi consequuntur, nulla possimus animi dolorum distinctio, fuga tenetur. Numquam nam ipsum sed, impedit optio non cupiditate consequuntur mollitia fuga dicta nihil quo voluptate tempore laboriosam, officia perferendis blanditiis laborum molestias illum excepturi illo ipsa, omnis commodi nemo nesciunt! Iusto ut eos rerum cum qui dignissimos sequi quae placeat est ad, accusamus quos architecto itaque quisquam suscipit nemo illo quas dolor laudantium recusandae! Earum neque aut eaque aliquid mollitia unde veritatis debitis eligendi iure! Facilis qui quod enim eligendi tempore velit ea, iste necessitatibus porro itaque, unde sed quam possimus odio soluta dolorum neque mollitia aliquid perferendis sint aliquam delectus reprehenderit, error tempora. Ipsam autem repellendus fugit officia earum ad exercitationem natus nulla praesentium, rerum eveniet quas iusto, recusandae fugiat nostrum impedit alias totam dolor assumenda, in ipsum cupiditate voluptatem voluptates aspernatur. Voluptas voluptates, suscipit consectetur laudantium, in mollitia nemo incidunt omnis facere, odio optio itaque, aliquid labore ducimus voluptatem autem aut atque facilis recusandae voluptatum doloremque. Distinctio fugit incidunt repudiandae. Eum, esse pariatur odio unde, dolore sed minus nemo officia. Qui cum repellat quod numquam, ipsa esse animi maxime quas ab. Deserunt sunt est atque saepe, accusantium autem odit doloribus optio quaerat! Explicabo ipsam cum necessitatibus, voluptates et. Ut voluptates dignissimos cupiditate blanditiis laborum expedita excepturi dolore mollitia, minus harum quae porro laboriosam quam repellat obcaecati consectetur odio velit fugit a inventore commodi aliquid! Ex fuga doloribus dicta quidem magni error illum hic deserunt culpa officia ipsam, explicabo fugit ratione exercitationem reprehenderit harum sint minima, ut eos at rem quod? Minus voluptate magnam cum pariatur iste, reiciendis perspiciatis nisi saepe ducimus earum, ipsa veritatis sapiente necessitatibus fuga vel nemo nobis ea eum perferendis rerum a dignissimos tempora nihil officiis, eveniet. Quaerat itaque sequi a dolorum dicta natus, molestiae velit odio voluptatem reiciendis id, iste atque officiis at tempora, omnis iusto sapiente. Commodi, dolorum, est? Commodi totam quas tempore recusandae a expedita temporibus veniam blanditiis molestiae voluptatum quibusdam quis, vitae ducimus quasi vel, nisi adipisci! Beatae reiciendis accusamus iure architecto magni harum maiores ipsum dolores eum. Harum sapiente repellendus, quae quidem possimus at placeat ipsam eligendi delectus ipsa, ullam amet accusamus deserunt tempore error labore esse, molestiae laborum. Accusantium cum ad facilis nisi architecto, beatae rem molestias deleniti facere ab et laudantium aliquam pariatur, fugiat, alias in quod dolorem eum aut? Enim similique, sint, alias omnis maxime dignissimos cum, praesentium saepe suscipit voluptatum quibusdam impedit in, iusto assumenda id? Numquam necessitatibus ex harum nam cupiditate atque ea hic tempora. Iure animi dolorem aspernatur quo, corrupti hic ipsam veritatis eveniet est optio exercitationem asperiores quaerat consectetur officia accusantium rem, earum in sit doloribus! Sequi ipsum ipsa, recusandae eius provident accusamus nam quas voluptates quisquam mollitia tempora maiores doloremque eveniet perferendis sed culpa laudantium consequuntur rem at placeat ab! Cupiditate consequuntur fuga cum accusantium autem facilis, saepe sed unde ad odio natus laudantium impedit enim rerum voluptate minima eius omnis molestiae officia animi eligendi sapiente provident fugiat. Asperiores nesciunt quia aliquid nam rerum consectetur impedit sed laborum perspiciatis accusamus, repellendus ab delectus quis aut aperiam quas quisquam rem nobis voluptate provident neque ipsa. Dolor, quo, ratione? Fuga voluptatibus enim veniam nam odio ab veritatis similique. Ab sunt dolor, dolores facilis repudiandae, ratione voluptatibus. Veritatis pariatur, eligendi cumque distinctio recusandae molestiae optio voluptatem eveniet ipsam laborum dolores magni delectus tempore perspiciatis illum sequi omnis quis non at quia, tempora, minus officia nesciunt eius. Ab quod aperiam a! Quos soluta, nesciunt nostrum reiciendis eum sit optio temporibus, ducimus in voluptatem error recusandae atque!
+  </p>
+  
+  <script>
+//		Расставить супергероев по полю
+//		важность: 5
+//
+//		В этой задаче вы можете проверить своё понимание сразу нескольких аспектов Drag’n’Drop.
+//
+//		Сделайте так, чтобы элементы с классом draggable можно было переносить мышкой. По окончании переноса элемент остаётся на том месте в документе, где его положили.
+//
+//		Требования к реализации:
+//
+//		Должен быть 1 обработчик на document, использующий делегирование.
+//		Если элементы подносят к вертикальным краям окна – оно должно прокручиваться вниз/вверх.
+//		Горизонтальной прокрутки в этой задаче не существует.
+//		Элемент при переносе, даже при резких движениях мышкой, не должен попасть вне окна.
+//
+//		Футбольное поле в этой задаче слишком большое, чтобы показывать его здесь, поэтому откройте его, кликнув по ссылке ниже. Там же и подробное описание задачи (осторожно, винни-пух и супергерои!).
+		
+		
+//		var sliderMaxWidth = slider.clientWidth - thumb.offsetWidth;
+		
+		var scrollHeight = Math.max(
+      document.body.scrollHeight, document.documentElement.scrollHeight,
+      document.body.offsetHeight, document.documentElement.offsetHeight,
+      document.body.clientHeight, document.documentElement.clientHeight
+    );
+		
+		var scrollWidth = document.documentElement.clientWidth;
+		
+		console.log(scrollHeight);
+		
+    document.onmousedown = function(e) { // 1. отследить нажатие
+			var target = e.target;
+			if(!target.classList.contains('draggable')) return;
+			console.log("Клик на драге");
+			
+			e.preventDefault(); //отмена выделения текста на странице
+			
+			var coords = getCoords(target);
+			var shiftX = e.pageX - coords.left;
+  		var shiftY = e.pageY - coords.top;
+			var maxHeight = scrollHeight - target.offsetHeight;
+			var maxWidth = scrollWidth - target.offsetWidth;
+			
+			target.style.position = 'absolute';
+      moveAt(e);
+//			
+			function moveAt(e) {
+				var left = e.pageX - shiftX;
+				var top = e.pageY - shiftY;
+				
+				if(left < 0) left = 0;
+				if(top < 0) top = 0;
+				if(top > maxHeight) top = maxHeight;
+				if(left > maxWidth) left = maxWidth;
+				
+				//таская элемент можно прокручивать страницу вверх и вниз, при этом элемент не выходит за пределы экрана
+				if(top > document.documentElement.clientHeight + window.pageYOffset - target.offsetHeight) {
+					window.scrollBy(0, 25);
+					top = document.documentElement.clientHeight + window.pageYOffset - target.offsetHeight;
+				}
+				if(top < window.pageYOffset) {
+					window.scrollBy(0, -25);
+					top = window.pageYOffset;
+				}
+						
+        target.style.left = left + 'px';
+				target.style.top = top + 'px';
+      }
+			
+			// 3, перемещать по экрану
+      document.onmousemove = function(e) {
+        moveAt(e);
+      };
+			
+			// 4. отследить окончание переноса
+      document.onmouseup = function() {
+        document.onmousemove = null;
+        document.onmouseup = null;
+      };
+			
+			//вспомогательная ф-ция получения координат с прокруткой
+			function getCoords(elem) {   // кроме IE8-
+				var box = elem.getBoundingClientRect();
+				return {
+					top: box.top + pageYOffset,
+					left: box.left + pageXOffset
+				};
+			}
+		}
+		
+		var draggable = document.querySelectorAll('.draggable');
+		
+		for (var i = 0; i < draggable.length; i++) {
+			draggable[i].ondragstart = function() {
+				return false;
+			};
+		}
+	</script>
+</body>
+
+</html>

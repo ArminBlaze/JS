@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		
+		function persistence(num) {
+			var times = 0;
+			return divide(num);
+			
+			function divide(num) {
+				if(num % 10 == num) return times;
+				var num = num + "";
+				var mul = 1;
+				for(var i = 0; i < num.length; i++) {
+					mul = mul * num[i];
+				}
+				times++;
+				return divide(mul);
+			}
+		}
+
+		 console.log( persistence(39) ); //3
+		 console.log( persistence(4) );	//0
+		 console.log( persistence(25) );	//2
+		 console.log( persistence(999) );	//4
+	</script>
+</body>
+</html>
