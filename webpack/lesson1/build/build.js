@@ -1,3 +1,4 @@
+var home =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -79,7 +80,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\r\n\r\nlet welcome = __webpack_require__(/*! ./welcome */ \"./welcome.js\");\r\n\r\nwelcome(\"home\");\n\n//# sourceURL=webpack:///./home.js?");
+eval("\r\n\r\nlet welcome = __webpack_require__(/*! ./welcome */ \"./welcome.js\");\r\n\r\nwelcome(\"12345\");\r\n\r\n//делаем какую-то фигню, для какой-то фигни с переменными вебпака\r\nexports.welcome = welcome;\r\n\n\n//# sourceURL=webpack://home/./home.js?");
 
 /***/ }),
 
@@ -91,7 +92,7 @@ eval("\r\n\r\nlet welcome = __webpack_require__(/*! ./welcome */ \"./welcome.js\
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\r\n\r\nmodule.exports = function(message) {\r\n    alert(`Welcome ${message}`);\r\n}\n\n//# sourceURL=webpack:///./welcome.js?");
+eval("\r\n\r\nmodule.exports = function(message) {\r\n    debugger;\r\n    alert(`Welcome ${message}`);\r\n}\n\n//# sourceURL=webpack://home/./welcome.js?");
 
 /***/ })
 

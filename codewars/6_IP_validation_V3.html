@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+  <script>
+   function isValidIP(str) {
+     console.log(str);
+     var arr = str.split('.');
+     if (arr.length != 4)
+      {
+        console.log(false);
+       return false;
+      }
+       
+     
+      var peka =  arr.every(function(item) {
+        if( item!=Number(item).toString() ) return false;
+//        if( item[0] == 0 && item.length != 1 ) return false;
+        if( item > 255 || item < 0 ) return false;
+    
+        return true;
+      });
+     console.log(peka);
+     return peka;
+    }
+    
+//    function isValidIP(str) {
+//      console.log(str);
+//      var peka = str.split('.').filter(function(item){
+//        return item==Number(item).toString() && Number(item)<256
+//      }).length==4;
+//      console.log(peka);
+//    }
+    
+    isValidIP("1.2.3.4");
+    isValidIP("123.45.67.89");
+    
+    isValidIP("1.2.3");
+    isValidIP("1.2.3.4.5");
+    isValidIP("123.456.78.90");
+    isValidIP("123.045.067.089");
+    isValidIP("238.46.26.43");
+    isValidIP("01.0.0.0");
+    isValidIP("12.34.56");
+    isValidIP('1.2.3.4.z');
+    isValidIP("-1.-1.-1.-1");
+    isValidIP("NaN.2.3.4");
+  </script>
+</body>
+</html>

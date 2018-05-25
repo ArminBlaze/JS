@@ -1,0 +1,12 @@
+.user-list {
+  width: 250px;
+  display: inline-block;
+  border-right: 1px solid gray;
+}
+
+.user-form {
+  width: 250px;
+  display: inline-block;
+  vertical-align: top;
+}
+/*# sourceMappingURL=app.css.map*/

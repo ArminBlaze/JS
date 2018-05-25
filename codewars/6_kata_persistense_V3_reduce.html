@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+    //переписать на reduce
+		
+//		function persistence(num) {
+//			var times = 0;
+//			
+//			while (num % 10 != num) {
+//				var numStr = num + "";
+//				var mul = 1;
+//				for(var i = 0; i < numStr.length; i++) {
+//					mul = mul * numStr[i];
+//				}
+//				times++;
+//				num = mul;
+//			}
+//		  return times;
+//		}
+    
+    function persistence(num) {
+       var times = 0;
+      
+       num = num.toString();
+      
+       while (num.length > 1) {
+         times++;
+         num = num.split('').reduce( (sum, current) => sum * current ) + "";
+//         num = num.split('').reduce( (sum, current) => sum * current ).toString();
+       }
+      
+       return times;
+    }
+    
+//    var arr = [1, 2, 3, 4, 5]
+//
+//    // убрали 0 в конце
+//    var result = arr.reduce(function(sum, current) {
+//      return sum + current
+//    });
+//
+//    alert( result ); // 15
+    
+    
+
+		 console.log( persistence(39) ); //3
+		 console.log( persistence(4) );	//0
+		 console.log( persistence(25) );	//2
+		 console.log( persistence(999) );	//4
+	</script>
+</body>
+</html>

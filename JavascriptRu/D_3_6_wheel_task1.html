@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
+    body {
+      font-size: 18px;
+    }
+    
+    .sizeable {
+      width: 300px;
+      outline: 1px solid red;
+    }
+  </style>
+</head>
+<body>
+  <h3>Масштабирование колёсиком мыши</h3>
+      <p>важность: 5</p>
+      
+      <p>Сделайте так, чтобы при прокрутке колёсиком мыши над элементом, он масштабировался.</p>
+      
+      <p>Масштабирование обеспечивайте при помощи свойства CSS transform:</p>
+      <p>увеличение в 1.5 раза <br>
+        elem.style.transform = elem.style.WebkitTransform = elem.style.MsTransform = 'scale(1.5)';</p>
+        
+        <div class="sizeable">При прокрутке колёсика мыши над этим элементом, он будет масштабироваться.</div>
+  <script>
+    var sizeable = document.querySelector('.sizeable');
+    
+    sizeable.onwheel = function(e) {
+      console.log(e.deltaY);
+      
+      if(!this.style.transform) this.style.transform = "scale(1)";
+      var scale = this.style.transform.slice(6, -1);
+      console.log(scale);
+      
+      var delta = (e.deltaY > 0) ? 0.2 : -0.2;
+      scale = +scale + delta;
+      
+      this.style.transform = "scale(" + scale + ")";
+    }
+
+    
+  </script>
+</body>
+</html>

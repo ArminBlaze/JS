@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body style="height: 1000px; position: relative">
+
+  <header>
+    <h2>Начало документа</h2>
+  </header>
+
+  <textarea cols="80" rows="10">
+    Прокрутка без влияния на страницу
+    важность: 4
+
+    В большинстве браузеров если в процессе прокрутки textarea колёсиком мышки (или жестами) мы достигаем границы элемента, то прокрутка продолжается уже на уровне страницы (в Firefox при этом будет небольшая задержка перед продолжением прокрутки).
+    прокрути меня
+    прокрути меня
+    прокрути меня
+    прокрути меня
+    прокрути меня
+    прокрути меня
+    прокрути меня
+    прокрути меня
+    прокрути меня
+    прокрути меня
+    прокрути меня
+    прокрути меня
+    прокрути меня
+    прокрути меня
+    прокрути меня
+    прокрути меня
+    прокрути меня
+  </textarea>
+
+
+  <footer style="position: absolute; bottom: 0">
+    Конец документа.
+  </footer>
+  
+  <script>
+    //получаем прокрутку. Елси она прокручена полностью - блокируем прокрутку в этом направлении.
+    var textarea = document.querySelector('textarea');
+    
+    textarea.onwheel = preventOverscroll;
+    
+    textarea.onmouseenter = function() {
+      textarea.onwheel = preventOverscroll;
+    }
+    
+//    textarea.onmouseleave = function(e) {
+//      console.log("exit");
+//      textarea.onwheel = "";
+//    }
+    
+    function preventOverscroll (e) {
+      console.log(e.deltaY);
+      console.log(this);
+      console.log(this.scrollTop);
+      console.log(this.scrollTop + this.clientHeight >= this.scrollHeight);
+
+      if(this.scrollTop + this.clientHeight >= this.scrollHeight && e.deltaY > 0) {
+        console.log("самый низ прокрутки");
+        e.preventDefault();
+      } 
+      else if(this.scrollTop <= 0 && e.deltaY < 0) {
+        console.log("самый верх прокрутки");
+        e.preventDefault();
+      }
+    }
+  </script>
+</body>
+
+</html>

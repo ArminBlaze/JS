@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+  <script>
+    function isValidIP(str) {
+      console.log("=======\n" + str);
+      var dotTest = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/;
+      
+      if(!dotTest.test(str)) {
+        console.log(false);
+        return false;
+      }
+      
+      //получаем 4 группы чисел между точек в массив
+      var arr = str.match(/\d{1,3}/g);
+      
+      var result = arr.every(function(item) {
+        return !( (item[0] == 0 && item.length != 1) || item > 255 || item < 0);
+      });
+      console.log(result);
+      return result;
+    }
+    
+    isValidIP("1.2.3.4");
+    isValidIP("123.45.67.89");
+    
+    isValidIP("1.2.3");
+    isValidIP("1.2.3.4.5");
+    isValidIP("123.456.78.90");
+    isValidIP("123.045.067.089");
+    isValidIP("238.46.26.43");
+    isValidIP("NaN.2.3.4");
+  </script>
+</body>
+</html>

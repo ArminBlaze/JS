@@ -2,6 +2,7 @@
 borisov-1/Доп. материалы
 node_modules/
 .vscode/
+.idea/
 !JavascriptRu\Node\node_modules/
 
 # Windows image file caches
