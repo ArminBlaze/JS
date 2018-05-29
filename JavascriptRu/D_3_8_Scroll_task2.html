@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    body,
+    html {
+      height: 100%;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    #matrix {
+      width: 400px;
+      margin: auto;
+      overflow: auto;
+      text-align: justify;
+    }
+    
+    .matrix__arrow {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      text-align: center;
+      background-color: #fff;
+      border-radius: 3px;
+      box-shadow: 3px 3px 3px rgba(0,0,0, 0.3);
+      color: green;
+      cursor: pointer;
+      border: 1px solid rgba(0,0,0, 0.1);
+      visibility: hidden;
+      opacity: 0;
+      transition: all .5s ease, box-shadow .1s ease;
+      font-size: 1.3em;
+      line-height: 35px;
+      width: 35px;
+      height: 35px;
+    }
+    
+    .matrix__arrow:after {
+      display: block;
+      content: '▲';
+    }
+    
+    .matrix__arrow_toBottom:after {
+/*      content: '▼';*/
+      transform: rotate(180deg);
+    }
+    
+    .matrix__arrow_show {
+      visibility: visible;
+      opacity: 1;
+    }
+    
+    .peka {
+      border: 1px solid black;
+    }
+  </style>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <div id="matrix">
+   <div class="matrix__arrow"></div>
+    <script>
+      for (var i = 0; i < 2000; i++) document.writeln(i)
+    </script>
+  </div>
+
+  <script>
+    // ... ваш код
+    // при необходимости, в документ можно добавить элементы и стили
+    
+    var body = document.body;
+    var button = document.querySelector('.matrix__arrow');
+    var locked = false;
+    
+    window.onscroll = function(e) {
+      
+      //прокрутили ниже первого экрана
+      //важно использовать clientHeight, он учитывает наличие прокрутки
+      if(window.pageYOffset > document.documentElement.clientHeight) {
+        button.classList.add('matrix__arrow_show');
+        locked = false;
+        if(button.classList.contains('matrix__arrow_toBottom')) {
+          button.classList.remove('matrix__arrow_toBottom'); 
+        }
+      } 
+      //прокрутка на первом экране
+      else {
+        if(locked) return;
+        if(button.classList.contains('matrix__arrow_show')) {
+          button.classList.remove('matrix__arrow_show'); 
+        }
+      }
+    };
+    
+    button.onclick = function(e) {
+      if(!locked) {
+        console.log(window.pageYOffset);
+        locked = window.pageYOffset;
+        window.scrollTo(0,0);
+        button.classList.add('matrix__arrow_toBottom');
+      } else {
+        window.scrollTo(0,locked);
+        locked = false;
+        button.classList.remove('matrix__arrow_toBottom');
+      }
+    }
+  </script>
+</body>
+
+</html>
