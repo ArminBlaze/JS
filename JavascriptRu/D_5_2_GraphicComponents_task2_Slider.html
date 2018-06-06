@@ -31,9 +31,11 @@
 
 <body>
 
+<!--
   <div id="slider" class="slider">
     <div class="thumb"></div>
   </div>
+-->
   
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo repellat voluptate repudiandae, nesciunt ullam, impedit veniam nisi rem dolores eum veritatis alias, eos vitae. Dolor provident, nulla inventore sed, esse totam enim, aliquam, magni numquam rem tempora vero incidunt dolorum nemo harum amet asperiores exercitationem. Architecto non officia possimus dolorem ipsa modi rerum veniam numquam distinctio excepturi aperiam minus deserunt consectetur similique, laboriosam quas asperiores iusto, eius soluta esse, impedit! Debitis eaque alias facilis iste commodi quis placeat, architecto obcaecati labore odio quo dolor temporibus ipsam cupiditate, laudantium impedit. Iusto nobis minus natus. Autem rem iusto tenetur fuga dolores sunt.</p>
 
@@ -43,52 +45,87 @@
 //
 //		Слайдер должен нормально работать при резком движении мыши влево или вправо, за пределы полосы. При этом бегунок должен останавливаться четко в нужном конце полосы.
 //		При нажатом бегунке мышь может выходить за пределы полосы слайдера, но слайдер пусть все равно работает (это удобно для пользователя).
-		
-		var slider = document.getElementById('slider');
-		var thumb = slider.querySelector('.thumb');
-		var sliderCoords = slider.getBoundingClientRect();
-		var sliderMaxWidth = slider.clientWidth - thumb.offsetWidth;
-		
-    thumb.onmousedown = function(e) { // 1. отследить нажатие
-			e.preventDefault(); //отмена выделения текста на странице
+    
+    function Slider(options) {
+      
+    }
+    
+    Slider.prototype.getElem = function() {
+      if (!this.elem) this.render();
+      return this.elem;
+    }
+    
+    Slider.prototype.init = function() {
+      this.sliderCoords = this.elem.getBoundingClientRect();
+		  this.sliderMaxWidth = this.elem.clientWidth - this.thumb.offsetWidth;
+      this.initialized = true;
+    }
+    
+    Slider.prototype.render = function() {
+      this.elem = document.createElement('div');
+      this.elem.className = "slider";
+
+      this.thumb = document.createElement('div');
+      this.elem.appendChild(this.thumb);
+      this.thumb.className = "thumb";
+      
+     
+      this.thumb.onmousedown = this.mousedownHandler.bind(this);
+      
+      
+      this.elem.ondragstart = function() {
+        return false;
+      };
+    }
+    
+    
+    Slider.prototype.mousedownHandler = function(e) {
+      if(!this.initialized) this.init();
+      e.preventDefault(); //отмена выделения текста на странице
 			
-			var coords = thumb.getBoundingClientRect();
-			console.log(coords);
+			this.coords = this.thumb.getBoundingClientRect();
+//			console.log(coords);
 			
 //			запоминаем место клика по элементу и учитываем координаты родителя-слайдера,
 //			т.к. будем задавать ползунку относительные координаты, а не абсолютные
-			var shiftX = e.pageX - coords.left + sliderCoords.left;
-			console.log(shiftX);
+			this.shiftX = e.pageX - this.coords.left + this.sliderCoords.left;
+//			console.log(shiftX);
 			
-			var width = slider.parentNode.clientWidth;
+			this.width = this.elem.parentNode.clientWidth;
 			
+			this.moveAt(e);
 			
-			moveAt(e);
-			
-			function moveAt(e) {
-				var left = e.pageX - shiftX;
-				if(left < 0) left = 0;
-				else if (left > sliderMaxWidth) left = sliderMaxWidth;
-						
-        thumb.style.left = left + 'px';
-      }
-			
-			// 3, перемещать по экрану
+//			 3, перемещать по экрану
       document.onmousemove = function(e) {
-        moveAt(e);
-      };
+//        moveAt(e).bind(slider);
+        console.log(this);
+        this.moveAt(e);
+      }.bind(this);
 			
 			// 4. отследить окончание переноса
       document.onmouseup = function() {
         document.onmousemove = null;
         document.onmouseup = null;
       };
-		}
+    }
+    
+    Slider.prototype.moveAt = function(e) {
+      this.left = e.pageX - this.shiftX;
+      if(this.left < 0) this.left = 0;
+      else if (this.left > this.sliderMaxWidth) this.left = this.sliderMaxWidth;
+
+      this.thumb.style.left = this.left + 'px';
+    }
+    
+    
+    var slider = new Slider();
 		
-    //отмена браузерного перетаскивания
-		slider.ondragstart = function() {
-			return false;
-		};
+     // получить сгенерированный DOM-элемент меню
+    var elem = slider.getElem();
+
+    // вставить меню в нужное место страницы
+    document.body.appendChild(elem);
+
   </script>
 
 </body>

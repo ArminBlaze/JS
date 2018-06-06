@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+  <script>
+//    Загрузить изображения с коллбэком
+//    важность: 4
+//
+//    Создайте функцию preloadImages(sources, callback), которая предзагружает изображения из массива sources, и после загрузки вызывает функцию callback.
+//
+//    Пример использования:
+//
+//    preloadImages(["1.jpg", "2.jpg", "3.jpg"], callback);
+//
+//    Если вдруг возникает ошибка при загрузке – считаем такое изображение загруженным, чтобы не ломать поток выполнения.
+//
+//    Такая функция может быть полезна, например, для фоновой загрузки картинок в онлайн-галерею.
+//
+//    В исходном документе содержатся ссылки на картинки, а также код для проверки, действительно ли изображения загрузились. Он должен выводить «0», затем «300».
+    
+    function preloadImages(sources, callback) {
+      /* ваш код */
+      var numberOfImages = sources.length;
+      var loadedImages = 0;
+      
+      for (var i = 0; i < sources.length; i++) {
+        var img = document.createElement('img');
+        img.src = sources[i];
+        img.onload = img.onerror = function() {
+          loadedImages++;
+          if(loadedImages >= numberOfImages) callback();
+        }
+      }
+    }
+
+    // ---------- Проверка ----------
+
+    /* файлы для загрузки */
+    var sources = [
+      "https://js.cx/images-load/1.jpg",
+      "https://js.cx/images-load/2.jpg",
+      "https://js.cx/images-load/3.jpg"
+    ];
+    for (var i = 0; i < sources.length; i++) {
+      sources[i] += '?' + Math.random(); // добавляем параметр, чтобы без кеша (для теста)
+    }
+    
+    console.log(sources);
+
+    /** если картинка загружена, то можно будет сразу получить её ширину
+     * создадим все картинки и проверим, есть ли у них ширина
+     */
+    function testLoaded() {
+      var widthSum = 0;
+      for (var i = 0; i < sources.length; i++) {
+        var img = document.createElement('img');
+        img.src = sources[i];
+        widthSum += img.width;
+      }
+      // каждое изображение 100x100, общая ширина должна быть 300px
+      alert(widthSum);
+    }
+
+    // до загрузки - выведет 0
+    testLoaded();
+
+    // после загрузки - выведет 300
+    preloadImages(sources, testLoaded);
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+  .menu ul {
+  display: none;
+  margin: 0;
+}
+
+.menu .title {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.menu .title:before {
+  content: '▶';
+  padding-right: 6px;
+  color: green;
+}
+
+.menu.open ul {
+  display: block;
+}
+
+.menu.open .title:before {
+  content: '▼';
+}
+  </style>
+  <script src="https://cdn.polyfill.io/v1/polyfill.js?features=Element.prototype.closest"></script>
+</head>
+
+<body>
+
+<!--
+  <div id="sweets-menu" class="menu">
+    <span class="title">Сладости</span>
+    <ul>
+      <li>Торт</li>
+      <li>Пончик</li>
+      <li>Пирожное</li>
+      <li>Шоколадка</li>
+      <li>Мороженое</li>
+    </ul>
+  </div>
+-->
+
+  <script>
+    function Menu(options) {
+      var elem;
+
+      function getElem() {
+        if (!elem) render();
+        return elem;
+      }
+
+      function render() {
+        elem = document.createElement('div');
+        elem.className = "menu";
+
+        var titleElem = document.createElement('span');
+        elem.appendChild(titleElem);
+        titleElem.className = "title";
+        titleElem.textContent = options.title;
+
+        elem.onmousedown = function() {
+          return false;
+        };
+
+        elem.onclick = function(event) {
+          if (event.target.closest('.title')) {
+            toggle();
+          }
+        }
+
+      }
+
+      function renderItems() {
+        var items = options.items || [];
+        var list = document.createElement('ul');
+        items.forEach(function(item) {
+          var li = document.createElement('li');
+          li.textContent = item;
+          list.appendChild(li);
+        });
+        elem.appendChild(list);
+      }
+      
+      //сначала у меню нет элементов внутри. Они генерируются только после первого открытия
+      function open() {
+        if (!elem.querySelector('ul')) {
+          renderItems();
+        }
+        elem.classList.add('open');
+      };
+
+      function close() {
+        elem.classList.remove('open');
+      };
+
+      function toggle() {
+        if (elem.classList.contains('open')) close();
+        else open();
+      };
+
+      this.getElem = getElem;
+      this.toggle = toggle;
+      this.close = close;
+      this.open = open;
+      this.peka = function() {
+        console.log(toggle);
+      }
+    }
+    
+    // создать объект меню с данным заголовком и опциями
+    var menu = new Menu({
+      title: "Сладости",
+      items: [
+        "Торт",
+        "Пончик",
+        "Пирожное",
+        "Шоколадка",
+        "Мороженое"
+      ]
+    });
+    
+    // получить сгенерированный DOM-элемент меню
+    var elem = menu.getElem();
+
+    // вставить меню в нужное место страницы
+    document.body.appendChild(elem);
+  </script>
+
+</body>
+
+</html>

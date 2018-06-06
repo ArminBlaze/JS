@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+  .menu ul {
+  display: none;
+  margin: 0;
+}
+
+.menu .title {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.menu .title:before {
+  content: '▶';
+  padding-right: 6px;
+  color: green;
+}
+
+.menu.open ul {
+  display: block;
+}
+
+.menu.open .title:before {
+  content: '▼';
+}
+  </style>
+  <script src="https://cdn.polyfill.io/v1/polyfill.js?features=Element.prototype.closest"></script>
+</head>
+
+<body>
+
+  <div id="sweets-menu" class="menu">
+    <span class="title">Сладости</span>
+    <ul>
+      <li>Торт</li>
+      <li>Пончик</li>
+      <li>Пирожное</li>
+      <li>Шоколадка</li>
+      <li>Мороженое</li>
+    </ul>
+  </div>
+
+  <script>
+    function Menu(options) {
+      var elem = options.elem;
+      var self = this;
+
+      elem.onmousedown = function() {
+        return false;
+      }
+      
+//      обработчик стоит на корневом элементе, а все клики работают через делегирование
+      elem.onclick = function(event) {
+        var target = event.target;
+			
+			 //делегирование, поднимаемся по родителям вверх и ищем есть ли родитель с .title
+//        это замена более короткой записи с closest
+        while (target != this) {
+          if ( target.classList.contains("title") ) break;
+          target = target.parentNode;
+        }
+        if (target == this) return;
+        
+        toggle();
+      }
+      
+      function toggle () {
+        elem.classList.toggle('open');
+      }
+      
+      this.toggle = toggle;
+    };
+    
+    var menu = new Menu({
+      elem: document.getElementById('sweets-menu')
+    });
+  </script>
+
+</body>
+
+</html>

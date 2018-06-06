@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+  Введите ваш возраст:
+  <input type="text">
+
+
+  <script>
+    /* ваш код .. .*/
+//Поле только для цифр
+//важность: 5
+//
+//При помощи событий клавиатуры сделайте так, чтобы в поле можно было вводить только цифры. 
+
+    // вспомогательная функция, если понадобится
+
+//    function getChar(event) {
+//      console.log(event.keyCode);
+////      console.log(event.which);
+////      console.log(event.charCode);
+//      if (event.which == null) {
+//        if (event.keyCode < 32) return null;
+//        return String.fromCharCode(event.keyCode) // IE
+//      }
+//
+//      if (event.which != 0) {
+//        if (event.which < 32) return null;
+//        return String.fromCharCode(event.which) // остальные
+//      }
+//
+//      return null; // специальная клавиша
+//    }
+    
+    var input = document.querySelector('input');
+    
+    input.onkeydown = function(e) {
+      var key = e.key;
+//      console.log(typeof key);
+      
+      if (e.ctrlKey || e.altKey || e.metaKey) return;
+      
+      // с null надо осторожно в неравенствах,
+      // т.к. например null >= '0' => true
+      // на всякий случай лучше вынести проверку chr == null отдельно
+      if (key == null) {
+        console.log("введён null");
+        return;
+      }
+        
+      
+      return (key >= '0' && key <= '9') || (key == "Backspace");
+    }
+  </script>
+</body>
+
+</html>

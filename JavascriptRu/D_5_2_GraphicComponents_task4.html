@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdn.polyfill.io/v1/polyfill.js?features=Element.prototype.closest"></script>
+  <style>
+    .voter {
+      font-family: Consolas, "Lucida Console", monospace;
+      font-size: 18px;
+    }
+
+    .up,
+    .down {
+      cursor: pointer;
+      color: blue;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="voter" class="voter">
+    <span class="down">—</span>
+    <span class="vote">0</span>
+    <span class="up">+</span>
+  </div>
+
+  <script>
+//    Голосовалка
+//    важность: 5
+//
+//    Напишите функцию-конструктор new Voter(options) для голосовалки. Она должна получать элемент в options.elem, в разметке
+//
+//    По клику на + и — число должно увеличиваться или уменьшаться.
+//
+//    Публичный метод voter.setVote(vote) должен устанавливать текущее число – значение голоса.
+//
+//    Все остальные методы и свойства пусть будут приватными.
+    
+    function Voter(options) {
+      // ... ваш код
+      this.elem = options.elem;
+      this.up = this.elem.querySelector('.up');
+      this.down = this.elem.querySelector('.down');
+      this.vote = this.elem.querySelector('.vote');
+      
+      this.elem.addEventListener('click', this.clickHandler.bind(this));
+      this.elem.onmousedown = function(e) {
+        e.preventDefault(); //отмена выделения текста
+      }
+    }
+    
+    Voter.prototype.clickHandler = function(e) {
+      var target = e.target;
+      
+      if(target == this.up) {
+        this._voteUp();
+      } else if(target == this.down) {
+        this._voteDown();
+      } else if(target == this.vote) {
+        console.log("vote");
+        var num = +prompt("Введите число", "");
+        if(!isNaN(num)) this.setVote(num);
+      }
+    }
+    
+    Voter.prototype._voteUp = function() {
+      this.vote.innerHTML = +this.vote.innerHTML + 1;
+    }
+    
+    Voter.prototype._voteDown = function() {
+      this.vote.innerHTML = +this.vote.innerHTML - 1;
+    }
+    
+    Voter.prototype.setVote = function(n) {
+      this.vote.innerHTML = n;
+    }
+
+    var voter = new Voter({
+      elem: document.getElementById('voter')
+    });
+
+//    voter.setVote(1);
+  </script>
+
+</body>
+
+</html>

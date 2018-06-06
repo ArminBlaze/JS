@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+  <script>
+//    Отследить одновременное нажатие
+//    важность: 3
+//
+//    Создайте функцию runOnKeys(func, code1, code2, ... code_n), которая запускает func при одновременном нажатии клавиш со скан-кодами code1, code2, …, code_n.
+//
+//    Например, код ниже выведет alert при одновременном нажатии клавиш "Q" и "W" (в любом регистре, в любой раскладке)
+//
+//    runOnKeys(
+//      function() { alert("Привет!") },
+//      "Q".charCodeAt(0),
+//      "W".charCodeAt(0)
+//    );
+//    var a = {a: "peka", b: "lol"};
+//    var b = {b: "lol", a: "peka"};
+//    
+//   
+//    console.log(Object.keys(a));
+//    console.log(Object.keys(b));
+    
+    var pressed = {};
+    
+    function runOnKeys () {
+      var args = [].slice.call(arguments);
+      var fn = args[0];
+      
+      var keysArr = args.slice(1);
+      var keys = {}
+      keysArr.forEach(function(item) {
+        keys[item] = true;
+      })
+      
+      document.onkeydown = document.onkeyup = function(e) {
+        if (e.ctrlKey || e.altKey || e.metaKey) return;
+        var key = e.keyCode;
+        
+        //сделать перебор по массиву с поиском нужно кнопки
+        if(e.type == "keydown") {
+          pressed[key] = true;
+        } else if(e.type == "keyup") {
+          delete pressed[key];
+        }
+        
+        //тут нужно сделать сравнение 2х объектов
+        var allPressed = true;
+        if(Object.keys(pressed).length !== 0 && 
+           Object.keys(pressed).length == Object.keys(keys).length) {
+            for (var key in pressed) {
+              if(!keys[key]) allPressed = false;
+            }
+          if(allPressed) fn();
+           }
+      }
+    }
+    
+     runOnKeys(
+        function() {
+          alert("Привет!")
+        },
+        "Q".charCodeAt(0),
+        "W".charCodeAt(0)
+      );
+  </script>
+</body>
+</html>

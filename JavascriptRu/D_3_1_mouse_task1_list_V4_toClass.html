@@ -69,59 +69,63 @@
 			//это общий метод, где обрабатываются ВСЕ события, не только клик
 //			Поэтому нужна проверка на тип события
 			handleEvent(e) {
-				if(e.type == 'click') {
-					this.selectHandler(e);
-				}
-			}
-
-			selectHandler (e) {
-//				У нас висит один обработчик на списке, вместо множества на каждом li. Это называется делегированием. Поэтому нам нужно проверять на каком именно элементе был клик
-				if (e.target.tagName != "LI") return; //клик по Ul, но не по li
-
-				if(e.shiftKey) {
-					var start, end;
-
-					(this.lis.indexOf(e.target) < this.lis.indexOf(this.lastClicked)) ? 
-						(start = e.target, end = this.lastClicked) :
-						(start = this.lastClicked, end = e.target);
-
-					var firstIndex = Math.max(this.lis.indexOf(start), 0);
-
-					for (var i = firstIndex, length = this.lis.indexOf(end); i <= length; i++) {
-						this.lis[i].classList.add('selected');
-					}
-				}
-
-				else if(e.ctrlKey || e.metaKey) {
-					e.target.classList.toggle('selected');
-				}
-
-				else  {
-					for (var i = 0, length = this.lis.length; i < length; i++) {
-						this.lis[i].classList.remove('selected');
-					}
-					e.target.classList.add('selected');
-				}
-
+        if(e.type != 'click') return;
+        if(e.target.tagName != "LI") return; //клик по Ul, но не по li
+        
+        if(e.shiftKey) {
+          this.shiftHandler(e.target);
+        } 
+        else if(e.ctrlKey || e.metaKey) {
+          this.ctrlHandler(e.target);
+        }
+        else  {
+          this.singleHandler(e.target);
+        }
+        
 				this.lastClicked = e.target;
 			}
       
-      getSelected() {
-        var arr = [];
-        this.lis.forEach(function(item) {
-          if ( item.classList.contains('selected') ) {
-            arr.push(item.textContent);
-          }
-        });
-        return arr;
-      };
+      shiftHandler (target) {
+        var start, end;
+
+        (this.lis.indexOf(target) < this.lis.indexOf(this.lastClicked)) ? 
+          (start = target, end = this.lastClicked) :
+          (start = this.lastClicked, end = target);
+
+        var firstIndex = Math.max(this.lis.indexOf(start), 0);
+
+        for (var i = firstIndex, length = this.lis.indexOf(end); i <= length; i++) {
+          this.lis[i].classList.add('selected');
+        }
+      }
+      
+      ctrlHandler (target) {
+        target.classList.toggle('selected');
+      }
+      
+      singleHandler (target) {
+        for (var i = 0, length = this.lis.length; i < length; i++) {
+          this.lis[i].classList.remove('selected');
+        }
+        target.classList.add('selected');
+      }
+      
+//      getSelected() {
+//        var arr = [];
+//        this.lis.forEach(function(item) {
+//          if ( item.classList.contains('selected') ) {
+//            arr.push(item.textContent);
+//          }
+//        });
+//        return arr;
+//      };
 		
       //более короткий вариант
-//      this.getSelected = function() {
-//        return [].map.call(elem.querySelectorAll('.selected'), function(li) {
-//          return li.innerHTML;
-//        });
-//      };
+      getSelected() {
+        return [].map.call(this.ul.querySelectorAll('.selected'), function(li) {
+          return li.innerHTML;
+        });
+      };
 		}
 		
 		

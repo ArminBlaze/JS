@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdn.polyfill.io/v1/polyfill.js?features=Element.prototype.closest"></script>
+  <style>
+    .voter {
+      font-family: Consolas, "Lucida Console", monospace;
+      font-size: 18px;
+    }
+
+    .up,
+    .down {
+      cursor: pointer;
+      color: blue;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="voter" class="voter">
+    <span class="down">—</span>
+    <span class="vote">0</span>
+    <span class="up">+</span>
+  </div>
+
+  <script>
+//    Добавить двойной голос в голосовалку
+//    важность: 5
+//
+//    Создайте функцию-конструктор StepVoter, которая наследует от голосовалки, созданной в задаче Голосовалка в прототипном стиле ООП и добавляет голосовалке опцию options.step, которая задаёт «шаг» голоса.
+//
+//    Пример:
+//
+//    var voter = new StepVoter({
+//      elem: document.getElementById('voter'),
+//      step: 2 // увеличивать/уменьшать сразу на 2 пункта
+//    });
+    
+    function Voter(options) {
+      // ... ваш код
+      this.elem = options.elem;
+      this.up = this.elem.querySelector('.up');
+      this.down = this.elem.querySelector('.down');
+      this.vote = this.elem.querySelector('.vote');
+      
+      this.elem.addEventListener('click', this._clickHandler.bind(this));
+      this.elem.onmousedown = function(e) {
+        e.preventDefault(); //отмена выделения текста
+      }
+    }
+    
+    Voter.prototype._clickHandler = function(e) {
+      var target = e.target;
+      
+      if(target == this.up) {
+        this._voteUp();
+      } else if(target == this.down) {
+        this._voteDown();
+      } else if(target == this.vote) {
+        console.log("vote");
+        var num = +prompt("Введите число", "");
+        if(!isNaN(num)) this.setVote(num);
+      }
+    }
+    
+    Voter.prototype._voteUp = function() {
+      this.vote.innerHTML = +this.vote.innerHTML + 1;
+    }
+    
+    Voter.prototype._voteDown = function() {
+      this.vote.innerHTML = +this.vote.innerHTML - 1;
+    }
+    
+    Voter.prototype.setVote = function(n) {
+      this.vote.innerHTML = n;
+    }
+    
+    //////////////////////////////////
+    function StepVoter(options) {
+      Voter.apply(this, arguments);
+      this._step = options.step || 1;
+    }
+    
+    StepVoter.prototype = Object.create(Voter.prototype);
+    StepVoter.prototype.constructor = Voter;
+    
+    StepVoter.prototype._voteUp = function() {
+      this.vote.innerHTML = +this.vote.innerHTML + this._step;
+    }
+    
+    StepVoter.prototype._voteDown = function() {
+      this.vote.innerHTML = +this.vote.innerHTML - this._step;
+    }
+    
+    var voter = new StepVoter({
+      elem: document.getElementById('voter'),
+      step: 2 // увеличивать/уменьшать сразу на 2 пункта
+    });
+
+  </script>
+
+</body>
+
+</html>
