@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function counter () {
+			var counter = 0;
+			return function() {
+				return ++counter;
+			};
+		}
+		
+//		var dayName = function() {
+//			counter = 0;
+//			return function() {
+//				return ++counter;
+//			};
+//		}();
+		
+		var counter1 = counter();
+		var counter2 = counter();
+
+		console.log(counter1());
+		console.log(counter1());
+		console.log(counter1());
+		console.log(counter1());
+		console.log(counter1());
+		console.log(counter2());
+	</script>
+</body>
+</html>

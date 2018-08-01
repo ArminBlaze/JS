@@ -11,8 +11,6 @@ class Application {
     this.load();
     
     this.userList.getElem().addEventListener('user-select', this.onUserSelect.bind(this))
-    
-    
   }
   
   onUserSelect(event) {
@@ -77,5 +75,4 @@ class Application {
     }
     xhr.send();
   }
-  
 }
