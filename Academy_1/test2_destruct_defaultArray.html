@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		'use strict';
+		function test ({first = "default"} = {}) {
+			console.log(first);
+		}
+		
+		var arr = [123];
+		arr.first = "Peka";
+		test(arr);
+		
+		var obj = {
+			inner: {
+				sub: "Lol"
+			}
+		}
+		
+		const {inner: {sub: myVar}} = obj;
+		
+		console.log(myVar);
+	</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
+    .header {
+      background-color: dodgerblue;
+      min-height: 200px;
+      margin-bottom: 10px;
+    }
+    
+    .main {
+      background-color: ghostwhite;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      min-height: 100px;
+    }
+    
+    .main div {
+      min-height: 300px;
+      background-color: gold;
+      width: 30%;
+      margin-bottom: 10px;
+      display: flex;
+      font-size: 84px;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .footer {
+      min-height: 200px;
+      background-color: brown;
+    }
+  </style>
+</head>
+<body>
+ <div class="header"></div>
+ <div class="main">
+  
+ </div>
+ <div class="footer"></div>
+ 
+  <script src="utils/throttle.js"></script>
+  <script>
+    var arrWithNumbers = []
+    for (var i = 0; i < 40; i++) {
+      arrWithNumbers.push(i);
+    };
+    
+//    console.log(arrWithNumbers);
+    
+    var main = document.querySelector('.main');
+    var PAGE_SIZE = 9;
+    var currentPage = 0;
+    
+    renderData(arrWithNumbers, currentPage, "replace");
+    
+    var onWindowScrollThrottled = throttle(onWindowScroll, 100);
+    
+    window.addEventListener('scroll', onWindowScrollThrottled);
+    var footer = document.querySelector('.footer');
+    
+    
+    function onWindowScroll (e) {
+      var footerCoords = footer.getBoundingClientRect();
+//      console.log("Координата футера: ", footerCoords.top);
+      
+      //Правильная высота страницы, учитывает наличие полосы прокрутки
+      var windowHeight = document.documentElement.clientHeight;
+//      console.log("Высота страницы: ", windowHeight);
+      
+      if(footerCoords.top < windowHeight) {
+        console.log('Футер виден');
+        if( currentPage >= (arrWithNumbers.length/PAGE_SIZE) ) return;
+        console.log("Генерируем следующую страницу");
+        currentPage++;
+        renderData(arrWithNumbers, currentPage);
+      }
+    }
+    
+    function renderData (arr, pageNumber, replace) {
+      if(replace) main.innerHTML = "";
+      var fragment = document.createDocumentFragment();
+      
+      var from = pageNumber * PAGE_SIZE;
+      var to = from + PAGE_SIZE;
+      var newArr = arr.slice(from, to);
+      
+      newArr.forEach(function(item) {
+        var div = document.createElement('div');
+        div.innerHTML = item;
+        fragment.appendChild(div);
+      });
+      
+      main.appendChild(fragment);
+    }
+    
+  </script>
+</body>
+</html>

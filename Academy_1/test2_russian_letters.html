@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+ <div class="player-wrapper"></div>
+ 
+ <template id="templates">
+  <!-- Проигрыватель -->
+  <div class="player">
+    <audio></audio>
+    <button class="player-control">Play</button>
+    <div class="player-track">
+      <span class="player-status"></span>
+    </div>
+  </div>
+</template>
+ 
+ <script src="utils/player.js"></script>
+  <script>
+    
+//  const audioFile = question.answers[question.correctAnswerId].audio;
+  const audioFile = {
+    name: `Чайф`,
+    description: ``,
+    image: ``,
+    audio: `./img/Смысловые Галлюцинации - Первый день осени.mp3`,
+    genre: `rock`
+  };
+
+  let playerWrapper = document.querySelector(`.player-wrapper`);
+  window.initializePlayer(playerWrapper, audioFile.audio);
+  </script>
+</body>
+</html>
