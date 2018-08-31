@@ -9,9 +9,15 @@
 			console.log("s: ", s);
 			console.log("part1: ", part1);
 			console.log("part2: ", part2);
-			var stringPos = 0;
-			var part1Pos = 0;
-			var part2Pos = 0;
+			
+			if(s.length !== (part1.length + part2.length)) return false;
+			
+			var sArr = s.split('').reverse();
+			var part1Arr = part1.split('').reverse();
+			var part2Arr = part2.split('').reverse();
+			var stringPos = sArr.length-1;
+			var part1Pos = part1Arr.length-1;
+			var part2Pos = part2Arr.length-1;
 			
 //			var pos = {
 //				str: 0,
@@ -21,30 +27,35 @@
 			
 //			str[0]
 			
-			if(s.length !== (part1.length + part2.length)) return false;
       
-			while(stringPos < s.length) {
-				var letter = s[stringPos];
-//				console.log(stringPos, part1Pos, part2Pos);
+			while(stringPos >= 0) {
+				var letter = sArr[stringPos];
+				console.log("sArr: ",sArr);
+				console.log("part1Arr: ",part1Arr);
+				console.log("part2Arr: ",part2Arr);
+				console.log(stringPos, part1Pos, part2Pos);
 				
-				if(part1Pos < part1.length && findLetter(part1, 'part1Pos', letter)) {
-					stringPos++;
+				if(part1Pos >= 0 && findLetter(part1Arr, 'part1Pos', letter)) {
+					sArr.pop();
+					stringPos--;
 					continue;
 				} 
-				else if (part2Pos < part2.length && findLetter(part2, 'part2Pos', letter)) {
-					stringPos++;
+				else if (part2Pos >= 0 && findLetter(part2Arr, 'part2Pos', letter)) {
+					sArr.pop();
+					stringPos--;
 					continue;
 				} else {
 					return false;
 				}
 			}
 			
-			function findLetter (str, name, letter) {
+			function findLetter (arr, name, letter) {
 //				console.log(str, name, letter);
-//				debugger;
+				debugger;
 //				console.log(eval('str['+name+']'));
-				if(eval('str['+name+']') === letter) {
-					eval(''+name+'++')
+				if(eval('arr['+name+']') === letter) {
+					arr.pop();
+					eval(''+name+'--');
 					return true;
 				}
 				return false;
