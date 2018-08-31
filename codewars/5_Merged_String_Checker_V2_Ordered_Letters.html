@@ -9,50 +9,59 @@
 			console.log("s: ", s);
 			console.log("part1: ", part1);
 			console.log("part2: ", part2);
-			var stringPos = 0;
-			var part1Pos = 0;
-			var part2Pos = 0;
-			
-//			var pos = {
-//				str: 0,
-//				part1: 0,
-//				part2: 0
-//			}
-			
-//			str[0]
 			
 			if(s.length !== (part1.length + part2.length)) return false;
+			
+			var stringPos = 0;
       
 			while(stringPos < s.length) {
 				var letter = s[stringPos];
 //				console.log(stringPos, part1Pos, part2Pos);
+				var part1Pos = 0;
+				var part2Pos = 0;
 				
-				if(part1Pos < part1.length && findLetter(part1, 'part1Pos', letter)) {
-					stringPos++;
-					continue;
-				} 
-				else if (part2Pos < part2.length && findLetter(part2, 'part2Pos', letter)) {
-					stringPos++;
-					continue;
-				} else {
-					return false;
+				while(true) {
+					var isLetterInPart1 = false;
+					var isLetterInPart2 = false;
+//					debugger;
+
+					if(part1Pos < part1.length) {
+						isLetterInPart1 = findLetter(part1, 'part1Pos', letter);
+					}
+					if(part2Pos < part2.length) {
+						isLetterInPart2 = findLetter(part2, 'part2Pos', letter);
+					}
+
+					if(isLetterInPart1 && isLetterInPart2) {
+						stringPos++;
+						letter += s[stringPos];
+						continue;
+					}
+					else if (isLetterInPart1) {
+						part1 = part1.slice(letter.length);
+						console.log(part1);
+						stringPos++;
+						break;
+					}
+					else if (isLetterInPart2) {
+						part2 = part2.slice(letter.length);
+						console.log(part2);
+						stringPos++;
+						break;
+					}
+					else {
+						return false;
+					}
 				}
 			}
 			
 			function findLetter (str, name, letter) {
-//				console.log(str, name, letter);
-//				debugger;
-//				console.log(eval('str['+name+']'));
-				if(eval('str['+name+']') === letter) {
-					eval(''+name+'++')
+				if(str.indexOf(letter) === 0) {
 					return true;
 				}
 				return false;
 			}
       
-      //условия для проверки остатка букв в s, part1, part2
-			
-			
       return true;
     }
 		
