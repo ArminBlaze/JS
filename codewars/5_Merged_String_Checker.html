@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+  <script>
+    function isMerge(s, part1, part2) {
+      var stringArr = s.split('');
+      
+      var part1Test = testEveryLetter(part1);
+      var part2Test = testEveryLetter(part2);
+      
+      if(part1Test && part2Test) {
+        var unusedLetters = stringArr.some(function(item) {
+          console.log(item);
+          console.log(item !== null);
+          return item !== null;
+        });
+        return !unusedLetters;
+      }
+      
+      function testEveryLetter (str) {
+        return str.split('').every(function(item){
+          var pos = stringArr.indexOf(item);
+          if(pos !== -1) {
+            stringArr[pos] = null;
+            return true;
+          }
+          return false;
+        });
+      }
+      
+      return false;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+  <script>
+    function isMerge(s, part1, part2) {
+			console.log("s: ", s);
+			console.log("part1: ", part1);
+			console.log("part2: ", part2);
+			var stringPos = 0;
+			var part1Pos = 0;
+			var part2Pos = 0;
+			
+//			var pos = {
+//				str: 0,
+//				part1: 0,
+//				part2: 0
+//			}
+			
+//			str[0]
+			
+			if(s.length !== (part1.length + part2.length)) return false;
+      
+			while(stringPos < s.length) {
+				var letter = s[stringPos];
+//				console.log(stringPos, part1Pos, part2Pos);
+				
+				if(part1Pos < part1.length && findLetter(part1, 'part1Pos', letter)) {
+					stringPos++;
+					continue;
+				} 
+				else if (part2Pos < part2.length && findLetter(part2, 'part2Pos', letter)) {
+					stringPos++;
+					continue;
+				} else {
+					return false;
+				}
+			}
+			
+			function findLetter (str, name, letter) {
+//				console.log(str, name, letter);
+//				debugger;
+//				console.log(eval('str['+name+']'));
+				if(eval('str['+name+']') === letter) {
+					eval(''+name+'++')
+					return true;
+				}
+				return false;
+			}
+      
+      //условия для проверки остатка букв в s, part1, part2
+			
+			
+      return true;
+    }
+		
+		
+		
+//		console.log(!isMerge('', 'no', 'siree'));
+//		console.log(!isMerge('codewars', 'code', 'warss'));
+//		console.log(!isMerge('codewars', 'codes', 'wars'));
+		console.log(isMerge('Bananas from Bahamas', 'Bahas', 'Bananas from am'));
+  </script>
+</body>
+</html>
