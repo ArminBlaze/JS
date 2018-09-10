@@ -33,9 +33,17 @@
 					}
 
 					if(isLetterInPart1 && isLetterInPart2) {
-						stringPos++;
-						letter += s[stringPos];
-						continue;
+						if(letter.length !== part1.length && letter.length !== part2.length) {
+							stringPos++;
+							letter += s[stringPos];
+							continue;
+						}
+						else {
+							part1 = part1.slice(letter.length);
+							console.log(part1);
+							stringPos++;
+							break;
+						}
 					}
 					else if (isLetterInPart1) {
 						part1 = part1.slice(letter.length);
@@ -65,12 +73,12 @@
       return true;
     }
 		
-		
-		
 //		console.log(!isMerge('', 'no', 'siree'));
 //		console.log(!isMerge('codewars', 'code', 'warss'));
 //		console.log(!isMerge('codewars', 'codes', 'wars'));
-		console.log(isMerge('Bananas from Bahamas', 'Bahas', 'Bananas from am'));
+//		console.log(isMerge('Bananas from Bahamas', 'Bahas', 'Bananas from am'));
+//		console.log(isMerge('p!lInmU-7HU*8\..', 'IU.', 'p!lnmU-7H*8\.'));
+		console.log(isMerge('K1=IfkeG4KK1=I/dnh\E0lFG', 'K1=I/dnh\E', 'K1=IfkeG4K0lFG'));
   </script>
 </body>
 </html>
