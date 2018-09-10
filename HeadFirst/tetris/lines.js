@@ -191,7 +191,7 @@ var model = {
 	deleteFigure() {
 		this.figure = new Figure();
 		this.figure.init();
-	}
+	},
 	
 	generateFigure() {
 		this.figure = new Figure();
