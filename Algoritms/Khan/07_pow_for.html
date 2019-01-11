@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	
+	<style>
+		.mainTable {
+			counter-reset: mainTable;
+			border-collapse: collapse;
+		}
+		
+		th,
+		td:first-child {
+			border: 3px solid black;
+			text-align: right;
+		}
+		
+		td {
+			border: 1px solid black;
+			white-space: pre;
+			padding: 5px;
+		}
+		
+		.mainTable tr:first-child th:not(:first-child):before {
+			counter-increment: mainTable; /* Указываем идентификатор счетчика */
+    	content: counter(mainTable); /* Выводим текст перед содержимым тега <h2> */
+		}
+		
+		.super {
+			vertical-align: super;
+			font-size: 70%;
+		}
+	</style>
+</head>
+<body>
+	<table class="mainTable">
+	</table>
+	
+	
+	<script>
+//		Как перебирать биты числа в цикле
+		
+//		myInt = 8+4; // 1100 
+//		n = 3; 
+//		(myInt >> n) & 0x1; // 1 
+//		n = 2; 
+//		(myInt >> n) & 0x1; // 1 
+//		n = 1; 
+//		(myInt >> n) & 0x1; // 0 
+//		n = 0; 
+//		(myInt >> n) & 0x1; // 0 
+		
+		//Написать функцию которая проверяет n бит на 1 или 0
+//		int >> n это "обрезка крайне правого бита числа" в двоичной 
+//		Т.е. оно обрезает n бит справа, а остальное сдвигает.
+//		5 = 101. 
+//		101 >> 0 = 101
+//		101 >> 1 = 10
+//		101 >> 2 = 1
+//		101 >> 3 = 0
+		function checkBit(int, n) {
+			return (int >> n) & 1;
+		}
+		
+		//Написать функцию которая перебирает число в 2-битном формате
+		//Перебор идёт от нуля, до конца числа.
+		//Однако ноль - это последний бит числа, поэтому число как бы перебирается с конца в начало.
+		function iterateOverBinaryNumber(num) {
+			console.log("===IterateOverBinaryNumber===", "\n2x = ", num, " 10x = ", parseInt(num, 2));
+			var length = num.toString().length;
+			
+			for	(var i = 0; i < length; i++) {
+				console.log( i + ": " + checkBit(num, i) );
+			}
+		}
+		
+		
+		//Написать функцию, которая преобразует число в двоичное число 
+		function toBinary(num) {
+			return +num.toString(2);
+		}
+		
+		function markSymbol(pow, i) {
+			var strArr = pow.toString(2).split('');
+			console.log(pow, strArr);
+			
+			var index = (strArr.length-1) - i;
+			console.log(strArr[index]);
+			strArr[index] = "<u>" + strArr[index] + "</u>";
+			return strArr.join('');
+		}
+//		
+//		console.log(iterateOverBinaryNumber( toBinary(3) ) );
+//		console.log(iterateOverBinaryNumber( toBinary(4) ) );
+//		console.log(iterateOverBinaryNumber( toBinary(5) ) );
+//		console.log(iterateOverBinaryNumber( toBinary(6) ) );
+		
+		
+		let table = document.querySelector('.mainTable');
+		
+		
+		function pow(num, pow) {
+			var multiplier = num;
+			var result = 1;
+			var powInBinary = pow.toString(2);
+			var lengthOfBinary = powInBinary.length;
+			var mPow = 1;
+			
+			var string = ``;
+			
+			for (var i = 0; i < lengthOfBinary; i++) {
+				var stringTD = `<td>`;
+				stringTD += `r: ${result} (${num}<span class="super">${(Math.log(result) / Math.log(num))}</span>)
+m: ${multiplier} (${num}<span class="super">${Math.pow(2, i)}</span>)\n\n`;
+				
+				stringTD += `${markSymbol(pow, i)}\n`;
+				
+				if( checkBit(pow, i) ) {
+					stringTD += `этот бит 1 (r = r*m)\n`;
+					result = result * multiplier;
+				}
+				else {
+					stringTD += `этот бит 0\n`;
+				}
+				
+				stringTD += `<b>r: ${result}</b>\n
+(m = m * m)
+m: ${multiplier} * ${multiplier} = ${multiplier * multiplier} (${num}<span class="super">${Math.pow(2, i+1)}</span>)`;
+				multiplier *= multiplier;
+				stringTD += `</td>`;
+				string += stringTD;
+			}
+			
+			return string;
+		}
+		
+		
+		const number = 2;
+		const powNumber = 100;
+		
+		//степени - сверху вниз, итерации - слева направо
+		function drawTable(elem, number, powNumber) {
+			let str = ``;
+			
+			for(var i = 0; i <= powNumber; i++) {
+				let innerStr = pow(number, i);
+				str += `<tr><td>${number}<span class="super">${i} = ${toBinary(i)}</span></td> ${innerStr} </tr>`
+			}
+			
+			elem.innerHTML = str;
+			
+		}
+		
+		drawTable(table, number, powNumber);
+	</script>
+</body>
+</html>

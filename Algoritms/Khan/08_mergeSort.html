@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		function merge(array, p, q, r) {
+			var lowHalf = [];
+			var highHalf = [];
+			var k = p;
+			var i, j;
+			
+			//создание временных массивов. Потестить другие способы создания массивов? Например JSON.parse?
+			for(i = 0; k <= q; k++, i++) {
+				lowHalf[i] = array[k];
+			}
+			for(j = 0; k <= r; k++, j++) {
+				highHalf[j] = array[k];
+			}
+			
+			k = p;
+			i = j = 0;
+			
+//			console.log(lowHalf, highHalf);
+			
+			while(i < lowHalf.length && j < highHalf.length) {
+				if(lowHalf[i] < highHalf[j]) {
+					array[k] = lowHalf[i];
+					i++;
+					k++;
+				}
+				else {
+					array[k] = highHalf[j];
+					j++;
+					k++;
+				}
+			}
+			
+			while(i < lowHalf.length) {
+				array[k] = lowHalf[i];
+				i++;
+				k++;
+			}
+			while(j < highHalf.length) {
+				array[k] = highHalf[j];
+				j++;
+				k++;
+			}
+		}
+		
+		function mergeSort(array, p, r) {
+			
+			if (p < r) {
+				var q = Math.floor((p + r) / 2);
+				mergeSort(array, p, q);
+				mergeSort(array, q+1, r);
+				merge(array, p, q, r);
+			}
+		}
+		
+		var arr1 = [3, 7, -2, -16, 0, 55];
+		mergeSort(arr1, 0, arr1.length-1)
+		alert (arr1);
+		
+//		var arr2 = [5,6,7,8, 1,2,3,4];
+//		merge(arr2, 0, 3, 7);
+//		console.log(arr2);
+	</script>
+</body>
+</html>

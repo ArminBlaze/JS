@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		//Сортировка выбором. Selection sort.
+
+		// Найти наименьшее. Поменять его с первым в массиве
+		// Найти второе наименьшее. Поменять его со вторым в массиве...
+		
+//		У нас есть две вспомогательные функции: swap и indexOfMinimum
+//		swap - меняет местами два числа в массиве.
+//		indexOfMinimum находит наименьшее число начиная с заданной позиции. Т.е. "с позиции 3 найди наименьшее". Возвращает индекс наименьшего.
+
+		
+		var swap = function(array, firstIndex, secondIndex) {
+			var temp = array[firstIndex];
+			array[firstIndex] = array[secondIndex];
+			array[secondIndex] = temp;
+		};
+
+		
+		var indexOfMinimum = function(array, startIndex) {
+			var minValue = array[startIndex];
+			var minIndex = startIndex;
+
+			for(var i = minIndex + 1; i < array.length; i++) {
+				if(array[i] < minValue) {
+					minIndex = i;
+					minValue = array[i];
+				}
+			} 
+			
+			return minIndex;
+		}; 
+		
+
+		var selectionSort = function(array) {
+			for(var i = 0; i < array.length; i++) {
+				var smallestIndex = indexOfMinimum(array, i);
+
+				if(array[smallestIndex] < array[i]) {
+					swap(array, i, smallestIndex);
+				}
+			}
+		};
+
+		
+		var array = [22, 11, 99, 88, 9, 7, 42];
+		selectionSort(array);
+		console.log("Array after sorting:  " + array, [7, 9, 11, 22, 42, 88, 99]);
+
+		var array2 = [10, -5, 0, -2, 2, 7];
+		selectionSort(array2);
+		console.log("Array after sorting:  " + array2, [-5, -2, 0, 2, 7, 10]);
+		
+		var array3 = [2, 1, 3, 7, 1, 11, 77, 15, 4];
+		selectionSort(array3);
+		console.log("Array after sorting:  " + array3, [-5, -2, 0, 2, 7, 10]);
+
+		
+		
+	</script>
+</body>
+</html>
