@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+  <script>
+    
+    //Издатель
+    var publisher = {
+      subscribers: {
+        any: [] // тип события: подписчик
+      },
+
+      subscribe: function (fn, type) {
+        type = type || ‘any’;
+        if (typeof this.subscribers[type] === “undefined”) {
+          this.subscribers[type] = [];
+        }
+        this.subscribers[type].push(fn);
+      },
+
+      unsubscribe: function (fn, type) {
+        this.visitSubscribers(‘unsubscribe’, fn, type);
+      },
+
+      publish: function (publication, type) {
+        this.visitSubscribers(‘publish’, publication, type);
+      },
+
+      visitSubscribers: function (action, arg, type) {
+        var pubtype = type || ‘any’,
+        subscribers = this.subscribers[pubtype],
+        i,
+        max = subscribers.length;
+
+        for (i = 0; i < max; i += 1) {
+          if (action === ‘publish’) {
+            subscribers[i](arg);
+          } else {
+            if (subscribers[i] === arg) {
+              subscribers.splice(i, 1);
+            }
+          }
+        }
+      }
+      
+    };
+    
+    
+//    функция, которая принимает объект и превращает его в объект-издатель, добавляя в него универсальные методы издателя:
+    function makePublisher(o) {
+      var i;
+      
+      for (i in publisher) {
+        if (publisher.hasOwnProperty(i) && typeof publisher[i]===”function”) {
+          o[i] = publisher[i];
+        }
+      }
+      
+      o.subscribers = {any: []};
+    }
+    
+    
+//    объект paper. Все, что он может делать, – это издавать ежедневную газету и ежемесячный журнал
+    var paper = {
+      daily: function () {
+        this.publish(“big news today”);
+      },
+      
+      monthly: function () {
+        this.publish(“interesting analysis”, “monthly”);
+      }
+    };
+    
+    
+    //Создаём газету - даём ей методы издателя
+    makePublisher(paper);
+    
+    
+    //подписчик, у него 2 метода
+    var joe = {
+      drinkCoffee: function (paper) {
+        console.log(‘Just read ‘ + paper);
+      },
+      
+      sundayPreNap: function (monthly) {
+        console.log(‘About to fall asleep reading this ‘ + monthly);
+      }
+    };
+    
+    
+//    газета подписывает подписчика, т.е. как бы наоборот. Джо подписывается на газету
+//    joe указывает один метод, который должен вызываться по
+//    любому («any») событию, и другой метод, который должен вызываться
+//    по событию издания ежемесячного журнала («monthly»). 
+    paper.subscribe(joe.drinkCoffee);
+    paper.subscribe(joe.sundayPreNap, ‘monthly’);
+    
+    
+    paper.daily();
+    paper.daily();
+    paper.daily();
+    paper.monthly();
+		
+		
+		///Усложненная версия - Джо может писать в твиттер (сам становится издателем)
+		makePublisher(joe);
+		joe.tweet = function (msg) {
+			this.publish(msg);
+		};
+		
+		// А Газета подписывается на Джо. У нее появляется метод для чтения твитов. И каждый раз когда джо что-то напишет в твиттер, он будет оповещать газету вызывая её метод
+		paper.readTweets = function (tweet) {
+			alert(‘Call big meeting! Someone ‘ + tweet);
+		};
+		joe.subscribe(paper.readTweets);
+		
+		joe.tweet(“hated the paper today”);
+  </script>
+</body>
+</html>
