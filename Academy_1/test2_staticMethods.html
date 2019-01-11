@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+  <script>
+    'use strict';
+
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+  
+  static getThis() {
+    return this;
+  }
+}
+
+class Cat extends Animal {
+  constructor(name, age = 0, male = true) {
+    super(name);
+    this.age = age;
+    this.male = male;
+  }
+}
+
+//let cat = new Cat("Vasya");
+
+console.log("====================1")
+console.log(Animal.getThis());
+console.log(Cat.getThis());
+
+
+  </script>
+</body>
+</html>
