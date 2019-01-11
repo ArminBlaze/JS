@@ -352,15 +352,11 @@
 				model.setCurrentCat(id);
 				let currentCat = model.getCurrentCat();
 				
-				
 				this.showCat( currentCat );
 			},
 			
 			hideCat(cat) {
 				view_list.deselectCatInList(cat);
-//				view_catWindow.hideCatPicture(cat);
-
-				model.currentCat = null;
 			},
 
 			showCat(cat) {
@@ -377,8 +373,8 @@
 			}
 		}
 		
-		controller.init();
 		
+		controller.init();
 		
 		
 	//это вспомогательная ф-ция. Она вне mvc или ?
