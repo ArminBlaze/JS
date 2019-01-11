@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<style>
+		.popup {
+			position: fixed;
+			box-sizing: border-box;
+			padding-bottom: 60px;
+			width: 60px;
+			height: 60px;
+			transform: translate(-50%, -100%);
+			padding: 0px 10px;
+			display: flex;
+			display: none;
+			justify-content: center;
+			align-content: center;
+			align-items: center;
+			
+/*			background-color: rgba(0, 0, 0, 0.17);*/
+			border-radius: 50%;
+
+			text-align: center;
+			vertical-align: middle;
+			
+			font-family: Arial;
+			font-size: 48px;
+			font-weight: bold;
+			color: #4d86ed;
+			text-shadow: 
+				0 -1px 1px rgba(255, 255, 255, 0.7),
+				0 -1px 1px rgba(255, 255, 255, 0.7),
+				0 1px 1px rgba(255, 255, 255, 0.7),
+				0 1px 1px rgba(255, 255, 255, 0.7),
+				-1px 0 1px rgba(255, 255, 255, 0.7),
+				1px 0 1px rgba(255, 255, 255, 0.7),
+				-1px 0 1px rgba(255, 255, 255, 0.7),
+				1px 0 1px rgba(255, 255, 255, 0.7),
+				-1px -1px 1px rgba(255, 255, 255, 0.7),
+				1px -1px 1px rgba(255, 255, 255, 0.7),
+				-1px 1px 1px rgba(255, 255, 255, 0.7),
+				1px 1px 1px rgba(255, 255, 255, 0.7),
+				-1px -1px 1px rgba(255, 255, 255, 0.7),
+				1px -1px 1px rgba(255, 255, 255, 0.7),
+				-1px 1px 1px rgba(255, 255, 255, 0.7),
+				1px 1px 1px rgba(255, 255, 255, 0.7)
+		}
+		
+		.popup_red {
+			color: hsl(344, 82%, 62%);
+		}
+		
+		.popup__plus {
+			font-size: 28px;
+			vertical-align: text-bottom;
+		}
+		
+		.popup_show {
+			display: flex;
+			animation-name: move;
+  		animation-duration: 1s;
+			animation-fill-mode: forwards;
+		}
+		
+		.cat {
+			display: inline-block;
+			position: relative;
+			display: none;
+		}
+		
+		.cat_show {
+			display: block;
+		}
+		
+		.cat__name {
+			position: absolute;
+			top: 0;
+			right: 0;
+			color: white;
+			padding: 10px;
+		}
+		
+		.catImg {
+			width: 400px;
+		}
+		
+		body {
+			display: flex;
+			min-height: 100vh;
+			margin: 0;
+			padding: 0;
+		}
+		
+		.cats {
+			display: flex;
+/*			border: 1px solid red;*/
+			width: 800px;
+			margin: auto;
+		}
+		
+		.catsList {
+			list-style: none;
+			width: 200px;
+			padding: 0;
+			margin: 0;
+		}
+		
+		.catsList__cat {
+			border: 1px solid black;
+			text-align: center;
+			padding: 5px 10px;
+			cursor: pointer;
+		}
+		
+		.catsList__cat:not(:first-child) {
+			border-top: none;
+		}
+		
+		.catsList__cat_selected {
+			color: white;
+		}
+		
+		.cats__window {
+/*			border: 1px solid dodgerblue;*/
+			min-height: 400px;
+/*			margin: 0 auto;*/
+			flex-basis: 90%;
+		}
+		
+		@keyframes move {
+			from {
+				
+				transform: translate(-50%, -100%);
+			}
+			to {
+				opacity: 0;
+				transform: translate(-50%, -200%);
+			}
+		}
+	</style>
+</head>
+<body>
+
+<div class="cats">
+	<ul class="catsList">
+		
+	</ul>
+	<div class="cats__window">
+<!--
+		<div class="cat cat1">
+			<span class="cat__name"></span>
+			<img class="catImg catImg_1" src="img/cat_1.jpg" alt="cat" draggable="false">
+		</div>
+		<div class="cat cat2">
+			<span class="cat__name"></span>
+			<img class="catImg catImg_2" src="img/cat_2.jpg" alt="cat" draggable="false">
+		</div>
+		<div class="cat cat3">
+			<span class="cat__name"></span>
+			<img class="catImg catImg_2" src="img/cat_3.jpg" alt="cat" draggable="false">
+		</div>
+		<div class="cat cat4">
+			<span class="cat__name"></span>
+			<img class="catImg catImg_2" src="img/cat_4.jpg" alt="cat" draggable="false">
+		</div>
+		<div class="cat cat5">
+			<span class="cat__name"></span>
+			<img class="catImg catImg_2" src="img/cat_5.jpg" alt="cat" draggable="false">
+		</div>
+-->
+	</div>
+</div>
+
+
+
+<div class="popup"><span class="popup__plus">+</span><span class="popup__counter">1</span></div>
+
+
+	<script>
+		'use strict';
+		
+		
+		const CATS = [
+			{	
+				name: "Pufik",
+				src: "img/cat_1.jpg",
+				color: "hsl(219, 82%, 62%)"
+			},
+			{	
+				name: "Mufik",
+				src: "img/cat_2.jpg",
+				color: "hsl(335, 82%, 62%)",
+			},
+			{
+				name: "Popik",
+				src: "img/cat_3.jpg",
+				color: "hsl(53, 82%, 62%)"
+			},
+			{
+				name: "Durik",
+				src: "img/cat_4.jpg",
+				color: "hsl(272, 82%, 62%)"
+			},
+			{
+				name: "Lufik",
+				src: "img/cat_5.jpg",
+				color: "hsl(125, 82%, 62%)"
+			},
+		]
+		
+		let state = {
+			activeCat: null,
+		};
+		
+		const catPictureTemplate = (item, i) => 
+		`<div class="cat cat${i}">
+			<span class="cat__name">${item.name}</span>
+			<img class="catImg catImg_${i}" data-toggle-id="${i}" src="${item.src}" alt="${item.alt}" draggable="false">
+		</div>`;
+		
+		const catButtonTemplate = (item, i) => 
+		`<li class="catsList__cat" data-toggle-id="${i}">
+			${item.name}
+	  </li>`;
+		
+		var list = document.querySelector('.catsList');
+		var cats__window = document.querySelector('.cats__window');
+		
+		CATS.forEach((item, i) => {
+			item.button = createCatButton(item, i);
+			item.picture = createCatPicture(item, i);
+			list.appendChild(item.button);
+			cats__window.appendChild(item.picture);
+			
+		})
+		
+		
+		function createCatPicture(item, i) {
+			return getElementFromTemplate( catPictureTemplate(item, i) );
+		};
+		
+		function createCatButton(item, i) {
+			return getElementFromTemplate( catButtonTemplate(item, i) );
+		}
+		
+		function getElementFromTemplate(template) {
+		 let container = document.createElement(`template`);
+		 container.innerHTML = template;
+		 return container.content.firstChild;
+			
+//			let container = document.createElement('div');
+//			container.innerHTML = template;
+//			return container.content;
+		}
+		
+		list.addEventListener('click', listClickHandler);
+		cats__window.addEventListener('click', catClickHandler);
+		
+//		var cat1 = document.querySelector('.cat1');
+//		var cat2 = document.querySelector('.cat2');
+//		var cat1_name = cat1.querySelector('.cat__name');
+//		var cat2_name = cat2.querySelector('.cat__name');
+		
+//		cat1_name.innerHTML = CATS[0].name;
+//		cat2_name.innerHTML = CATS[1].name;
+		
+		var popup = document.querySelector('.popup');
+		var popup__counter = popup.querySelector('.popup__counter');
+		
+		
+		init();
+		
+		
+		function init() {
+			showCat(CATS[0]);
+		}
+		
+		
+		//появляется в месте клика цифра и ползёт вверх, потом исчезает в прозрачности
+		function catClickHandler(e) {
+			var target = e.target;
+			
+			var id = target.getAttribute('data-toggle-id');
+			if (!id) return;
+			
+			
+			
+			var cat = CATS[id];
+			
+			if(!cat.counter) cat.counter = 0;
+			cat.counter++;
+			popup__counter.innerHTML = cat.counter;
+			
+			//увеличиваем счётчик и записываем в попап новое число до клонирования
+//			if(target === cat1) {
+//				counter1++;
+//				popup__counter.innerHTML = counter1;
+////				name = "name1"
+//			}
+//			else {
+//				counter2++;
+//				popup__counter.innerHTML = counter2;
+//				classNames.push('popup_red');
+//			}
+			
+			
+			//клонируем элемент и добавляем его в документ
+			var elem = popup.cloneNode(true);
+			document.body.appendChild(elem);
+			
+			//отрисовываем элемент по координатам
+			elem.style = `top: ${e.clientY}px; left: ${e.clientX}px; color: ${cat.color}`;
+			elem.classList.add('popup_show');
+			
+			//удаляем элемент через 1 сек
+			setTimeout(()=> {elem.parentNode.removeChild(elem)}, 1000);
+		}
+		
+		
+		function hideCat(cat) {
+			deselectCatInList(cat.button);
+			hideCatPicture(cat.picture);
+			
+			state.activeCat = null;
+		}
+		
+		function showCat(cat) {
+			if(state.activeCat) {
+				hideCat(state.activeCat);
+			}
+			
+			selectCatInList(cat.button, cat.color);
+			showCatPicture(cat.picture);
+			
+			state.activeCat = cat;
+		}
+		
+		function showCatPicture(catPicture) {
+			catPicture.classList.add('cat_show');
+		}
+		
+		function hideCatPicture(catPicture) {
+			catPicture.classList.remove('cat_show');
+		}
+		
+		function selectCatInList(catButton, color) {
+			catButton.classList.add('catsList__cat_selected');
+			catButton.style.background = color;
+		}
+		
+		function deselectCatInList(catButton) {
+			catButton.classList.remove('catsList__cat_selected');
+			catButton.style.background = '';
+		}
+		
+		
+		function listClickHandler(e) {
+			var target = e.target;
+
+			var id = target.getAttribute('data-toggle-id');
+			if (!id) return;
+			
+			showCat(CATS[id]);
+		}
+	</script>
+</body>
+</html>

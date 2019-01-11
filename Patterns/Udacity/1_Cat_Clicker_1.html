@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<style>
+		.popup {
+			position: fixed;
+			box-sizing: border-box;
+			padding-bottom: 60px;
+			width: 60px;
+			height: 60px;
+			transform: translate(-50%, -100%);
+			padding: 0px 10px;
+			display: flex;
+			display: none;
+			justify-content: center;
+			align-content: center;
+			align-items: center;
+			
+/*			background-color: rgba(0, 0, 0, 0.17);*/
+			border-radius: 50%;
+
+			text-align: center;
+			vertical-align: middle;
+			
+			font-family: Arial;
+			font-size: 48px;
+			font-weight: bold;
+			color: #4d86ed;
+			text-shadow: 
+				0 -1px 1px rgba(255, 255, 255, 0.7),
+				0 -1px 1px rgba(255, 255, 255, 0.7),
+				0 1px 1px rgba(255, 255, 255, 0.7),
+				0 1px 1px rgba(255, 255, 255, 0.7),
+				-1px 0 1px rgba(255, 255, 255, 0.7),
+				1px 0 1px rgba(255, 255, 255, 0.7),
+				-1px 0 1px rgba(255, 255, 255, 0.7),
+				1px 0 1px rgba(255, 255, 255, 0.7),
+				-1px -1px 1px rgba(255, 255, 255, 0.7),
+				1px -1px 1px rgba(255, 255, 255, 0.7),
+				-1px 1px 1px rgba(255, 255, 255, 0.7),
+				1px 1px 1px rgba(255, 255, 255, 0.7),
+				-1px -1px 1px rgba(255, 255, 255, 0.7),
+				1px -1px 1px rgba(255, 255, 255, 0.7),
+				-1px 1px 1px rgba(255, 255, 255, 0.7),
+				1px 1px 1px rgba(255, 255, 255, 0.7)
+		}
+		
+		.popup__plus {
+			font-size: 28px;
+			vertical-align: text-bottom;
+		}
+		
+		.popup_show {
+			display: flex;
+			animation-name: move;
+  		animation-duration: 1s;
+			animation-fill-mode: forwards;
+		}
+		
+		@keyframes move {
+			from {
+				
+				transform: translate(-50%, -100%);
+			}
+			to {
+				opacity: 0;
+				transform: translate(-50%, -200%);
+			}
+		}
+	</style>
+</head>
+<body>
+
+<img class="catImg" src="https://lh3.ggpht.com/nlI91wYNCrjjNy5f-S3CmVehIBM4cprx-JFWOztLk7vFlhYuFR6YnxcT446AvxYg4Ab7M1Fy0twaOCWYcUk=s0#w=640&h=426" alt="cat" draggable="false">
+
+<div class="popup"><span class="popup__plus">+</span><span class="popup__counter">1</span></div>
+
+	<script>
+		var catImg = document.querySelector('.catImg');
+		var popup = document.querySelector('.popup');
+		var popup__counter = popup.querySelector('.popup__counter');
+		var counter = 0;
+		
+		catImg.addEventListener('click', catClickHandler);
+		
+		
+		//появляется в месте клика цифра и ползёт вверх, потом исчезает в прозрачности
+		function catClickHandler(e) {
+			//увеличиваем счётчик и записываем в попап новое число до клонирования
+			counter++;
+			popup__counter.innerHTML = counter;
+			
+			//клонируем элемент и добавляем его в документ
+			var elem = popup.cloneNode(true);
+			document.body.appendChild(elem);
+			
+			//отрисовываем элемент по координатам
+			elem.style = `top: ${e.clientY}px; left: ${e.clientX}px;`;
+			elem.classList.add('popup_show');
+			
+			//удаляем элемент через 1 сек
+			setTimeout(()=> {elem.parentNode.removeChild(elem)}, 1000);
+		}
+	</script>
+</body>
+</html>

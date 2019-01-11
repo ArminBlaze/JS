@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+<div class="cats__window"></div>
+
+	<script>
+		'use strict';
+		
+		let view_catWindow = {
+			
+			init() {
+				this.elem = document.querySelector('.cats__window');
+//				this.popup = getElementFromTemplate( this.popupTemplate() );
+//				this.popupCounter = this.popup.querySelector('.popup__counter');
+//				document.body.appendChild(this.popup);
+				
+				this.elem.onclick = function(e) {
+					var target = e.target;
+
+					//Это в контроллере
+					var cat = model.currentCat;
+
+					//Это метод модели "Увеличить счетчик"
+					if(!cat.counter) cat.counter = 0;
+					cat.counter++;
+				};
+      },
+		};
+		
+		view_catWindow.init();
+	</script>
+</body>
+</html>

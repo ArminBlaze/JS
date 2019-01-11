@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<style>
+		.popup {
+/*			display: flex;*/
+			display: none;
+			position: fixed;
+			box-sizing: border-box;
+			padding-bottom: 60px;
+			width: 60px;
+			height: 60px;
+			transform: translate(-50%, -100%);
+			padding: 0px 10px;
+			
+			justify-content: center;
+			align-content: center;
+			align-items: center;
+			
+/*			background-color: rgba(0, 0, 0, 0.17);*/
+			border-radius: 50%;
+
+			text-align: center;
+			vertical-align: middle;
+			
+			font-family: Arial;
+			font-size: 48px;
+			font-weight: bold;
+			color: #4d86ed;
+			text-shadow: 
+				0 -1px 1px rgba(255, 255, 255, 0.7),
+				0 -1px 1px rgba(255, 255, 255, 0.7),
+				0 1px 1px rgba(255, 255, 255, 0.7),
+				0 1px 1px rgba(255, 255, 255, 0.7),
+				-1px 0 1px rgba(255, 255, 255, 0.7),
+				1px 0 1px rgba(255, 255, 255, 0.7),
+				-1px 0 1px rgba(255, 255, 255, 0.7),
+				1px 0 1px rgba(255, 255, 255, 0.7),
+				-1px -1px 1px rgba(255, 255, 255, 0.7),
+				1px -1px 1px rgba(255, 255, 255, 0.7),
+				-1px 1px 1px rgba(255, 255, 255, 0.7),
+				1px 1px 1px rgba(255, 255, 255, 0.7),
+				-1px -1px 1px rgba(255, 255, 255, 0.7),
+				1px -1px 1px rgba(255, 255, 255, 0.7),
+				-1px 1px 1px rgba(255, 255, 255, 0.7),
+				1px 1px 1px rgba(255, 255, 255, 0.7)
+		}
+		
+		.popup_red {
+			color: hsl(344, 82%, 62%);
+		}
+		
+		.popup__plus {
+			font-size: 28px;
+			vertical-align: text-bottom;
+		}
+		
+		.popup_show {
+			display: flex;
+			animation-name: move;
+  		animation-duration: 1s;
+			animation-fill-mode: forwards;
+		}
+		
+		.cat {
+			display: inline-block;
+			position: relative;
+/*			display: none;*/
+		}
+		
+		.cat_show {
+			display: block;
+		}
+		
+		.cat__name {
+			position: absolute;
+			top: 0;
+			right: 0;
+			color: white;
+			padding: 10px;
+		}
+		
+		.catImg {
+			width: 400px;
+		}
+		
+		body {
+			display: flex;
+			min-height: 100vh;
+			margin: 0;
+			padding: 0;
+		}
+		
+		.cats {
+			display: flex;
+/*			border: 1px solid red;*/
+			width: 800px;
+			margin: auto;
+		}
+		
+		.catsList {
+			list-style: none;
+			width: 200px;
+			padding: 0;
+			margin: 0;
+		}
+		
+		.catsList__cat {
+			border: 1px solid black;
+			text-align: center;
+			padding: 5px 10px;
+			cursor: pointer;
+		}
+		
+		.catsList__cat:not(:first-child) {
+			border-top: none;
+		}
+		
+		.catsList__cat_selected {
+			color: white;
+		}
+		
+		.cats__window {
+/*			border: 1px solid dodgerblue;*/
+			min-height: 400px;
+/*			margin: 0 auto;*/
+			flex-basis: 90%;
+		}
+		
+		@keyframes move {
+			from {
+				
+				transform: translate(-50%, -100%);
+			}
+			to {
+				opacity: 0;
+				transform: translate(-50%, -200%);
+			}
+		}
+	</style>
+</head>
+<body>
+
+<div class="cats">
+	<ul class="catsList">
+		
+	</ul>
+	<div class="cats__window">
+
+	</div>
+</div>
+
+
+	<script>
+		'use strict';
+		
+		
+		const CATS = [
+			{	
+				name: "Pufik",
+				src: "img/cat_1.jpg",
+				color: "hsl(219, 82%, 62%)"
+			},
+			{	
+				name: "Mufik",
+				src: "img/cat_2.jpg",
+				color: "hsl(335, 82%, 62%)",
+			},
+			{
+				name: "Popik",
+				src: "img/cat_3.jpg",
+				color: "hsl(53, 82%, 62%)"
+			},
+			{
+				name: "Durik",
+				src: "img/cat_4.jpg",
+				color: "hsl(272, 82%, 62%)"
+			},
+			{
+				name: "Lufik",
+				src: "img/cat_5.jpg",
+				color: "hsl(125, 82%, 62%)"
+			},
+		];
+		
+		
+		//Сделать метод смены текущего кота
+		//Сделать метод увеличения счётчика текущего кота
+		let model = {
+			currentCat: null,
+			cats: CATS,
+			
+			init() {
+				this.setCurrentCat(0);
+			},
+			
+			increaseCounter() {
+				let cat = this.currentCat;
+				
+				if(!cat.counter) cat.counter = 0;
+				cat.counter++;
+			},
+			
+			getAllCats() {
+				return this.cats;
+			},
+			
+			getCurrentCat() {
+				return this.currentCat;
+			},
+			
+			setCurrentCat(id) {
+				this.currentCat = this.cats[id];
+			},
+		};
+		
+		
+		
+		///VIEW - LIST
+		
+		let view_list = {
+			catButtonTemplate(item, i) {
+				return `<li class="catsList__cat" data-toggle-id="${i}">
+					${item.name}
+				</li>`
+			},
+			
+			init(cats) {
+				this.elem = document.querySelector('.catsList');
+				this.render(cats);
+				
+				
+				this.elem.onclick = function(e) {
+					var target = e.target;
+
+					var id = target.getAttribute('data-toggle-id');
+					if (!id) return;
+
+					//тут вызываем метод контроллера
+					//Метод контроллера должен делать 2 вещи:
+					//1 - Вызвать метод модели - поменять текущего кота, передав id
+					//2 - Перерисовать оба вида, передав им текущего кота
+//					showCat(model.cats[id]);
+					controller.listClickHandler(id);
+				};
+			},
+			
+			render(cats) {
+				this.elem.innerHTML = "";
+				
+				cats.forEach((item, i) => {
+					item.button = this.createCatButton(item, i);
+					this.elem.appendChild(item.button);
+				})
+				
+//				this.elem.innerHTML = 
+			},
+			
+			createCatButton(cat, i) {
+				return getElementFromTemplate( this.catButtonTemplate(cat, i) );
+			},
+			
+			selectCatInList(cat) {
+				cat.button.classList.add('catsList__cat_selected');
+				cat.button.style.background = cat.color;
+			},
+
+			deselectCatInList(cat) {
+				cat.button.classList.remove('catsList__cat_selected');
+				cat.button.style.background = '';
+			},
+			
+		}
+		///END OF VIEW - LIST
+		
+		
+		///VIEW - CAT WINDOW
+		let view_catWindow = {
+			
+			init(cat) {
+				this.elem = document.querySelector('.cats__window');
+				this.popup = getElementFromTemplate( this.popupTemplate() );
+				this.popupCounter = this.popup.querySelector('.popup__counter');
+//				document.body.appendChild(this.popup);
+				this.render(cat);
+				
+				this.elem.onclick = (e) => {
+					//тут вызываем метод контроллера
+					
+					console.log('clickCat')
+					var target = e.target;
+					this._e = e;
+					
+					controller.catClick();
+				};
+      },
+			
+			catPictureTemplate(item, i) { 
+				return `<div class="cat">
+					<span class="cat__name">${item.name}</span>
+					<img class="catImg" src="${item.src}" alt="${item.alt}" draggable="false">
+				</div>`
+			},
+			
+			popupTemplate() {
+				return `<div class="popup"><span class="popup__plus">+</span><span class="popup__counter">1</span></div>`
+			},
+			
+			render(cat) {
+				this.elem.innerHTML = this.catPictureTemplate(cat);
+			},
+			
+			renderPopup(cat) {
+				//Это метод вида renderPopup
+				this.popupCounter.innerHTML = cat.counter;
+
+				//клонируем элемент и добавляем его в документ
+				var elem = this.popup.cloneNode(true);
+				document.body.appendChild(elem);
+
+				//отрисовываем элемент по координатам
+				elem.style = `top: ${this._e.clientY}px; left: ${this._e.clientX}px; color: ${cat.color}`;
+				elem.classList.add('popup_show');
+
+				//удаляем элемент через 1 сек
+				setTimeout(()=> {elem.parentNode.removeChild(elem)}, 1000);
+			},
+			
+		}
+		
+		////END OF VIEW - CAT WINDOW
+			
+		
+		//это ф-ции контроллера
+		//Контроллер инициализирует:
+		//Меняет текущего кота в модели - вызов метода модели Init?
+		//Запускает 2 render метода у 2х видов
+		let controller = {
+			init() {
+				model.init();
+				let currentCat = model.getCurrentCat();
+				
+				view_list.init( model.getAllCats() );
+				view_list.selectCatInList(currentCat);
+				view_catWindow.init(currentCat);
+			},
+			
+			listClickHandler(id) {
+				this.hideCat( model.getCurrentCat() );
+				//Вызов метода модели - изменить текущего кота
+				model.setCurrentCat(id);
+				let currentCat = model.getCurrentCat();
+				
+				
+				this.showCat( currentCat );
+			},
+			
+			hideCat(cat) {
+				view_list.deselectCatInList(cat);
+//				view_catWindow.hideCatPicture(cat);
+
+				model.currentCat = null;
+			},
+
+			showCat(cat) {
+				view_list.selectCatInList(cat);
+				view_catWindow.render(cat);
+			},
+			
+			catClick() {
+				//Вызываем метод модели для увеличения счётчика
+				model.increaseCounter();
+				
+				//Вызываем метод вида для отображения попапа
+				view_catWindow.renderPopup( model.getCurrentCat() );
+			}
+		}
+		
+		controller.init();
+		
+		
+		
+	//это вспомогательная ф-ция. Она вне mvc или ?
+		function getElementFromTemplate(template) {
+		 let container = document.createElement(`template`);
+		 container.innerHTML = template;
+		 return container.content.firstChild;
+			
+//			let container = document.createElement('div');
+//			container.innerHTML = template;
+//			return container.content;
+		}		
+		
+	</script>
+</body>
+</html>

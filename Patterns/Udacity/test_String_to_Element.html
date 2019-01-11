@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		
+function htmlToElement(html) {
+    var template = document.createElement('template');
+    html = html.trim(); // Never return a text node of whitespace as the result
+    template.innerHTML = html;
+    return template.content.firstChild;
+}
+
+		var div = htmlToElement('<div>PEKA</div>');
+		
+		console.log(div);
+		
+//		document.body.appendChild(div);
+//		
+//		console.log(div);
+		
+	</script>
+</body>
+</html>

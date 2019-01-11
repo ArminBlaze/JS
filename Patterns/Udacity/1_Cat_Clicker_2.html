@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<style>
+		.popup {
+			position: fixed;
+			box-sizing: border-box;
+			padding-bottom: 60px;
+			width: 60px;
+			height: 60px;
+			transform: translate(-50%, -100%);
+			padding: 0px 10px;
+			display: flex;
+			display: none;
+			justify-content: center;
+			align-content: center;
+			align-items: center;
+			
+/*			background-color: rgba(0, 0, 0, 0.17);*/
+			border-radius: 50%;
+
+			text-align: center;
+			vertical-align: middle;
+			
+			font-family: Arial;
+			font-size: 48px;
+			font-weight: bold;
+			color: #4d86ed;
+			text-shadow: 
+				0 -1px 1px rgba(255, 255, 255, 0.7),
+				0 -1px 1px rgba(255, 255, 255, 0.7),
+				0 1px 1px rgba(255, 255, 255, 0.7),
+				0 1px 1px rgba(255, 255, 255, 0.7),
+				-1px 0 1px rgba(255, 255, 255, 0.7),
+				1px 0 1px rgba(255, 255, 255, 0.7),
+				-1px 0 1px rgba(255, 255, 255, 0.7),
+				1px 0 1px rgba(255, 255, 255, 0.7),
+				-1px -1px 1px rgba(255, 255, 255, 0.7),
+				1px -1px 1px rgba(255, 255, 255, 0.7),
+				-1px 1px 1px rgba(255, 255, 255, 0.7),
+				1px 1px 1px rgba(255, 255, 255, 0.7),
+				-1px -1px 1px rgba(255, 255, 255, 0.7),
+				1px -1px 1px rgba(255, 255, 255, 0.7),
+				-1px 1px 1px rgba(255, 255, 255, 0.7),
+				1px 1px 1px rgba(255, 255, 255, 0.7)
+		}
+		
+		.popup_red {
+			color: hsl(344, 82%, 62%);
+		}
+		
+		.popup__plus {
+			font-size: 28px;
+			vertical-align: text-bottom;
+		}
+		
+		.popup_show {
+			display: flex;
+			animation-name: move;
+  		animation-duration: 1s;
+			animation-fill-mode: forwards;
+		}
+		
+		.cat {
+			display: inline-block;
+			position: relative;
+		}
+		
+		.cat__name {
+			position: absolute;
+			top: 0;
+			right: 0;
+			color: white;
+			padding: 10px;
+		}
+		
+		.catImg {
+			width: 400px;
+		}
+		
+		@keyframes move {
+			from {
+				
+				transform: translate(-50%, -100%);
+			}
+			to {
+				opacity: 0;
+				transform: translate(-50%, -200%);
+			}
+		}
+	</style>
+</head>
+<body>
+
+<div class="cat cat1">
+	<span class="cat__name"></span>
+	<img class="catImg catImg_1" src="https://lh3.ggpht.com/kixazxoJ2ufl3ACj2I85Xsy-Rfog97BM75ZiLaX02KgeYramAEqlEHqPC3rKqdQj4C1VFnXXryadFs1J9A=s0#w=640&h=496" alt="cat" draggable="false">
+</div>
+<div class="cat cat2">
+	<span class="cat__name"></span>
+	<img class="catImg catImg_2" src="https://lh3.ggpht.com/nlI91wYNCrjjNy5f-S3CmVehIBM4cprx-JFWOztLk7vFlhYuFR6YnxcT446AvxYg4Ab7M1Fy0twaOCWYcUk=s0#w=640&h=426" alt="cat" draggable="false">
+</div>
+
+<div class="popup"><span class="popup__plus">+</span><span class="popup__counter">1</span></div>
+
+
+	<script>
+		'use strict';
+		
+		const CAT_NAMES = {
+			cat1: "Pufik",
+			cat2: "Mufik"
+		}
+		
+		var cat1 = document.querySelector('.cat1');
+		var cat2 = document.querySelector('.cat2');
+		var cat1_name = cat1.querySelector('.cat__name');
+		var cat2_name = cat2.querySelector('.cat__name');
+		
+		cat1_name.innerHTML = CAT_NAMES.cat1;
+		cat2_name.innerHTML = CAT_NAMES.cat2;
+		
+		var popup = document.querySelector('.popup');
+		var popup__counter = popup.querySelector('.popup__counter');
+		var counter1 = 0;
+		var counter2 = 0;
+		
+		cat1.addEventListener('click', catClickHandler);
+		cat2.addEventListener('click', catClickHandler);
+		
+		
+		//появляется в месте клика цифра и ползёт вверх, потом исчезает в прозрачности
+		function catClickHandler(e) {
+			var target = e.currentTarget;
+			var classNames = ['popup_show'];
+			console.log(target);
+			
+			
+			//увеличиваем счётчик и записываем в попап новое число до клонирования
+			if(target === cat1) {
+				counter1++;
+				popup__counter.innerHTML = counter1;
+				name = "name1"
+			}
+			else {
+				counter2++;
+				popup__counter.innerHTML = counter2;
+				classNames.push('popup_red');
+			}
+			
+			
+			//клонируем элемент и добавляем его в документ
+			var elem = popup.cloneNode(true);
+			document.body.appendChild(elem);
+			
+			//отрисовываем элемент по координатам
+			elem.style = `top: ${e.clientY}px; left: ${e.clientX}px;`;
+			elem.classList.add(...classNames);
+			
+			//удаляем элемент через 1 сек
+			setTimeout(()=> {elem.parentNode.removeChild(elem)}, 1000);
+		}
+	</script>
+</body>
+</html>
