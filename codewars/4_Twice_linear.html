@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		var arr = [1];
+		var firstHalf = [];
+		var secondHalf = [];
+		
+		for(var i = 0; i < 60000; i++) {
+			var currentNum = arr[i];
+			
+			var firstNum = currentNum*2 + 1;
+			var secondNum = currentNum*3 + 1;
+			arr.push(firstNum);
+			arr.push(secondNum);
+			
+			arr.sort((a, b) => a-b);
+			
+			
+			firstHalf.push(firstNum);
+			secondHalf.push(secondNum);
+			
+		}
+		
+		arr = Array.from(new Set(arr));
+		console.log(arr);
+		console.log(firstHalf);
+		console.log(secondHalf);
+		
+	</script>
+</body>
+</html>

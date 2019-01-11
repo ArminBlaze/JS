@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		function dblLinear(n) {
+    // your code
+    var obj = {1:true,
+    length: 1};
+    
+    for(var i = 0; obj.length <= n*1.3; i++) {
+      var currentNum = Object.keys(obj)[i];
+      
+			var firstNum = currentNum*2 + 1;
+			var secondNum = currentNum*3 + 1;
+			
+      obj[firstNum] = true;
+      obj[secondNum] = true;
+      obj.length = obj.length+2;
+    }
+    
+    return +Object.keys(obj)[n];
+}
+	</script>
+</body>
+</html>

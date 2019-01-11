@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		function isMerge(s, part1, part2, i, j, k) {
+			if(s.length !== (part1.length + part2.length)) return false;
+			i = i || 0;
+			j = j || 0;
+			k = k || 0;
+			
+			//базовый случай - если буквы кончились в s, part1, part2 - значит мы успешно собрали слово из двух частей
+			if (i >= s.length-1 && j >= part1.length-1 && k >= part2.length-1 ) {
+				return true;
+			}
+			
+			//если одинаковые буквы в 2х частях, то мы не знаем из какой части лучше выбрать букву - запускаем рекурсию
+			if(s[i] === part1[j] && s[i] === part2[k] ) {
+				i++;
+				return isMerge(s, part1, part2, i, j+1, k) || isMerge(s, part1, part2, i, j, k+1);
+			}
+			else if(s[i] === part1[j]) {
+				return isMerge(s, part1, part2, i+1, j+1, k);
+			}
+			else if(s[i] === part2[k]) {
+				return isMerge(s, part1, part2, i+1, j, k+1)
+			}
+			else if(s[i] !== part1[j] && s[i] !== part2[k]) {
+				return false;
+			}
+		}
+		
+		
+				console.log(!isMerge('', 'no', 'siree'));
+//				console.log(!isMerge('codewars', 'code', 'warss'));
+//				console.log(!isMerge('codewars', 'codes', 'wars'));
+//				console.log(isMerge('Bananas from Bahamas', 'Bahas', 'Bananas from am'));
+//				console.log(isMerge('p!lInmU-7HU*8\..', 'IU.', 'p!lnmU-7H*8\.'));
+//			console.log(isMerge('K1=IfkeG4KK1=I/dnh\E0lFG', 'K1=I/dnh\E', 'K1=IfkeG4K0lFG'));
+		
+	</script>
+</body>
+</html>

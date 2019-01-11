@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		function dblLinear(n) {
+			var arr = [],
+					num1 = 1,
+					num2 = 1,
+					pos1 = 0,
+					pos2 = 0;
+			
+			while(arr.length <= n) {
+				if(num1 < num2) {
+					arr.push(num1);
+					num1 = arr[pos1]*2+1;
+					pos1++;
+				}
+				else if(num2 < num1) {
+					arr.push(num2);
+					num2 = arr[pos2]*3+1;
+					pos2++;
+				}
+				else {
+					arr.push(num1);
+					num1 = arr[pos1]*2+1;
+					num2 = arr[pos2]*3+1;
+					pos1++;
+					pos2++;
+				}
+			}
+			
+			console.log(arr);
+			return arr[n];
+		}
+		
+		console.log(dblLinear(60000))
+	</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		разбивка на многочлены
+//		var peka = "3x-2xy+71yx";
+		var peka = "3x-2xy-71yx";
+		
+		function simplify(poly){
+			var splittedPolys = poly.match(/[+|-]?\w+/g);
+		
+			var obj = {};
+
+			splittedPolys.forEach((item, i) => {
+				var sign = item.match(/[+-]/);
+				sign = sign ? sign[0] : "";
+				var coeff = item.match(/\d+/);
+				coeff = coeff ? coeff[0] : 1;
+
+				var variables = item.match(/[a-z]+/);
+				variables = variables ? variables[0].split('').sort().join('') : "";
+
+				
+				if(obj[variables] === undefined) obj[variables] = parseInt(sign+coeff);
+				else obj[variables]+= parseInt(sign+coeff);
+
+			});
+			
+			var arr = [];
+			
+			Object.keys(obj).forEach( (key, i) => {
+        if(obj[key] !== 0) arr.push({vars: key, coeff: obj[key]});
+			} );
+			
+			
+			arr.sort((a, b) => {
+        if(a.vars.length !== b.vars.length) {
+          return (a.vars.length > b.vars.length) ? 1 : -1;
+        }
+        else {
+          return (a.vars > b.vars) ? 1 : -1;
+        }
+      })
+
+			var str = '';
+      
+      arr.forEach((item, i) => {
+        var sign = "";
+				if(i > 0 && item.coeff >= 0) {
+					sign = "+";
+				}
+				
+				var coeff = item.coeff;
+				
+				if(coeff === 1) coeff = "";
+				if(coeff === -1) coeff = "-";
+				
+				if(coeff !== 0) str += sign + coeff + item.vars;
+        
+      })
+
+			return str;
+		}
+		
+//		console.log( simplify("3x-xy") );
+//		console.log( simplify("-abc+3a+2ac"), "3a+2ac-abc" );
+//		console.log( simplify("-a+5ab+3a-c-2a"), "-c+5ab" );
+//		console.log( simplify("xyz-xz"), "-xz+xyz" );
+//		console.log( simplify("-10bx-5x+9xb-4x-4yxb+8bxy+9x+14bx"), "13bx+4bxy" );
+		console.log( simplify("+1za+5z-5azb+1za+8z-12z+8zab-2az-3baz"), "z" );
+	</script>
+</body>
+</html>

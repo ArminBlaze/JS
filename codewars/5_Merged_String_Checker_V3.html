@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+  <script>
+		function isMerge(s, part1, part2) {
+			if(s.length !== (part1.length + part2.length)) return false;
+			
+			console.log("s: ", s);
+			console.log("part1: ", part1);
+			console.log("part2: ", part2);
+			
+			var strTemp = s;
+			var part1Temp = part1;
+			var part2Temp = part2;
+			
+			if( testStr(strTemp, part1Temp, part2Temp) ) {
+				return true;
+			}
+			else {
+				return testStr(strTemp, part2Temp, part1Temp);
+			}
+			
+			function testStr(strTemp, part1Temp, part2Temp) {
+				var j = 0;
+				
+				var leftString = strTemp.split('').filter(function(item, i, arr) {
+					var isSameLetter = arr[i] === part1Temp[j];
+					if(isSameLetter) j++;
+					return !isSameLetter;
+				}).join('');
+				
+				console.log(leftString);
+				
+				if(leftString === part2Temp) {
+					return true;
+				}
+				
+				return false;
+			}
+		}
+		
+		
+
+		//Функция проверки вхождения part в строку, чистая?
+		//если удалось - проверяем part2 === остаток str
+		//если не удалось начинаем с part2
+		//Т.е. у нас есть 3 доп переменных: part1_temp, part2_temp, str_temp
+
+		//		console.log(!isMerge('', 'no', 'siree'));
+		//		console.log(!isMerge('codewars', 'code', 'warss'));
+		//		console.log(!isMerge('codewars', 'codes', 'wars'));
+				console.log(isMerge('Bananas from Bahamas', 'Bahas', 'Bananas from am'));
+//				console.log(isMerge('p!lInmU-7HU*8\..', 'IU.', 'p!lnmU-7H*8\.'));
+//			console.log(isMerge('K1=IfkeG4KK1=I/dnh\E0lFG', 'K1=I/dnh\E', 'K1=IfkeG4K0lFG'));
+		
+		/*
+		
+		Bananas from Bahamas
+  	Bananas from    am
+                 Bah  as
+		
+		Bananas from Bahamas
+  	Bananas from am
+    Bahas
+		
+		
+		p!lInmU-7HU*8\..
+		p!l nmU-7H *8\. 
+		   I      U    .
+		
+		
+		p!lInmU-7HU*8\..
+		p!lnmU-7H*8\.
+		IU.
+		
+		p!lInmU-7HU*8\..
+		p!lnmU-7H*8\.
+		IU.
+		
+		(p!l)(I)(nm)(U)-7HU*8\(.).
+		(p!l)(nm)U-7H*8\.
+		(I) (U) (.)
+		
+		
+		K1=IfkeG4KK1=I/dnh\E0lFG
+		K1=I/dnh\E
+		K1=IfkeG4K0lFG
+		
+		K1=I fkeG4K K1=I /dnh\E 0lFG
+		K1=IfkeG4K 0lFG
+		K1=I /dnh\E
+		
+		(K1=Ifke) (G4) (K)K1=I/dnh\E(0)(lFG)
+		K1=I/dnh\E
+		(K1=Ifke) (G4) (K)(0) (lFG)
+		
+		K1=IfkeG4KK1=I/dnh\E0lFG
+		K1=I/dnh\E
+		K1=IfkeG4K0lFG
+		
+  </script>
+  'Bananas from Bahamas';
+  'Bananas from    am';
+               'Bah  as';
+               
+               
+</body>
+</html>

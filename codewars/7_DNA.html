@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		// A - T
+		// C - G
+		
+		function DNAStrand(dna){
+			return str.replace(/([AT])|([CG])/g, function(str, n1, n2) {
+				if(str === n1) {
+					return (str === `A`) ? `T` : `A`;
+				}
+				else {
+					return (str === `C`) ? `G` : `C`;
+				}
+			})
+		}
+		
+		
+		var str = "GATAAT";
+    
+    alert( DNAStrand(str) );
+		
+	</script>
+</body>
+</html>

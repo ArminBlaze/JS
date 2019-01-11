@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		
+		function dblLinear(n) {
+  var u = [];
+  var runner2 = -1, runner3 = -1;
+  var next2 = 1, next3 = 1;
+  while(u.length <= n){
+    if(next2 < next3){
+      u.push(next2);
+      next2 = u[++runner2] << 1 | 1;
+    }else if(next3 < next2){
+      u.push(next3);
+      next3 = u[++runner3] * 3 + 1;
+    }else{
+      u.push(next2);
+      next2 = u[++runner2] << 1 | 1;
+      next3 = u[++runner3] * 3 + 1;
+    }
+  }
+  return u[n];
+}
+		
+		console.log(dblLinear(60000))
+	</script>
+</body>
+</html>

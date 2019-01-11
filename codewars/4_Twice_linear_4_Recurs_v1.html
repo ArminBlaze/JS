@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		//тут через сортировку + Set
+		function dblLinear(n) {
+			var arr = [];
+			var maxDeep = Math.ceil(Math.log2(n)+2);
+			console.log(n, "n");
+			console.log(maxDeep, "maxDeep\n");
+			
+			recursion(1, 0);
+			
+			function recursion(x, deep) {
+				if(deep > maxDeep) return;
+				arr.push(x);
+//				console.log(x, "число");
+//				console.log(deep, "глубина");
+				deep++;
+				recursion(2*x+1, deep);
+				recursion(3*x+1, deep);
+			}
+			
+			arr = Array.from(new Set(arr.sort((a, b) => a-b)));
+			console.log(arr)
+			return arr[n];
+		}
+		
+		console.log(dblLinear(60000))
+	</script>
+</body>
+</html>

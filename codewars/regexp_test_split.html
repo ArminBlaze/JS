@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		
+		var peka = "3x-2xy+71yx";
+		
+//		var lolka = peka.replace(/\+|-/g, "")
+//		var lolka = peka.split(/(\+|-)/);
+//		var lolka = peka.split(/(\+\d+|-\d+)/);
+		
+		//split по регекспу в (круглых скобках) позволяет разбить строку с сохранением разделителей
+//		var lolka = peka.split(/([+|-]?\w+)/);
+		//match это противоположность split для регекспов. Т.е. match разобьёт строку по всем найденным шаблонам регекспа, а split позволит получить всё кроме регекспа
+		var lolka = peka.match(/[+|-]?\w+/g);
+		
+		console.log(lolka);
+	</script>
+</body>
+</html>
