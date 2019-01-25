@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+<div class="divka" style="width: 100px; height: 100px; background: dodgerblue;"></div>
+<div class="divka" style="width: 100px; height: 100px; background: red;"></div>
+<div class="divka" style="width: 100px; height: 100px; background: lime;"></div>
+
+	<script>
+		let divkas = document.querySelectorAll('.divka');
+		
+		divkas.forEach(function(item, i) {
+			item.addEventListener('click', function(e) {
+				console.log(i);
+			});
+		})
+		
+		
+//		function onDivClick (e) {
+//			console.log(i);
+//		}
+	</script>
+</body>
+</html>

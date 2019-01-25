@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+<form action="/echo" class="myForm" name="catForm">
+	<label for="name">Имя:</label>
+	<input type="text" name="name" required>
+	<br>
+	<label for="url">Адрес:</label>
+	<input type="url" name="url" required>
+	<br>
+	<label for="clicks">Клики:</label>
+	<input type="number" name="clicks" required>
+	<br>
+	<button type="button">Cancel</button>
+	<button type="submit">Submit</button>
+</form>
+	<script>
+		'use strict';
+		let form = document.querySelector('.myForm');
+		
+		form.addEventListener('submit', onFormSubmit);
+		form.addEventListener('reset', onFormReset);
+		
+		function onFormSubmit(e) {
+			e.preventDefault();
+			
+			console.log(this.validity);
+			
+			let elements = this.elements;
+			console.log(elements);
+			
+			let data = {};
+			
+			for(let i = 0; i < elements.length; i++) {
+				let element = elements[i];
+				if(!element.name) continue;
+				
+				data[element.name] = element.value;
+			}
+			
+			console.log(data);
+		}
+		
+		function onFormReset(e) {
+			
+		}
+	</script>
+</body>
+</html>

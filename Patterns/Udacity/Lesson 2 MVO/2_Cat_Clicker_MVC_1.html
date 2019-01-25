@@ -155,31 +155,32 @@
 	<script>
 		'use strict';
 		
+		//MODEL
 		
 		const CATS = [
 			{	
 				name: "Pufik",
-				src: "img/cat_1.jpg",
+				src: "../img/cat_1.jpg",
 				color: "hsl(219, 82%, 62%)"
 			},
 			{	
 				name: "Mufik",
-				src: "img/cat_2.jpg",
+				src: "../img/cat_2.jpg",
 				color: "hsl(335, 82%, 62%)",
 			},
 			{
 				name: "Popik",
-				src: "img/cat_3.jpg",
+				src: "../img/cat_3.jpg",
 				color: "hsl(53, 82%, 62%)"
 			},
 			{
 				name: "Durik",
-				src: "img/cat_4.jpg",
+				src: "../img/cat_4.jpg",
 				color: "hsl(272, 82%, 62%)"
 			},
 			{
 				name: "Lufik",
-				src: "img/cat_5.jpg",
+				src: "../img/cat_5.jpg",
 				color: "hsl(125, 82%, 62%)"
 			},
 		];
@@ -216,25 +217,22 @@
 		};
 		
 		
-		
 		///VIEW - LIST
 		
 		let view_list = {
-			catButtonTemplate(item, i) {
-				return `<li class="catsList__cat" data-toggle-id="${i}">
-					${item.name}
-				</li>`
-			},
-			
 			init(cats) {
 				this.elem = document.querySelector('.catsList');
 				this.render(cats);
 				
 				
+				//тут можно обойтись без получения id из DOM если при генерации списка навешивать на каждый пункт по обработчику. А у этого обработчика в замыкании сохранять id этого кота, или сам объект кота.
 				this.elem.onclick = function(e) {
+					console.log(e);
+					console.dir(e.target);
 					var target = e.target;
 
-					var id = target.getAttribute('data-toggle-id');
+//					var id = target.getAttribute('data-toggle-id');
+					var id = target.dataset.toggleId; //IE11+
 					if (!id) return;
 
 					//тут вызываем метод контроллера
@@ -244,6 +242,12 @@
 //					showCat(model.cats[id]);
 					controller.listClickHandler(id);
 				};
+			},
+			
+			catButtonTemplate(item, i) {
+				return `<li class="catsList__cat" data-toggle-id="${i}">
+					${item.name}
+				</li>`
 			},
 			
 			render(cats) {
@@ -272,10 +276,10 @@
 			},
 			
 		}
-		///END OF VIEW - LIST
 		
 		
 		///VIEW - CAT WINDOW
+		
 		let view_catWindow = {
 			
 			init(cat) {
@@ -307,6 +311,7 @@
 				return `<div class="popup"><span class="popup__plus">+</span><span class="popup__counter">1</span></div>`
 			},
 			
+			//тут можно не перерисовывать элемент полностью, а обновлять только элементы внутри (адрес картинки, альт картинки и имя кота в спане). Тогда в init нужно записать ещё 2 элемента в свойства (картинку и спан);
 			render(cat) {
 				this.elem.innerHTML = this.catPictureTemplate(cat);
 			},
@@ -328,8 +333,6 @@
 			},
 			
 		}
-		
-		////END OF VIEW - CAT WINDOW
 			
 		
 		//это ф-ции контроллера

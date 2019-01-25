@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Knockout Bindings Example</title>
+	<style>
+		body { font-family: arial; font-size: 14px; }
+		.liveExample { padding: 1em; background-color: #EEEEDD; border: 1px solid #CCC; max-width: 655px; }
+		.liveExample input { font-family: Arial; }
+		.liveExample b { font-weight: bold; }
+		.liveExample p { margin-top: 0.9em; margin-bottom: 0.9em; }
+		.liveExample select[multiple] { width: 100%; height: 8em; }
+		.liveExample h2 { margin-top: 0.4em; }
+	</style>
+</head>
+<body>
+	<div class='liveExample'> 
+    
+    <div>You've clicked <span data-bind='text: numberOfClicks'>&nbsp;</span> times</div>
+     
+    <button data-bind='click: registerClick, disable: hasClickedTooManyTimes'>Click me</button>
+     
+    <div data-bind='visible: hasClickedTooManyTimes'>
+        That's too many clicks! Please stop before you wear out your fingers.
+        <button data-bind='click: resetClicks'>Reset clicks</button>
+    </div>
+        
+	</div>
+	
+	
+	<script src="http://knockoutjs.com/downloads/knockout-3.2.0.js"></script>
+	<script src="main.js"></script>
+</body>
+</html>

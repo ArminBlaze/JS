@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<style>
+		.popup {
+/*			display: flex;*/
+			display: none;
+			position: fixed;
+			box-sizing: border-box;
+			padding-bottom: 60px;
+			width: 60px;
+			height: 60px;
+			transform: translate(-50%, -100%);
+			padding: 0px 10px;
+			
+			justify-content: center;
+			align-content: center;
+			align-items: center;
+			
+/*			background-color: rgba(0, 0, 0, 0.17);*/
+			border-radius: 50%;
+
+			text-align: center;
+			vertical-align: middle;
+			
+			font-family: Arial;
+			font-size: 48px;
+			font-weight: bold;
+			color: #4d86ed;
+			text-shadow: 
+				0 -1px 1px rgba(255, 255, 255, 0.7),
+				0 -1px 1px rgba(255, 255, 255, 0.7),
+				0 1px 1px rgba(255, 255, 255, 0.7),
+				0 1px 1px rgba(255, 255, 255, 0.7),
+				-1px 0 1px rgba(255, 255, 255, 0.7),
+				1px 0 1px rgba(255, 255, 255, 0.7),
+				-1px 0 1px rgba(255, 255, 255, 0.7),
+				1px 0 1px rgba(255, 255, 255, 0.7),
+				-1px -1px 1px rgba(255, 255, 255, 0.7),
+				1px -1px 1px rgba(255, 255, 255, 0.7),
+				-1px 1px 1px rgba(255, 255, 255, 0.7),
+				1px 1px 1px rgba(255, 255, 255, 0.7),
+				-1px -1px 1px rgba(255, 255, 255, 0.7),
+				1px -1px 1px rgba(255, 255, 255, 0.7),
+				-1px 1px 1px rgba(255, 255, 255, 0.7),
+				1px 1px 1px rgba(255, 255, 255, 0.7)
+		}
+		
+		.popup_red {
+			color: hsl(344, 82%, 62%);
+		}
+		
+		.popup__plus {
+			font-size: 28px;
+			vertical-align: text-bottom;
+		}
+		
+		.popup_show {
+			display: flex;
+			animation-name: move;
+  		animation-duration: 1s;
+			animation-fill-mode: forwards;
+		}
+		
+		.cat {
+			display: inline-block;
+			position: relative;
+/*			display: none;*/
+		}
+		
+		.cat img {
+			display: block;
+		}
+		
+		.cat_show {
+			display: block;
+		}
+		
+		.cat__name {
+			position: absolute;
+			top: 0;
+			right: 0;
+			color: white;
+			padding: 10px;
+		}
+		
+		.catImg {
+			width: 400px;
+		}
+		
+		body {
+/*			display: flex;*/
+			min-height: 100vh;
+			margin: 0;
+			padding: 0;
+		}
+		
+		.wrapper {
+			width: 800px;
+			margin: auto;
+		}
+		
+		.cats {
+			display: flex;
+/*			border: 1px solid red;*/
+			flex-wrap: wrap;
+			align-items: flex-start;
+		}
+		
+		.catsList {
+			list-style: none;
+			width: 200px;
+			padding: 0;
+			margin: 0;
+			flex-basis: 20%;
+		}
+		
+		.catsList__cat {
+			border: 1px solid black;
+			text-align: center;
+			padding: 5px 10px;
+			cursor: pointer;
+		}
+		
+		.catsList__cat:not(:first-child) {
+			border-top: none;
+		}
+		
+		.catsList__cat_selected {
+			color: white;
+		}
+		
+		.cats__window {
+/*			border: 1px solid dodgerblue;*/
+			min-height: 310px;
+/*			margin: 0 auto;*/
+			flex-basis: 80%;
+			margin-bottom: 20px;
+			display: flex;
+		}
+		
+		.catsAdmin {
+			display: flex;
+			align-items: flex-start;
+		}
+		
+		.catsAdmin__button {
+			margin-right: 20px;
+		}
+		
+		.catsAdmin__form {
+			display: none;
+		}
+		
+		@keyframes move {
+			from {
+				
+				transform: translate(-50%, -100%);
+			}
+			to {
+				opacity: 0;
+				transform: translate(-50%, -200%);
+			}
+		}
+	</style>
+</head>
+<body>
+
+<div class="wrapper">
+	<div class="cats">
+		<ul class="catsList">
+			
+		</ul>
+		<div class="cats__window">
+	
+		</div>
+	</div>
+	<div class="catsAdmin">
+		<button class="catsAdmin__button" type="button">Admin</button>
+		<form action="/echo" class="catsAdmin__form" name="catForm">
+			<label for="name">Имя:</label>
+			<input type="text" name="name" required>
+			<br>
+			<label for="src">Адрес:</label>
+			<input type="text" name="src" required>
+			<br>
+			<label for="counter">Клики:</label>
+			<input type="number" name="counter" required>
+			<br>
+			<button type="reset" class="catsAdmin__cancel">Cancel</button>
+			<button type="submit" class="catsAdmin__submit">Submit</button>
+		</form>
+	</div>
+</div>
+
+
+	<script>
+		'use strict';
+		
+		//MODEL
+		
+		const CATS = [
+			{	
+				name: "Pufik",
+				src: "../img/cat_1.jpg",
+				color: "hsl(219, 82%, 62%)"
+			},
+			{	
+				name: "Mufik",
+				src: "../img/cat_2.jpg",
+				color: "hsl(335, 82%, 62%)",
+			},
+			{
+				name: "Popik",
+				src: "../img/cat_3.jpg",
+				color: "hsl(53, 82%, 62%)"
+			},
+			{
+				name: "Durik",
+				src: "../img/cat_4.jpg",
+				color: "hsl(272, 82%, 62%)"
+			},
+			{
+				name: "Lufik",
+				src: "../img/cat_5.jpg",
+				color: "hsl(125, 82%, 62%)"
+			},
+		];
+		
+		
+		let model = {
+			currentCat: null,
+			cats: CATS,
+			isAdminShow: false,
+			
+			init() {
+				this.setCurrentCat(0);
+			},
+			
+			increaseCounter() {
+				let cat = this.currentCat;
+				
+				if(!cat.counter) cat.counter = 0;
+				cat.counter++;
+			},
+			
+			getAllCats() {
+				return this.cats;
+			},
+			
+			getCurrentCat() {
+				return this.currentCat;
+			},
+			
+			setCurrentCat(id) {
+				this.currentCat = this.cats[id];
+			},
+			
+			changeCurrentCat(obj) {
+				this.currentCat.name = obj.name || this.currentCat.name;
+				this.currentCat.src = obj.src || this.currentCat.src;
+				this.currentCat.counter = obj.counter || this.currentCat.counter;
+			}
+		};
+		
+		
+		///VIEW - LIST
+		
+		let view_list = {
+			init(cats) {
+				this.elem = document.querySelector('.catsList');
+				this.render(cats);
+				
+				
+				//тут можно обойтись без получения id из DOM если при генерации списка навешивать на каждый пункт по обработчику. А у этого обработчика в замыкании сохранять id этого кота, или сам объект кота.
+				this.elem.onclick = function(e) {
+					console.log(e);
+					console.dir(e.target);
+					var target = e.target;
+
+//					var id = target.getAttribute('data-toggle-id');
+					var id = target.dataset.toggleId; //IE11+
+					if (!id) return;
+
+					//тут вызываем метод контроллера
+					//Метод контроллера должен делать 2 вещи:
+					//1 - Вызвать метод модели - поменять текущего кота, передав id
+					//2 - Перерисовать оба вида, передав им текущего кота
+//					showCat(model.cats[id]);
+					controller.listClickHandler(id);
+				};
+			},
+			
+			catButtonTemplate(item, i) {
+				return `<li class="catsList__cat" data-toggle-id="${i}">
+					${item.name}
+				</li>`
+			},
+			
+			render(cats) {
+				this.elem.innerHTML = "";
+				
+				cats.forEach((item, i) => {
+					item.button = this.createCatButton(item, i);
+					this.elem.appendChild(item.button);
+				})
+				
+//				this.elem.innerHTML = 
+			},
+			
+			createCatButton(cat, i) {
+				return getElementFromTemplate( this.catButtonTemplate(cat, i) );
+			},
+			
+			selectCatInList(cat) {
+				cat.button.classList.add('catsList__cat_selected');
+				cat.button.style.background = cat.color;
+			},
+
+			deselectCatInList(cat) {
+				cat.button.classList.remove('catsList__cat_selected');
+				cat.button.style.background = '';
+			},
+			
+			redrawButton(cat) {
+				cat.button.innerHTML = cat.name;
+			}
+		}
+		
+		
+		///VIEW - CAT WINDOW
+		
+		let view_catWindow = {
+			
+			init(cat) {
+				this.elem = document.querySelector('.cats__window');
+				this.popup = getElementFromTemplate( this.popupTemplate() );
+				this.popupCounter = this.popup.querySelector('.popup__counter');
+//				document.body.appendChild(this.popup);
+				this.render(cat);
+				
+				this.elem.onclick = (e) => {
+					//тут вызываем метод контроллера
+					
+					console.log('clickCat')
+					var target = e.target;
+					this._e = e;
+					
+					controller.catClick();
+				};
+      },
+			
+			catPictureTemplate(item, i) { 
+				return `<div class="cat">
+					<span class="cat__name">${item.name}</span>
+					<img class="catImg" src="${item.src}" alt="${item.alt}" draggable="false">
+				</div>`
+			},
+			
+			popupTemplate() {
+				return `<div class="popup"><span class="popup__plus">+</span><span class="popup__counter">1</span></div>`
+			},
+			
+			//тут можно не перерисовывать элемент полностью, а обновлять только элементы внутри (адрес картинки, альт картинки и имя кота в спане). Тогда в init нужно записать ещё 2 элемента в свойства (картинку и спан);
+			render(cat) {
+				this.elem.innerHTML = this.catPictureTemplate(cat);
+			},
+			
+			renderPopup(cat) {
+				//Это метод вида renderPopup
+				this.popupCounter.innerHTML = cat.counter;
+
+				//клонируем элемент и добавляем его в документ
+				var elem = this.popup.cloneNode(true);
+				document.body.appendChild(elem);
+
+				//отрисовываем элемент по координатам
+				elem.style = `top: ${this._e.clientY}px; left: ${this._e.clientX}px; color: ${cat.color}`;
+				elem.classList.add('popup_show');
+
+				//удаляем элемент через 1 сек
+				setTimeout(()=> {elem.parentNode.removeChild(elem)}, 1000);
+			},
+			
+		}
+		
+		
+		//VIEW - ADMIN
+		
+		let view_admin = {
+			init() {
+				this.adminButton = document.querySelector('.catsAdmin__button');
+//				this.submitButton = document.querySelector('.catsAdmin__submit');
+				this.cancelButton = document.querySelector('.catsAdmin__cancel');
+				this.form = document.querySelector('.catsAdmin__form');
+				
+				this.adminButton.addEventListener('click', function() {
+					controller.showAdmin();
+				});
+				
+				this.form.addEventListener('submit', function(e) {
+					e.preventDefault();
+					controller.validateForm(this.elements);
+				});
+				
+				this.form.addEventListener('reset', function(e) {
+					controller.hideAdmin();
+				})
+			},
+			
+			show(cat) {
+				this.form.style = "display: block;";
+				this.render(cat);
+			},
+			
+			hide() {
+				this.form.style = "";
+			},
+			
+			render(cat) {
+				this.form.name.value = cat.name;
+				this.form.src.value = cat.src;
+				this.form.counter.value = cat.counter || 0;
+			}
+		}
+			
+		
+		//это ф-ции контроллера
+		//Контроллер инициализирует:
+		//Меняет текущего кота в модели - вызов метода модели Init?
+		//Запускает 2 render метода у 2х видов
+		let controller = {
+			init() {
+				model.init();
+				let currentCat = model.getCurrentCat();
+				
+				view_list.init( model.getAllCats() );
+				view_list.selectCatInList(currentCat);
+				view_catWindow.init(currentCat);
+				view_admin.init();
+			},
+			
+			listClickHandler(id) {
+				this.hideCat( model.getCurrentCat() );
+				//Вызов метода модели - изменить текущего кота
+				model.setCurrentCat(id);
+				let currentCat = model.getCurrentCat();
+				
+				this.showCat( currentCat );
+			},
+			
+			hideCat(cat) {
+				view_list.deselectCatInList(cat);
+			},
+
+			showCat(cat) {
+				view_list.selectCatInList(cat);
+				view_catWindow.render(cat);
+				view_admin.render(cat);
+			},
+			
+			catClick() {
+				//Вызываем метод модели для увеличения счётчика
+				model.increaseCounter();
+				
+				let cat = model.getCurrentCat();
+				//Вызываем метод вида для отображения попапа
+				view_catWindow.renderPopup(cat);
+				view_admin.render(cat);
+			},
+			
+			showAdmin() {
+				model.isAdminShow = true;
+				view_admin.show( model.getCurrentCat() );
+			},
+			
+			hideAdmin() {
+				model.isAdminShow = false;
+				view_admin.hide();
+			},
+			
+			validateForm(elements) {
+//				console.log(this.validity);
+			
+//				let elements = this.elements;
+				console.log(elements);
+
+				let data = {};
+
+				for(let i = 0; i < elements.length; i++) {
+					let element = elements[i];
+					if(!element.name) continue;
+
+					data[element.name] = element.value;
+				}
+
+				console.log(data);
+				
+				model.changeCurrentCat(data);
+				
+				let cat = model.getCurrentCat();
+				
+				this.showCat( cat );
+				view_list.redrawButton( cat );
+				this.hideAdmin();
+			}
+		}
+		
+		
+		controller.init();
+		
+		
+	//это вспомогательная ф-ция. Она вне mvc или ?
+		function getElementFromTemplate(template) {
+		 let container = document.createElement(`template`);
+		 container.innerHTML = template;
+		 return container.content.firstChild;
+			
+//			let container = document.createElement('div');
+//			container.innerHTML = template;
+//			return container.content;
+		}		
+		
+	</script>
+</body>
+</html>
