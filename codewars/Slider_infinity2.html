@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	
+	<style>
+		.slider {
+			display: flex;
+			width: 770px;
+			position: relative;
+			margin: 0 auto;
+			overflow: hidden;
+		}
+		
+		.slider__prev,
+		.slider__next {
+			position: absolute;
+			width: 30px;
+			height: 100%;
+			left: 0;
+			text-align: center;
+			vertical-align: middle;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: rgba(255,255,255, 0.3);
+			font-size: 25px;
+			cursor: pointer;
+			opacity: 0;
+			transition: 0.3s all;
+		}
+		
+		.slider:hover .slider__prev,
+		.slider:hover .slider__next {
+			background: rgba(255,255,255, 0.5);
+			opacity: 0.6;
+		}
+		
+		.slider:hover .slider__prev:hover,
+		.slider:hover .slider__next:hover {
+			background: rgba(255,255,255, 0.5);
+			opacity: 1;
+		}
+		
+		.slider__next {
+			left: auto;
+			right: 0;
+		}
+		
+		.slide {
+			flex-shrink: 0;
+			width: 100%;
+/*			height: 100px;*/
+			box-sizing: border-box;
+		}
+		
+		.slide img {
+			width: 100%;
+			height: auto;
+		}
+		
+		.slider__slides {
+			display: flex;
+		}
+		
+		.slider__slides > :first-child {
+			margin-left: -770px;
+			transition: all 1s;
+		}
+	</style>
+</head>
+<body>
+<div class="slider">
+	<div class="slider__prev slider__button">&lang;</div>
+	<div class="slider__next slider__button">&rang;</div>
+	<div class="slider__slides"></div>
+</div>
+
+	<script>
+//		var DIVS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+		var DIVS = [{text: 0,
+								src: 'sliderImg/1.jpg'},
+								{text: 1,
+								src: 'sliderImg/2.jpg'},
+								{text: 2,
+								src: 'sliderImg/3.jpg'},
+								{text: 3,
+								src: 'sliderImg/4.png'},
+								{text: 4,
+								src: 'sliderImg/5.jpg'},
+								{text: 5,
+								src: 'sliderImg/6.jpg'},
+								{text: 6,
+								src: 'sliderImg/7.jpg'},
+								{text: 7,
+								src: 'sliderImg/8.jpg'},
+								{text: 8,
+								src: 'sliderImg/9.jpg'},
+							 ]
+		
+		var slider = document.querySelector('.slider');
+		var slides = slider.querySelector('.slider__slides');
+		var prev = slider.querySelector('.slider__prev');
+		var next = slider.querySelector('.slider__next');
+		var sliderIndex = 0;
+		var visibleSlides = 1;
+		var inProgress = false;
+		var sliderWidth = 770;
+		
+		DIVS.forEach( (item) => {
+			var div = document.createElement('div');
+			div.innerHTML = item.text;
+			div.innerHTML = `<img src='${item.src}'>`;
+			div.classList.add('slide');
+			item.elem = div;
+			slides.appendChild(div);
+		});
+		
+		console.log(DIVS)
+		
+		
+		slider.addEventListener('click', onSliderClick);
+		
+		function onSliderClick(e) {
+			var target = e.target;
+			
+			if(!target.classList.contains('slider__button')) return;
+			if(inProgress) return;
+			if(target.classList.contains('slider__next')) {
+				scrollSlider(">");
+			} 
+			else {
+				scrollSlider("<");
+			}
+		}
+		
+		var animationDelay = 1000;
+		
+		function scrollSlider(direction) {
+			if(direction === ">") {
+				console.log(DIVS[0])
+				DIVS[0][`elem`].parentNode.appendChild(DIVS[0][`elem`]);
+				moveElementsInArray(-1);
+			}
+			else if (direction === "<") {
+				var length = DIVS.length;
+				var currentElem = DIVS[0][`elem`];
+				currentElem.style.marginLeft = 0;
+				inProgress = true;
+				
+				setTimeout(function() {
+					DIVS[length-1][`elem`].parentNode.insertBefore(DIVS[length-1][`elem`], DIVS[0][`elem`]);
+					moveElementsInArray(1);
+					inProgress = false;
+					currentElem.style = "";
+				}, animationDelay)
+				
+				
+			}
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		function moveElementsInArray(index) {
+			//если индекс отрицательный - нужно взять несколько последних элементов и приклеить их в начало. Индекс установить в ноль
+			//если индекс больше длины - нужно взять несколько первых элементов и приклеить их в конец. Индекс установить = длине-1
+			//если индекс положительной, но меньше длины - скролим
+			
+			console.log(index);
+			var position;
+			var modul;
+			if(index > 0) {
+				//сделать pop+shift несколько раз
+				//взять n последних элементов и сделать их первыми
+				modul = Math.abs(index);
+				position = DIVS.length - modul;
+				var removed = DIVS.splice(position, modul);
+				DIVS.unshift(...removed);
+			}
+			else if(index < 0) {
+				returnValue = DIVS.length;
+				//сделать unshift+push несколько раз
+				//взять n первых элементов и сделать последними
+				position = 0;
+				modul = visibleSlides;
+				var removed = DIVS.splice(position, modul);
+				DIVS.push(...removed);
+			}
+			else {
+				return index;
+				//ничего не делать, просто скролить
+			}
+		}
+		
+		function calculateSliderIndex(direction, index) {
+			return (direction) ? (index + visibleSlides) : (index - visibleSlides)
+		}
+		
+	</script>
+</body>
+</html>
