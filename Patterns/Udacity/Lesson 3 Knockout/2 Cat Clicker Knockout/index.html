@@ -3,15 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Cat Clicker</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <ul></ul>
-    <div id="cat" data-bind='click: increaseCounter'>
-        <h2 data-bind='text: name'></h2>
-        <h3 data-bind='text: getLevel'></h3>
-        <div data-bind='text: clicks'></div>
-        <img data-bind='attr: {src: imgSrc}' src="" alt="cute cat">
+<!-- Для каждого элемента в массиве catList создаём li. А после создания списка запускаем ф-цию selectCatInList  -->
+    <ul class="catsList" data-bind="foreach: { data: catList, afterRender: selectCatInList }, click: listClickHandler">
+<!--  Тут кастомная функция writeElemToObj. После инициализации ей передаётся текущий элемент  -->
+    	<li class="catsList__cat" data-bind="text: $data.name, attr: { 'data-toggle-id': $index }, writeElemToObj: $element"></li>
+    </ul>
+    
+   <div data-bind='with: currentCat'>
+    	 <div id="cat" data-bind='click: $parent.increaseCounter'>
+    	    <h2 data-bind='text: name'></h2>
+    	    <h3 data-bind='text: getLevel'></h3>
+    	    <div data-bind='text: clicks'></div>
+    	    <img data-bind='attr: {src: imgSrc}' src="" alt="cute cat">
+    	</div>
+    	<div class="nicknames" >
+    		<ul data-bind="foreach: nickNames">
+    			<li data-bind="text: $data"></li>
+    		</ul>
+    	</div>
     </div>
+    
+    
     <script src="js/lib/knockout-3.2.0.js"></script>
     <script src="js/app.js"></script>
 </body>

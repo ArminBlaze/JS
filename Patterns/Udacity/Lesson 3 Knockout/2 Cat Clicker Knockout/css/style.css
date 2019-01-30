@@ -1,0 +1,22 @@
+.catsList {
+	list-style: none;
+	width: 200px;
+	padding: 0;
+	margin: 0;
+	flex-basis: 20%;
+}
+
+.catsList__cat {
+	border: 1px solid black;
+	text-align: center;
+	padding: 5px 10px;
+	cursor: pointer;
+}
+
+.catsList__cat:not(:first-child) {
+	border-top: none;
+}
+
+.catsList__cat_selected {
+	color: white;
+}
