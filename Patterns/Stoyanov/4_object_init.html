@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Немедленно вызываемые объекты
+//		определяем и сразу вызываем объект (его метод init)
+//		если нужно сохранить сам объект в переменную - нужно вернуть его из метода init
+		
+		var obj = ({
+			// здесь можно определить параметры настройки
+			// или конфигурационные константы
+			maxwidth: 600,
+			maxheight: 400,
+			// также можно определять вспомогательные методы
+			gimmeMax: function () {
+				return this.maxwidth + "x" + this.maxheight;
+			},
+			// инициализация
+			init: function () {
+				console.log(this.gimmeMax());
+				// операции по инициализации...
+				return this;
+			}
+		}).init();
+	</script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		//Стратегия - это объект у которого есть набор методов по разному обрабатывающих данные.
+		//У этого объекта есть настройка - как обрабатывать этот вид данных, т.е. какой метод запускать для этого поля (Для поля "age" - запусти метод "только числа").
+		//В этом примере мы обрабатываем данные из формы.
+		//Настройка для Имени и Фамилии - "required". Т.е. нужно убедиться, что поле не пустое. А значит запустить метод с именем "required", который проверяет, что поле не пустое.
+		//Настройка для "age" - "number". Будет запущен метод проверяющий что в поле число.
+		//А для "email" будет запущен метод проверяющий что это почта.
+		
+		//Т.е. стратегия это объект + настройки + набор методов. Ему мы передаём данные, которые он  в цикле проверяет по правилам настроек.
+		
+		
+		var validator = {
+			// Коллекция методов для разного вида проверок. Например метод 'isNumber' проверяет, что введены только числа
+			types: {},
+			
+			// сообщения об ошибках в текущем сеансе проверки
+			messages: [],
+			
+			// Настройки валидации
+			// имя поля: название метода, который нужно запустить. Например:
+			//age: 'isNumber'
+			config: {},
+				
+			//Это метод, в который мы передаём данные для проверки. Интерфейс для данных.
+			validate: function (data) {
+				var key,
+						msg,
+						type,
+						checker,
+						result_ok;
+				
+				// удалить все сообщения
+				this.messages = [];
+				
+				//Для каждого поля из формы
+				for (key in data) {
+					if (data.hasOwnProperty(key)) {
+						
+						//берём название нужного метода
+						type = this.config[key];
+						//берём нужный метод
+						checker = this.types[type];
+						
+						//если для этого поля не нужна проверка, тут будет undefined. Т.к. в настройках мы просто не стали указывать имя этого поля.
+						if (!type) {
+							continue; // проверка не требуется
+						}
+						
+						//если мы забыли добавить нужный метод для проверки - будет ошибка
+						if (!checker) { // ай­яй­яй
+							throw {
+								name: "ValidationError",
+								message: "No handler to validate type " + type
+							};
+						}
+						
+						//если значение прошло проверку - тут будет true
+						result_ok = checker.validate(data[key]);
+						
+						//если проверка провалена - добавляем в массив ошибок сообщение из этого метода
+						if (!result_ok) {
+							msg = "Invalid value for *" + key + "*, " +
+							checker.instructions;
+							this.messages.push(msg);
+						}
+					}
+				}
+				
+				//вернёт true если есть ошибки
+				return this.hasErrors();
+			},
+				
+			// вспомогательный метод
+			// если были ошибки, то в массиве с ошибками что-то будет
+			hasErrors: function () {
+				return this.messages.length !== 0;
+			}
+		};
+		
+		
+		// проверяет наличие значения
+		validator.types.isNonEmpty = {
+			
+			validate: function (value) {
+				return value !== "";
+			},
+			
+			instructions: "the value cannot be empty"
+		};
+		
+		// проверяет, является ли значение числом
+		validator.types.isNumber = {
+			validate: function (value) {
+				return !isNaN(value);
+			},
+			
+			instructions: "the value can only be a valid number, e.g. 1, 3.14 or 2010"
+		};
+		
+		// проверяет, содержит ли значение только буквы и цифры
+		validator.types.isAlphaNum = {
+			validate: function (value) {
+				return !/[^a-z0-9]/i.test(value);
+			},
+			
+			instructions: "the value can only contain characters and numbers, no special symbols"
+		};
+		
+		
+		//Это данные (полученные из формы)
+		var data = {
+			first_name: "Super",
+			last_name: "Man",
+			age: "unknown",
+			username: "o_O"
+		};
+		
+		
+		//Настройки валидации: Имя - не пустое. Возраст - число. Ник - только буквы и цифры, без спец. символов
+		validator.config = {
+			first_name: 'isNonEmpty',
+			age: 'isNumber',
+			username: 'isAlphaNum'
+		};
+		
+		
+		//Запускаем валидацию. Если были ошибки - выведем их
+		validator.validate(data);
+		
+		if (validator.hasErrors()) {
+			console.log(validator.messages.join("\n"));
+		}
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		//Тут Child копирует в себя свойства сразу нескольких родителей. Методы прототипа недоступны
+		//Свойства Родителей защищены, т.к. к ним нет доступа. А в Child копии этих свойств.
+		
+		//Итого: Копируем в себя свойства родителей, передав им аргументы
+		//Методы прототипа недоступны
+		
+		function Parent(name) {
+			this.name = name || "Adam";
+			this.tags = ['css', 'html']
+		}
+		
+		function Armor() {
+			this.helmet = 'Runic';
+			this.plate = 'Titanic';
+			this.legs = 'Mithryl';
+		}
+		
+		
+		function Child(name) {
+			Parent.apply(this, arguments);
+			Armor.apply(this);
+		}
+		
+		//
+		
+		var child = new Child("Vasya");
+	</script>
+</body>
+</html>

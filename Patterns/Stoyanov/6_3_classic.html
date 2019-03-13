@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		//Так Child копирует свойства Parent себе, и имеет доступ к методам прототипа
+		//Но Parent вызывается 2 раза, и свойства также копируются второй раз в прототип Child (но без передачи им аргументов)
+		
+//		Итого: Наследуем методы родителя.
+//		Копируем себе свойства родителя передав им аргументы конструктора Child
+		
+		function Parent(name) {
+			this.name = name || "Adam";
+		}
+		
+		Parent.prototype.say = function() {
+			console.log(this.say);
+		}
+		
+		function Child(name) {
+			Parent.apply(this, arguments)
+		}
+		Child.prototype = new Parent();
+	</script>
+</body>
+</html>

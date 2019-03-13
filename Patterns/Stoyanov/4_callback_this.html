@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		var myapp = {};
+		myapp.color = "green";
+		myapp.paint = function () {
+//			node.style.color = this.color;
+			console.log(this);
+			console.log(this.color)
+		}.bind(myapp);
+		
+//		И этот метод передается следующей функции findNodes():
+		var findNodes = function (callback) {
+			// ...
+			if (typeof callback === "function") {
+				callback();
+			}
+			// ...
+		};
+		
+		findNodes(myapp.paint)
+	</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		//Наследование прототипа через посредника - функцию F.
+		//У Child.proto = new F() - а у F.proto = Parent.proto
+		//Если мы меняем прото у Child - Это не влияет на Parent, а только меняет свойства у посредника - F.
+//		Т.е. Parent.proto можно читать, но писать нельзя
+		
+		//Итого: наследуем методы родителя (общий прототип через посредника)
+		//Не наследуем свойства родителя
+		
+		function Parent(name) {
+			this.name = name || "Adam";
+		}
+		
+		Parent.prototype.say = function() {
+			console.log(this.name);
+		}
+		
+		function Child(name) {
+			this.vasya = name;
+		}
+		
+		inherit(Child, Parent);
+		
+		function inherit(C, P) {
+			var F = function () {};
+			F.prototype = P.prototype;
+			C.prototype = new F();
+//			С.uber = P.prototype; //Если нужен прямой доступ к прототипу Parent
+			C.prototype.constructor = C; //все инстансы будут знать кто их породил
+		}
+		
+		
+//		Небольшая оптимизация - функция F создаётся только 1 раз, а не каждый раз
+//		var inherit = (function () {
+//			var F = function () {};
+//			return function (C, P) {
+//				F.prototype = P.prototype;
+//				C.prototype = new F();
+//				C.uber = P.prototype;
+//				C.prototype.constructor = C;
+//			}
+//		}());
+		
+		var vasya = new Child('Vasya');
+		
+		var parent = new Parent('Petya');
+		
+		Child.prototype.peka = 'lol';
+	</script>
+</body>
+</html>

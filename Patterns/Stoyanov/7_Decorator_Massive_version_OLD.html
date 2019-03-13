@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		В этом варианте есть массив, где хранится список декораторов
+		function Sale(price) {
+			this.price = (price > 0) ? price : 100;
+			this.decorators_list = [];
+		}
+		
+		//метод decorate просто добавляет имя в список декораторов
+		Sale.prototype.decorate = function (decorator) {
+			this.decorators_list.push(decorator);
+		};
+		
+//		Цикл проходит по массиву с именами декораторов
+//		Потом в каждый декоратор передаёт цену и записывает в переменную возвращенную декоратором новую цену
+		Sale.prototype.getPrice = function () {
+			var price = this.price;
+//			var i,
+//			max = this.decorators_list.length
+//			name;
+			
+//			for (i = 0; i < max; i++) {
+//				name = this.decorators_list[i];
+//				price = Sale.decorators[name].getPrice(price);
+//			}
+			
+			this.decorators_list.forEach((name, i) => {
+				price = Sale.decorators[name].getPrice(price);
+			})
+
+			return price;
+		}
+		
+		
+		Sale.decorators = {};
+		
+		Sale.decorators.fedtax = {
+			getPrice: function (price) {
+				return price + price * 5 / 100;
+			}
+		};
+		
+		Sale.decorators.quebec = {
+			getPrice: function (price) {
+				return price + price * 7.5 / 100;
+			}
+		};
+		
+		Sale.decorators.money = {
+			getPrice: function (price) {
+				return "$" + price.toFixed(2);
+			}
+		};
+		
+		
+		var sale = new Sale(100); // цена 100 долларов
+		
+		//метод decorate просто добавляет имя в список декораторов
+		sale.decorate('fedtax'); // добавить федеральный налог
+		sale.decorate('quebec'); // добавить местный налог
+		sale.decorate('money'); // форматировать как денежную сумму
+		console.dir(sale);
+		console.log( sale.getPrice() ); // “$112.88”
+	</script>
+</body>
+</html>

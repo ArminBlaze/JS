@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		// конструктор
+		var Gadget = function (price) {
+			this.price = price;
+		};
+		
+		// статический метод
+		Gadget.isShiny = function () {
+			console.log(this);
+			// следующая инструкция выполняется всегда
+			var msg = 'you bet';
+			if (this instanceof Gadget) {
+				// эта ветка вызывается, когда метод вызывается не статически
+				msg += ', it costs $' + this.price + '!';
+			}
+			return msg;
+		};
+		
+//		// обычный метод, добавляемый в прототип
+//		Gadget.prototype.isShiny = function () {
+//			return Gadget.isShiny.call(this);
+//		};
+		// обычный метод, добавляемый в прототип
+		Gadget.prototype.isShiny = Gadget.isShiny
+		
+		
+//		Проверим вызов статического метода:
+		console.log( Gadget.isShiny() ); // “you bet”
+		
+//		Проверим вызов нестатического метода:
+		var a = new Gadget('499.99');
+		
+		console.log( a.isShiny() ); // “you bet, it costs $499.99!”
+	</script>
+</body>
+</html>

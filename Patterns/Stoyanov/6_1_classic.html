@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		//Тут наследуются свойства и прототипа, и Parent. А нам не нужны свойства Parent.
+		//Также параметры переданные в Child никак не передаются в Parent
+		
+		//Итого: свойства родителя копируются в прототип Child. Без аргументов конструктора Child.
+//		Методы работают (через прототип)
+		function Parent(name) {
+			this.name = name || "Adam";
+		}
+		
+		Parent.prototype.say = function() {
+			console.log(this.name);
+		}
+		
+		function Child(name) {
+			
+		}
+		
+		inherit(Child, Parent);
+		
+		function inherit(C, P) {
+			C.prototype = new P();
+		}
+		
+		var kid = new Child("Vasya");
+		
+		kid.say(); //Adam
+		
+//		kid.name = "Vasya";
+		
+		kid.say(); //Vasya
+	</script>
+</body>
+</html>

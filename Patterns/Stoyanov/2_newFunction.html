@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		var global1 = 'a';
+		var global2 = 'a';
+		
+		new Function('global1 = "b"; var global3 = "333"; console.log(global3)')();
+		
+		(function(){
+			new Function('global2 = "c"')();
+		})();
+		
+		
+		console.log(global1)
+		console.log(global2)
+		console.log(global3)
+	</script>
+</body>
+</html>

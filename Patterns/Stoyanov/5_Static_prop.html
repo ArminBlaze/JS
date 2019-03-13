@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		var Gadget = (function () {
+			// статическая переменная/свойство
+			var counter = 0;
+			// вернуть новую реализацию конструктора
+			return function Gadget12() {
+				console.log(counter += 1);
+			};
+		}()); // выполняется немедленно
+		
+		
+		//В гаджете будет функция
+		Gadget.prototype.getLastId = function () {
+			debugger;
+			console.log(this);
+			return counter;
+		};
+		
+//		console.log(Gadget);
+		console.log(Gadget.prototype);
+		
+		//Новый конструктор Gadget просто увеличивает значение частного свойства counter и выводит его в консоль. Создав несколько экземпляров,
+		//можно заметить, что счетчик counter совместно используется всеми экземплярами:
+//		var g1 = new Gadget(); // выведет 1
+//		g1.getLastId(); // 1
+//		var g2 = new Gadget(); // выведет 2
+//		g2.getLastId(); // 2
+//		var g3 = new Gadget(); // выведет 3
+//		g3.getLastId(); // 3
+		
+		
+		
+		// конструктор
+		var Gadget2 = (function () {
+			// статическая переменная/свойство
+			var counter = 0,
+			NewGadget;
+			
+			// реализация нового конструктора
+			NewGadget = function () {
+				counter += 1;
+			};
+			
+			// привилегированный метод
+			NewGadget.prototype.getLastId = function () {
+				debugger;
+				return counter;
+			};
+			
+			// переопределить конструктор
+			return NewGadget;
+		}()); // вызывается немедленно
+		
+		
+		var iphone = new Gadget2();
+		iphone.getLastId(); // 1
+		
+		Gadget2.prototype.getLastId2 = function () {
+				debugger;
+				return counter;
+			};
+		
+		iphone.getLastId2();
+		
+		console.log(Gadget2.prototype);
+		
+//		var ipod = new Gadget2();
+//		ipod.getLastId(); // 2
+//		var ipad = new Gadget2();
+//		ipad.getLastId();
+	</script>
+</body>
+</html>

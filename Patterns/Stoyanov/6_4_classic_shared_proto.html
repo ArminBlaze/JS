@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		//Просто присваиваем родительский прототип child'у.
+		//Так все объекты будут использовать один прототип с методами. Но если у потомка попробовать изменить прототип - это повлияет сразу на все объекты в цепочке. 
+//		Также этот способ не наследует свойства родителя
+		//Т.е. будут использоваться только свойства Child.
+		
+		//Итого: наследуем методы родителя (общий прототип)
+		//Не наследуем свойства родителя
+		
+		function Parent(name) {
+			this.name = name || "Adam";
+		}
+		
+		Parent.prototype.say = function() {
+			console.log(this.name);
+		}
+		
+		function Child(name) {
+			this.vasya = name;
+		}
+		
+		inherit(Child, Parent);
+		
+		function inherit(C, P) {
+			C.prototype = P.prototype;
+		}
+		
+		var vasya = new Child('Vasya');
+		
+	</script>
+</body>
+</html>

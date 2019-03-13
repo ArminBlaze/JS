@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Декораторы - это как матрёшка
+//		Базовый конструктор цены по очереди оборачивается нужными декораторами
+		
+		//Базовый конструктор.  В прототипе метод, который просто возвращает цену
+		function Sale(price) {
+			this.price = price || 100;
+		}
+		
+		Sale.prototype.getPrice = function () {
+			return this.price;
+		};
+		
+		Sale.decorators = {};
+		
+
+		//Сначала получает цену родителя, а потом модифицирует её
+		//Каждый декоратор сначала получает цену родителя, а потом модифицирует её
+		Sale.decorators.fedtax = {
+			getPrice: function () {
+				var price = this.uber.getPrice();
+				price += price * 5 / 100;
+				return price;
+			}
+		};
+		
+		Sale.decorators.quebec = {
+			getPrice: function () {
+				var price = this.uber.getPrice();
+				price += price * 7.5 / 100;
+				return price;
+			}
+		};
+		
+		Sale.decorators.money = {
+			getPrice: function () {
+				return '$' + this.uber.getPrice().toFixed(2);
+			}
+		};
+		
+		Sale.decorators.cdn = {
+			getPrice: function () {
+				return 'CDN$ ' + this.uber.getPrice().toFixed(2);
+			}
+		};
+		
+		
+		Sale.prototype.decorate = function (decorator) {
+			var F = function () {},
+			overrides = this.constructor.decorators[decorator],
+			i, newobj;
+			F.prototype = this;
+
+			newobj = new F();
+			newobj.uber = F.prototype;
+			
+			for (i in overrides) {
+				if (overrides.hasOwnProperty(i)) {
+					newobj[i] = overrides[i];
+				}
+			}
+			return newobj;
+		};
+		
+		
+//		var sale = new Sale(100); // цена 100 долларов
+//		sale = sale.decorate('fedtax'); // добавить федеральный налог
+//		sale = sale.decorate('cdn'); // форматировать как сумму в CDN
+//		console.log( sale.getPrice() );
+		
+		var sale = new Sale(100); // цена 100 долларов
+		sale = sale.decorate('fedtax'); // добавить федеральный налог
+		sale = sale.decorate('quebec'); // добавить местный налог
+		sale = sale.decorate('money'); // форматировать как денежную сумму
+		console.log( sale.getPrice() ); // “$112.88”
+	</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		var Universe;
+		
+		//До создания экземпляра в конструктор запишется другой "переопределённый" конструктор, у которого будет частная переменная в замыкании.
+//		При первом создании экземпляра - просто создастся новый объект и запишется в частную переменную.
+//		При втором и следующих созданиях экземпляра - будет возвращаться уже созданный ранее объект
+		(function () {
+			var instance;
+			
+			Universe = function Universe() {
+				if (instance) {
+					return instance;
+				}
+				
+				instance = this;
+				
+				// добавить остальную функциональность
+				this.start_time = 0;
+				this.bang = “Big”;
+			};
+		}());
+	</script>
+</body>
+</html>

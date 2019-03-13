@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		//Тут свойства Parent копируются в child, а методы прототипа недоступны
+		//Свойства Родителей защищены, т.к. к ним нет доступа. А в Child копии этих свойств.
+		
+		function Parent(name) {
+			this.name = name || "Adam";
+			this.tags = ['css', 'html']
+		}
+		
+		Parent.prototype.say = function() {
+			console.log(this.name);
+		}
+		
+		function Child(name) {
+			Parent.apply(this, arguments);
+		}
+		
+		//
+		
+		var child = new Child("Vasya");
+		
+//		child.say();
+	</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		//"Первый" конструктор
+		var Universe = function() {
+			var instance;
+			
+			//переопределяем конструктор. Назовём его "Переопределенным"
+			Universe = function Universe() {
+				//при первом запуске instance нет, поэтому вернёт новый объект this, у которого будет правильный прототип
+				//Эта строчка равнозначна return instance || this
+				return instance;
+			}
+			
+			//При первом запуске прототипом "переопределённого" конструктора будет this "первого" конструктора. Так он унаследует все нужные св-ва синглтона
+//			А у "первого" конструктора тоже есть прототип (он установлен снаружи конструктора, но до вызова первого конструктора). Будет цепочка: 
+//			Переопределённый.proto = первый. 
+//			Первый.прото = прототип установленный до первого запуска "первого" конструктора
+			Universe.prototype = this;
+			
+			//Т.к. instance ещё не создан, то new Universe создаст новый объект
+			instance = new Universe();
+			
+			//свойство будет правильно указывать на переопределённый конструктор
+			instance.constructor = Universe;
+			
+			//это свойства синглтона устанавливаемые конструктором
+			instance.start_time = 0;
+			instance.bang = "Big";
+			
+			return instance;
+		}
+		
+		
+		// добавить свойство в прототип и создать экземпляр
+		Universe.prototype.nothing = true; // true
+		var uni = new Universe();
+		Universe.prototype.everything = true; // true
+		var uni2 = new Universe();
+		// тот же самый экземпляр
+		uni === uni2; // true
+		// все свойства прототипа доступны
+		// независимо от того, когда они были добавлены
+		uni.nothing && uni.everything && uni2.nothing && uni2.everything; // true
+		// обычные свойства объекта также доступны
+		uni.bang; // “Big”
+		// ссылка на конструктор содержит правильный указатель
+		uni.constructor === Universe;
+	</script>
+</body>
+</html>
