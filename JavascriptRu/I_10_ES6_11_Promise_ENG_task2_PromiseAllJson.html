@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		// the whole promise chain fails with an error here
+    // change that:
+    // make errors appear as members of the results array
+
+    let urls = [
+      'https://api.github.com/users/iliakan',
+      // this URL is HTML page, it's invalid JSON, so response.json() fails
+      '/',
+      // this URL is invalid, so fetch fails
+      'http://no-such-url'
+    ];
+
+    // Fix it:
+    Promise.all(urls.map(url => fetch(url).catch( err => err )))
+      .then(responses => Promise.all(
+        	responses.map(r => {
+						if (r instanceof Response) return r.json().catch(err => err);
+						else return r;
+					})
+      	))
+      // Demo output (no need to change):
+      .then(results => {
+        console.log(results[0].name); // Ilya Kantor
+        console.log(results[1]); // SyntaxError: Unexpected token < in JSON at position 0
+        console.log(results[2]); // TypeError: failed to fetch (text may vary)
+      });
+	</script>
+</body>
+</html>

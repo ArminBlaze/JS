@@ -5,13 +5,15 @@
 </head>
 <body>
 	<script>
-		function factorial(n) {
-			if(n <= 1) return 1;
-			
-			return n * factorial(n-1);
+		let obj1 = {
+			a:0,
+			b:0,
 		}
 		
-		alert(factorial(6));
+		let obj2 = {...obj1, a: 100};
+		
+		console.dir(obj2);
+		console.dir(obj1);
 	</script>
 </body>
 </html>

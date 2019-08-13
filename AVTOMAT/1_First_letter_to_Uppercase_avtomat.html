@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		//нужно первые буквы слов сделать большими без split/map/join
+		//теперь через автоматное программирование
+		
+		
+		//сначала выделим важные состояния - outside, inside. Вне слова, внутри слова.
+		//Они важны, т.к. увеличение буквы мы делаем при переходе outside -> inside
+		function toBigFirstLetter(str) {
+			let result = '';
+			let state = 'outside'; //outside, inside
+			
+			for(let i = 0; i < str.length; i++) {
+				switch(state) {
+					case 'outside':
+						if(str[i] !== ' ') {
+							result += str[i].toUpperCase();
+							state = 'inside';
+						}
+						else {
+							result += str[i];
+						}
+						break;
+						
+					case 'inside':
+						if(str[i] === ' ') {
+							state = 'outside';
+						}
+						
+						result += str[i];
+						break;
+				}
+			}
+			
+			return result;
+		}
+		
+		//Программа стала больше, но она чётко разбита на отдельные куски. А значит её легче понять и в ней разобраться. Такой подход хорош, когда появляется очень сложная и запутанная логика состояний. Также это очень похоже, на алгоритм, который мы себе строим в голове.
+		
+		
+		alert( toBigFirstLetter(' проверим работу этой  функции автомата') )
+	</script>
+</body>
+</html>

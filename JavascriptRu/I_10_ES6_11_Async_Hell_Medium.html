@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		//https://medium.freecodecamp.org/avoiding-the-async-await-hell-c77a0fb71c4c
+		
+		//у нас есть ряд асинхронных действий, после выполнения которых нужно запустить функцию, которая обработает их результат:
+		
+//		(async () => {
+//			const pizzaData = await getPizzaData()    // async call
+//			const drinkData = await getDrinkData()    // async call
+//			const chosenPizza = choosePizza()    // sync call
+//			const chosenDrink = chooseDrink()    // sync call
+//			await addPizzaToCart(chosenPizza)    // async call
+//			await addDrinkToCart(chosenDrink)    // async call
+//			orderItems()    // async call
+//		})()
+		
+		//Проблема тут в том, что строка 12 ждёт выполнения строки 11. А строка 14 - строки 13. Хотя на самом деле тут 2 независимых потока - один для пиццы, а другой для напитков. И нужно запустить оба эти потока параллельно, а не ждать последовательного выполнения.
+		
+		//Решение - отделить потоки пиццы и напитков в отдельные функции:
+		
+//		async function selectPizza() {
+//			const pizzaData = await getPizzaData()    // async call
+//			const chosenPizza = choosePizza()    // sync call
+//			await addPizzaToCart(chosenPizza)    // async call
+//		}
+//
+//		async function selectDrink() {
+//			const drinkData = await getDrinkData()    // async call
+//			const chosenDrink = chooseDrink()    // sync call
+//			await addDrinkToCart(chosenDrink)    // async call
+//		}
+		
+		//И запустить эти промисы параллельно, а уже потом поставить await, чтобы код дожидался их результата
+//
+//		(async () => {
+//			const pizzaPromise = selectPizza()
+//			const drinkPromise = selectDrink()
+//			await pizzaPromise
+//			await drinkPromise
+//			orderItems()    // async call
+//		})()
+//
+//		// Альтернативный вариант ещё короче - Мы создаём массив промисов для Promise.all
+//
+//		Promise.all([selectPizza(), selectDrink()]).then(orderItems) // async call
+		
+		
+		//Вторая проблема - Использование await внутри цикла. Здесь каждая итерация будет последовательно ждать исполнения предыдущей, хотя нам нужно отправить их все параллельно как можно быстрее.
+		
+//		async function orderItems() {
+//			const items = await getCartItems()    // async call
+//			const noOfItems = items.length
+//			for(var i = 0; i < noOfItems; i++) {
+//				await sendRequest(items[i])    // async call
+//			}
+//		}
+		
+		//Решение очевидно - Promise.all. 
+		
+//		async function orderItems() {
+//			const items = await getCartItems()    // async call
+//			const promises = items.map((item) => sendRequest(item))
+//			await Promise.all(promises)    // async call
+//		}
+		
+		//Либо ещё короче последние 2 строчки:
+//		return Promise.all(items.map(sendRequest))
+	</script>
+</body>
+</html>

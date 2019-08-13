@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Загрузить массив последовательно
+//
+//		Есть массив URL:
+//
+//		'use strict';
+//
+//		let urls = [
+//			'user.json',
+//			'guest.json'
+//		];
+//
+//		Напишите код, который все URL из этого массива загружает один за другим (последовательно) и сохраняет результаты в массиве results, а потом выводит.
+//
+//		Вариант с параллельной загрузкой выглядел бы так:
+//
+//		Promise.all( urls.map(httpGet) )
+//			.then(alert);
+//
+//		В этой задаче загрузку нужно реализовать последовательно.
+		
+		'use strict';
+
+		let urls = [
+			'user.json',
+			'guest.json'
+		];
+		
+		function httpGet(url) {
+			return new Promise((resolve, reject) => {
+				setTimeout(() => {
+					console.log(url);
+					resolve(url);
+				}, 2000);
+			})
+		}
+		
+		
+		var chain = Promise.resolve();
+		var results = [];
+		
+		//Цикл делает длинную цепочку chain.then().then().then().then()
+		//На каждом цикле добавляет к промису по ссылке chain ещё 2 then
+		//Первый then возвращает промис, поэтому следующие then будут ждать пока он выполнится
+		//второй then тоже возвращает промис, но пустой. Который отработает сразу, как получит результат от первого then
+		//В результате в chain будет новый промис newChain = ( oldChain.then().then() ). Этот новый промис вернул нам второй then. Этот последний промис ждёт когда выполнятся предыдущие промисы в цепочке.
+		//Т.е. изначально в chain пустой промис Promise.resolve()
+		//А на каждой итерации к старому chain добавляются 2 then и указатель(ссылка) chain перемещается на последний then (переопределяется переменная chain)
+		urls.forEach(url => {
+			chain = chain
+				.then( () => httpGet(url) )
+				.then((result) => {
+					results.push(result);
+				});
+				
+		})
+		
+		chain.then(() => {
+			alert(results);
+		})
+		
+	
+	</script>
+</body>
+</html>

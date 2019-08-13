@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		Загрузить массив последовательно
+//
+//		Есть массив URL:
+//
+//		'use strict';
+//
+//		let urls = [
+//			'user.json',
+//			'guest.json'
+//		];
+//
+//		Напишите код, который все URL из этого массива загружает один за другим (последовательно) и сохраняет результаты в массиве results, а потом выводит.
+//
+//		Вариант с параллельной загрузкой выглядел бы так:
+//
+//		Promise.all( urls.map(httpGet) )
+//			.then(alert);
+//
+//		В этой задаче загрузку нужно реализовать последовательно.
+		
+		'use strict';
+
+		let urls = [
+			'user.json',
+			'guest.json'
+		];
+		
+		function httpGet(url) {
+			return new Promise((resolve, reject) => {
+				setTimeout(() => {
+					console.log(url);
+					resolve(url);
+				}, 2000);
+			})
+		}
+		
+		
+		var results = [];
+		
+		var chain = executeSequentially(urls,
+												httpGet,
+												(result) => results.push(result)
+											 )
+		.then(() => {
+			alert(results);
+		})
+		
+//		chain.then(() => {
+//			alert(results);
+//		})
+//		
+		
+		
+		function executeSequentially(arr, factory, func1) {
+			var result = Promise.resolve();
+			arr.forEach( (item) => {
+				result = result.then( () => httpGet(item) ).then(func1)
+			})
+			
+			return result;
+		}
+
+		
+//		Пример из статьи https://habr.com/ru/company/mailru/blog/269465/
+//		function executeSequentially(promiseFactories) {
+//			var result = Promise.resolve();
+//			promiseFactories.forEach(function (promiseFactory) {
+//				result = result.then(promiseFactory);
+//			});
+//			return result;
+//		}
+		
+	</script>
+</body>
+</html>

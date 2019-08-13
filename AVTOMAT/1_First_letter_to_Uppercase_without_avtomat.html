@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		//нужно первые буквы слов сделать большими без split/map/join
+		
+		function toBigFirstLetter(str) {
+			let result = '';
+			
+			//(если буква не пробел) и (либо первая буква в строке || либо предыдущая пробел)
+			//то эта буква должна быть большой
+			//добавляем к результату либо увеличенную букву, либо обычную
+			for(let i = 0; i < str.length; i++) {
+				const shouldBeBig = str[i] !== ' ' && (i === 0 || str[i-1] === ' ');
+				result += shouldBeBig ? str[i].toUpperCase() : str[i];
+			}
+			
+			return result;
+		}
+		
+		alert( toBigFirstLetter(' проверим работу этой  функции') )
+	</script>
+</body>
+</html>

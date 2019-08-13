@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		function add(num) {
+//			return function(num2) {
+//				return num + num2;
+//			}
+//		}
+		
+		function add(num) {
+			var sum = num;
+			
+			function summator(x) {
+				sum = sum + x;
+				return summator;
+			}
+			
+			summator.toString = function() {
+				return sum;
+			}
+			
+			return summator;
+		}
+		
+		
+		
+		alert( add(1)(2)(5) );
+	</script>
+</body>
+</html>

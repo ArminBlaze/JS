@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+		//Найти все положительные целочисленные решения уравнения a*a*a + b*b*b = c*c*c + d*d*d, меньшие 1000.
+		
+		//Решение нуждается в доработке т.к. сейчас оно выводит пары 2 раза
+		//a+b = c+d и зеркальную пару c+d = a+b
+		
+//		Доработка:
+		//Сделать map {sum: [a, b]} где sum это сумма кубов a*a*a + b*b*b
+		//в цикле проверять есть ли эта сумма в map, и если для d*d*d + c*c*c дало сумму равную сумме в map, то вывести все 4 числа: map[sum][0], map[sum][1], d, c
+		//Иначе добавляем эту сумму в map
+		
+		var powers = makePowersArr();
+		var counter = 0;
+//		console.log(powers);
+		test();
+		console.log(counter);
+		
+		
+				
+		function makePowersArr () {
+			var arr = [];
+			
+			for(var i = 0; i < 1000; i++) {
+				arr.push(Math.pow(i, 3));
+			}
+			
+			return arr;
+		}
+		
+		function test() {
+			for(var a = 0; a < 1000; a++) {
+				console.log(a);
+				
+				for(var b = a+1; b < 1000; b++) {
+					
+					for(var c = 0; c < 1000; c++) {
+						if(c === b || c === a) continue;
+						
+						for(var d = c+1; d < 1000; d++) {
+							if(d === b || d === a) continue;
+							
+							
+							var sum1 = powers[a] + powers[b];
+							var sum2 = powers[c] + powers[d];
+							if(sum1 === sum2) {
+								counter++;
+//								console.log('Combination# ' + counter);
+//								console.log(a, b, c, d);
+							}
+								
+							
+						}
+					}
+				}
+			}
+		}
+		
+		
+	</script>
+</body>
+</html>
