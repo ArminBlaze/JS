@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+  <h3>str.replace()</h3>
+  <label for="str">Строка</label>
+  <input type="text" id='str' class="str" value="Люблю HTML peka">
+  <br>
+  <label for="regexp">Найти</label>
+  <input type="text" id='regexp' class="regexp" value="HTML">
+  <br>
+  <label for="replace">Заменить на</label>
+  <input type="text" id='replace' class="replace" value="и JavaScript">
+  <div>
+    <hr>
+    $& - вставляет всё найденное совпадение
+    <br>
+       <b class="b1"></b>
+  </div>
+  <div>
+   <hr>
+    $` - вставляет часть строки до совпадения
+    <br>
+       <b class="b2"></b>
+  </div>
+   <div>
+   <hr>
+    $' - вставляет часть строки после совпадения
+     <br>
+       <b class="b3"></b>
+   </div>
+   <div>
+   <hr>
+    $n - если n это 1-2 значное число, вставляет содержимое n-й скобочной группы регулярного выражения,
+     <br>
+       <b class="b4"></b>
+   </div>
+   <div>
+   <hr>
+    $&lt;name&gt; - вставляет содержимое скобочной группы с именем name
+     <br>
+       <b class="b5"></b>
+   </div>
+   <div>
+   <hr>
+    $$ - вставляет символ "$"
+     <br>
+       <b class="b6"></b>
+   </div>
+ 
+  <script>
+    const inputStr = document.querySelector('.str');
+    const inputRegexp = document.querySelector('.regexp')
+    const inputReplace = document.querySelector('.replace')
+    
+    let str = inputStr.value;
+//    let regexp = inputRegexp.value;
+    let regexp = new RegExp(`${inputRegexp.value}`);
+    let replace = inputReplace.value;
+    
+    const b1 =  document.querySelector('.b1');
+    const b2 =  document.querySelector('.b2');
+    const b3 =  document.querySelector('.b3');
+    const b4 =  document.querySelector('.b4');
+    const b5 =  document.querySelector('.b5');
+    const b6 =  document.querySelector('.b6');
+    
+    writeHtml(str, replace, regexp);
+    
+    inputStr.addEventListener('input', (e) => {
+      
+      str = e.target.value;
+      writeHtml(str, replace, regexp)
+    })
+    inputRegexp.addEventListener('input', (e) => {
+      
+      regexp = new RegExp(`${e.target.value}`);
+      writeHtml(str, replace, regexp)
+    })
+    inputReplace.addEventListener('input', (e) => {
+      
+      replace = e.target.value;
+      writeHtml(str, replace, regexp)
+    })
+    
+    function writeHtml(str, replace, regexp) {
+      
+      console.log(str.replace(regexp, "$& " + replace))
+      
+      b1.innerText = str.replace(regexp, "$&" + replace);
+      b2.innerText = str.replace(regexp, "$`" + replace);
+      b3.innerText = str.replace(regexp, "$'" + replace);
+      b4.innerText = str.replace(regexp, "$n" + replace);
+      b5.innerText = str.replace(regexp, "$<name> " + replace);
+      b6.innerText = str.replace(regexp, "$$ " + replace);
+      
+    }
+    
+//    document.querySelector('.peka').innerHTML = str.replace(/HTML/, "$& и JavaScript")
+
+</script>
+  </script>
+</body>
+</html>
