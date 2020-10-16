@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+	<script>
+//		При записи свойства должен запускаться user.observe метод
+		//Эта версия запускает только много handler'ов
+		
+		function makeObservable(target) {
+			/* ваш код */
+			let handlers = [];		
+			
+			target.observe = (fn) => {
+				handlers.push(fn);
+			}
+			
+			return new Proxy(target, {
+				set(target, prop, value, receiver) {
+//					Сначала пытаемся записать свойство, и только если нет ошибки запускаем обработчики
+					let result = Reflect.set(target, prop, value, receiver);
+					
+					if (result) {
+						handlers.forEach(item => item(prop, value))
+					}
+					return result;
+				}
+			})
+		}
+
+		let user = {};
+		user = makeObservable(user);
+
+		user.observe((key, value) => {
+			console.log(`SET ${key}=${value}`);
+		});
+		user.observe((key, value) => {
+			console.log(`PEKA 2 ${key}=${value}`);
+		});
+		
+
+		user.name = "John"; // выводит: SET name=John
+	</script>
+</body>
+</html>
